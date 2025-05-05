@@ -1,10 +1,3 @@
-.DS_Store
-/node_modules/
-
-# React Router
-/.react-router/
-/build/
-
 # Logs
 logs
 *.log
@@ -29,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+/coverage.data
+/coverage/

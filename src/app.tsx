@@ -1,12 +1,10 @@
 import type { JSX } from 'react';
-import './App.css';
+import './app.css';
 
-function App(): JSX.Element {
+export default function App(): JSX.Element {
   return (
     <>
-      <h1>Hello World</h1>
+      <h1 data-testid="h1">Hello World</h1>
     </>
   );
 }
-
-export default App;

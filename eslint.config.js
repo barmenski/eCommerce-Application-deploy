@@ -16,7 +16,7 @@ export default tseslint.config(
   js.configs.recommended,
   { 
     files: ['src/**/*.{ts,tsx}'],
-    ignores: ['**/*.config.js', 'dist'] },
+    ignores: ['**/*.config.js', 'dist', 'coverage'] },
   {
     linterOptions: {
       noInlineConfig: true,

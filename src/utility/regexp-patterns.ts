@@ -1,0 +1,60 @@
+import type { FormInputs } from '../ui/form-input';
+
+type SignUpRegex = {
+  type: string;
+  pattern: RegExp | SignUpPattern;
+  validate?: <T>() => T;
+};
+
+export type SignUpPattern = {
+  value: RegExp;
+  message: string;
+};
+
+export function regexDelivery(): Map<keyof FormInputs, SignUpRegex> {
+  const REGEXP: Map<keyof FormInputs, SignUpRegex> = new Map()
+    .set('email', { type: 'email', pattern: /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/ })
+    .set('password', { type: 'password', pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,72}$/ })
+    .set('firstName', { type: 'text', pattern: /^[a-zA-Z]{1,72}$/ })
+    .set('lastName', { type: 'text', pattern: /^[a-zA-Z]{1,72}$/ })
+    .set('dateOfBirth', {
+      type: 'date',
+      pattern: /^\d{4}-\d{2}-\d{2}$/,
+      validate: (value: string) => {
+        const year = value.replace(/-\d{2}-\d{2}$/, '');
+        const today = new Date();
+        return today.getFullYear() - +year >= 13 || 'User must be 13 or older!';
+      },
+    })
+    .set('street', { type: 'text', pattern: /^.{1,72}$/ })
+    .set('city', { type: 'text', pattern: /^[a-zA-Z]{1,72}$/ })
+    .set('postalCode', { type: 'number', pattern: /^[0-9]{5}(?:-[0-9]{4})?$/ })
+    .set('country', { type: 'text', pattern: /^(united states|us)$/i });
+
+  const formErrorMessages = signUpErrorMessages();
+  for (const key of REGEXP.keys()) {
+    const part = REGEXP.get(key);
+    if (part && part.pattern instanceof RegExp) {
+      part.pattern = {
+        value: part.pattern,
+        message: formErrorMessages[key],
+      };
+      REGEXP.set(key, part);
+    }
+  }
+  return REGEXP;
+}
+
+export function signUpErrorMessages(): FormInputs {
+  return {
+    email: 'Email address should be like "example@email.com"',
+    password: 'Minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+    firstName: 'Must contain at least one character and no special characters or numbers',
+    lastName: 'Must contain at least one character and no special characters or numbers',
+    dateOfBirth: 'Should be > 13 years old',
+    street: 'Must contain at least one character',
+    city: 'Must contain at least one character and no special characters or numbers',
+    postalCode: 'Should be in format "12345" or "12345-1234"',
+    country: 'Must be a valid country',
+  };
+}

@@ -1,0 +1,47 @@
+:root {
+  --background-color: rgb(3 7 9);
+  --main-color: #9c9c9c;
+  --hover: #dcdcdc;
+}
+
+.hamburger {
+  cursor: pointer;
+  display: none;
+  padding-right: 20px;
+}
+
+.hamburger-container:hover > span {
+  background-color: var(--hover);
+  transition: 0.3s;
+}
+
+.bar {
+  display: block;
+
+  width: 25px;
+  height: 3px;
+  margin: 7px auto;
+
+  background-color: var(--main-color);
+
+  transition: 0.3s ease-in-out;
+}
+
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open .bar:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.hamburger.open .bar:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+@media (width <= 768px) {
+  .hamburger {
+    z-index: 30;
+    display: block;
+  }
+}

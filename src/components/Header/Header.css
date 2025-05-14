@@ -30,6 +30,11 @@ a:visited {
   background-color: var(--background-color);
 }
 
+.ul-menu {
+  margin: 0;
+  padding: 0;
+}
+
 .logo {
   cursor: pointer;
   transition: 0.3s;
@@ -44,27 +49,11 @@ a:visited {
   align-items: center;
 }
 
-.ul-account {
-  position: absolute;
-  z-index: 10;
-  right: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  margin-top: 3rem;
-}
-
 .icons-container {
   position: relative;
   display: flex;
   align-items: flex-start;
   padding-left: 1px;
-}
-
-.nav-account {
-  display: flex;
-  flex-direction: column;
 }
 
 .basket {
@@ -81,24 +70,38 @@ a:visited {
   filter: invert(52%) sepia(10%) saturate(758%) hue-rotate(48deg) brightness(94%) contrast(87%);
 }
 
-/* @media (max-width: 768px) {
-  .ul-menu {
-    padding-top: 20px;
-    position: absolute;
-    top: -100%;
-    right: 0;
-    flex-direction: column;
-    width: 332px;
-    height: 570px;
-    text-align: center;
-    justify-content: center;
-    transition: 0.7s;
-    display: flex;
-    transition: all 0.6s ease-in-out;
-    gap: 30px;
-  }
-} */
 @media (width <= 768px) {
+  .ul-menu {
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    left: -100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+
+    text-align: center;
+    letter-spacing: 4px;
+
+    visibility: hidden;
+    background-color: var(--background-color);
+
+    transition: 0.7s;
+  }
+
+  .ul-menu.open {
+    left: 0;
+    visibility: visible;
+    transition: 0.7s;
+  }
+
   .container-header {
     padding: 0 10px;
   }

@@ -1,27 +1,37 @@
 :root {
-    --hover: #758467;
+  --hover: #758467;
 }
 
 li {
-    cursor: pointer;
+  cursor: pointer;
 
-    margin-right: 40px;
-    padding-bottom: 4px;
+  margin-right: 40px;
+  padding-bottom: 4px;
 
-    line-height: 50px;
-    text-decoration: none;
-    list-style: none;
+  line-height: 50px;
+  text-decoration: none;
+  list-style: none;
 
-    transition: 0.3s;
+  transition: 0.3s;
 }
 
 ul {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  list-style: none;
 }
 
 li:hover {
-    color: var(--hover);
+  color: var(--hover);
+}
+
+@media (width <= 768px) {
+  li {
+    margin-right: 0;
+  }
+
+  a {
+    padding: 20px 0;
+  }
 }

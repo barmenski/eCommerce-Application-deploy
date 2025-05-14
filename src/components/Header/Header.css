@@ -30,7 +30,12 @@ a:visited {
   background-color: var(--background-color);
 }
 
+.hamburger {
+  display: none;
+}
+
 .ul-menu {
+  gap: 10px;
   margin: 0;
   padding: 0;
 }
@@ -70,6 +75,10 @@ a:visited {
   filter: invert(52%) sepia(10%) saturate(758%) hue-rotate(48deg) brightness(94%) contrast(87%);
 }
 
+.scroll-forbidden {
+  overflow-y: hidden;
+}
+
 @media (width <= 768px) {
   .ul-menu {
     position: fixed;
@@ -84,7 +93,6 @@ a:visited {
     justify-content: center;
 
     width: 100%;
-    height: 100%;
     min-height: 100vh;
 
     text-align: center;
@@ -96,14 +104,31 @@ a:visited {
     transition: 0.7s;
   }
 
+  .logo {
+    margin: auto;
+  }
+
   .ul-menu.open {
     left: 0;
     visibility: visible;
     transition: 0.7s;
   }
+}
 
+@media (width <= 768px) {
   .container-header {
     padding: 0 10px;
+  }
+
+  .hamburger {
+    position: absolute;
+    z-index: 30;
+    left: 0;
+
+    float: left;
+    display: block;
+
+    margin-left: 10px;
   }
 
   .li-account {

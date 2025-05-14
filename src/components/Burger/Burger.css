@@ -39,9 +39,10 @@
   transform: translateY(-10px) rotate(-45deg);
 }
 
-@media (width <= 768px) {
+/* @media (width <= 768px) {
   .hamburger {
     z-index: 30;
     display: block;
+    float: left;
   }
-}
+} */

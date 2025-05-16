@@ -3,10 +3,10 @@ import type { JSX } from 'react';
 import './app.css';
 import MainPage from '../pages/MainPage/main-page';
 import Login from '../pages/Login/login';
-import Registration from '../pages/Registration/registration';
 import Catalog from '../pages/Catalog/catalog';
 import About from '../pages/About/about';
 import NoPage from '../pages/NoPage/no-page';
+import SignUp from '../pages/SignUp/sign-up';
 
 export default function App(): JSX.Element {
   return (
@@ -14,7 +14,7 @@ export default function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Registration />} />
+        <Route path="/signUp" element={<SignUp />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/about" element={<About />} />
         <Route path="/home" element={<MainPage />} />

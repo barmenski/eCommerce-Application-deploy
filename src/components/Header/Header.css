@@ -40,6 +40,10 @@
   transition: 0.3s;
 }
 
+.li-menu a {
+  padding: 1rem 0;
+}
+
 .li-menu:hover {
   color: var(--hover);
 }

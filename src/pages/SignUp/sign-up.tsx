@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
 
-export default function Registration(): ReactElement {
+export default function SignUp(): ReactElement {
   return <h1>Registration</h1>;
 }

@@ -3,7 +3,7 @@ import './Header.css';
 import { type ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-const items = ['Home', 'Catalog', 'About', 'Login', 'Register'];
+const items = ['Home', 'Catalog', 'About', 'LogIn', 'SignUp'];
 
 export default function Header(): ReactElement {
   return (

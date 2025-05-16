@@ -1,13 +1,6 @@
-:root {
-  --background-color: rgb(3 7 9);
-  --main-color: #9c9c9c;
-  --hover: #dcdcdc;
-}
-
 .hamburger {
   cursor: pointer;
   display: none;
-  padding-right: 20px;
 }
 
 .hamburger-container:hover > span {
@@ -18,9 +11,9 @@
 .bar {
   display: block;
 
-  width: 25px;
-  height: 3px;
-  margin: 7px auto;
+  width: 2rem;
+  height: 0.2rem;
+  margin: 0.45rem auto;
 
   background-color: var(--main-color);
 
@@ -32,17 +25,9 @@
 }
 
 .hamburger.open .bar:nth-child(1) {
-  transform: translateY(10px) rotate(45deg);
+  transform: translateY(1rem) rotate(45deg);
 }
 
 .hamburger.open .bar:nth-child(3) {
-  transform: translateY(-10px) rotate(-45deg);
+  transform: translateY(-0.26rem) rotate(-45deg);
 }
-
-/* @media (width <= 768px) {
-  .hamburger {
-    z-index: 30;
-    display: block;
-    float: left;
-  }
-} */

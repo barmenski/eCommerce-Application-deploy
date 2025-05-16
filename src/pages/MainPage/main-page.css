@@ -1,12 +1,5 @@
-:root {
-  --background-color: rgb(3 7 9);
-  --main-color: #9c9c9c;
-  --hover: #dcdcdc;
-}
-
 .hero-section {
   width: 100%;
-  min-height: 600px;
 }
 
 .container-section {
@@ -15,7 +8,7 @@
   align-items: center;
 
   height: 100%;
-  min-height: 900px;
+  min-height: 60rem;
 
   background-image: url('../../../img/sky.jpg');
   background-repeat: no-repeat;
@@ -24,17 +17,22 @@
 }
 
 .header {
+  padding: 0.5rem;
   padding-top: 15%;
 
-  font-size: 2em;
+  font-size: 3rem;
   font-weight: 600;
-  color: white;
-  letter-spacing: 10px;
+  color: var(--hover);
+  text-align: center;
+  letter-spacing: 1rem;
 }
 
 .paragraph {
-  font-size: 1em;
+  padding: 0.6rem;
+
+  font-size: 1rem;
   font-weight: 800;
-  color: white;
-  letter-spacing: 20px;
+  color: var(--hover);
+  text-align: center;
+  letter-spacing: 1rem;
 }

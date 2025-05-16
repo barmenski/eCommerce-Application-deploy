@@ -1,5 +1,4 @@
 import { useState, type ReactElement } from 'react';
-import './Navigation.css';
 import { Link } from 'react-router-dom';
 import Burger from '../Burger/burger';
 

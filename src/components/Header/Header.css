@@ -1,29 +1,11 @@
-:root {
-  --background-color: rgb(3 7 9);
-  --main-color: #9c9c9c;
-  --hover: #dcdcdc;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--hover);
-}
-
-a:visited {
-  color: inherit;
-}
-
 .container-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 8px 40px 0;
+  padding: 1rem 2rem 0;
 
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--main-color);
 
@@ -35,13 +17,42 @@ a:visited {
 }
 
 .ul-menu {
-  gap: 10px;
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  justify-content: flex-end;
+
   margin: 0;
   padding: 0;
+
+  list-style: none;
+}
+
+.li-menu {
+  cursor: pointer;
+
+  margin-right: 2.5rem;
+
+  line-height: 3rem;
+  text-decoration: none;
+  list-style: none;
+
+  transition: 0.3s;
+}
+
+.li-menu:hover {
+  color: var(--hover);
+}
+
+@media (width <= 768px) {
+  .li-menu {
+    margin-right: 0;
+  }
 }
 
 .logo {
   cursor: pointer;
+  display: flex;
   transition: 0.3s;
 }
 
@@ -58,17 +69,18 @@ a:visited {
   position: relative;
   display: flex;
   align-items: flex-start;
-  padding-left: 1px;
+  padding-left: 0.2rem;
 }
 
 .basket {
   cursor: pointer;
 
-  width: 20px;
-  height: 20px;
+  width: 2rem;
+  height: 2rem;
 
   background-image: url('../../../public/icons/basket.svg');
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .basket:hover {
@@ -80,44 +92,8 @@ a:visited {
 }
 
 @media (width <= 768px) {
-  .ul-menu {
-    position: fixed;
-    z-index: 1;
-    bottom: 0;
-    left: -100%;
-
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    min-height: 100vh;
-
-    text-align: center;
-    letter-spacing: 4px;
-
-    visibility: hidden;
-    background-color: var(--background-color);
-
-    transition: 0.7s;
-  }
-
-  .logo {
-    margin: auto;
-  }
-
-  .ul-menu.open {
-    left: 0;
-    visibility: visible;
-    transition: 0.7s;
-  }
-}
-
-@media (width <= 768px) {
   .container-header {
-    padding: 0 10px;
+    padding: 0.6rem;
   }
 
   .hamburger {
@@ -128,21 +104,51 @@ a:visited {
     float: left;
     display: block;
 
-    margin-left: 10px;
+    margin-left: 0.6rem;
   }
 
-  .li-account {
+  .ul-menu {
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    left: -100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 100vh;
+
+    text-align: center;
+    letter-spacing: 0.3rem;
+
+    visibility: hidden;
+    background-color: var(--background-color);
+
+    transition: 0.7s;
+  }
+
+  .ul-menu.open {
+    left: 0;
+    visibility: visible;
+    transition: 0.7s;
+  }
+
+  .li-menu {
     margin-right: 0;
   }
 
-  .ul-account > li {
-    width: 90px;
+  .logo {
+    margin: auto;
   }
 }
 
 @media (hover: none) {
   .logo:hover {
-    color: black;
+    color: var(--main-color);
   }
 
   .account:hover {

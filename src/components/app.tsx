@@ -6,6 +6,7 @@ import Login from '../pages/Login/login';
 import Registration from '../pages/Registration/registration';
 import Catalog from '../pages/Catalog/catalog';
 import About from '../pages/About/about';
+import NoPage from '../pages/NoPage/no-page';
 
 export default function App(): JSX.Element {
   return (
@@ -17,7 +18,7 @@ export default function App(): JSX.Element {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/about" element={<About />} />
         <Route path="/home" element={<MainPage />} />
-        {/* <Route path="*" element={<NoPage />} /> */}
+        <Route path="*" element={<NoPage />} />
       </Routes>
     </Router>
   );

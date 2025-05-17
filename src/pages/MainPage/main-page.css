@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
 
-  max-width: 80rem;
+  width: 100%;
 
   background-color: var(--background-color);
 }
@@ -62,35 +62,40 @@
 
 .planets {
   display: flex;
-  justify-content: space-around;
-  width: 50rem;
-  max-width: 100%;
+  gap: 1rem;
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .planet {
+  display: flex;
+
   width: 6rem;
   height: 6rem;
+
   background-repeat: no-repeat;
+  background-position: center;
   background-size: contain;
 }
 
 .planet-one {
-  background-image: url('../../../public/img/one.png');
+  background-image: url('../../../img/one.png');
 }
 
 .planet-two {
-  background-image: url('../../../public/img/two.png');
+  background-image: url('../../../img/two.png');
 }
 
 .planet-three {
-  background-image: url('../../../public/img/three.png');
+  background-image: url('../../../img/three.png');
 }
 
-@media (width <= 42.5rem) {
+@media (width <= 40rem) {
   .planets {
     flex-direction: column;
     gap: 3rem;
     align-items: center;
+    width: 20rem;
   }
 }
 

@@ -9,7 +9,7 @@ export default function Header(): ReactElement {
   return (
     <>
       <header>
-        <div className="container container-header">
+        <div className="container-header">
           <Link to="/" className="logo">
             {`${'space travel'}`.toUpperCase()}
           </Link>

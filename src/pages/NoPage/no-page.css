@@ -49,7 +49,7 @@
 
 .go-home:hover {
   cursor: pointer;
-    color: var(--hover);
+  color: var(--hover);
 }
 
 @keyframes move {
@@ -58,7 +58,7 @@
   }
 }
 
-.planet {
+.no-page-planet {
   width: 90px;
   height: 90px;
 

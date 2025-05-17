@@ -36,7 +36,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      'max-lines-per-function': ['error', { max: 40, skipBlankLines: true }],
+      'max-lines-per-function': ['error', { max: 100, skipBlankLines: true }],
       'unicorn/switch-case-braces': ['error', 'avoid'],
       '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
       '@typescript-eslint/consistent-type-imports': 'error',

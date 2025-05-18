@@ -7,10 +7,12 @@ import type {
   UseFormResetField,
   UseFormSetError,
 } from 'react-hook-form';
-import FormInput from '../../ui/sign-up-form/form-input';
 import { HiddenInput } from '../../ui/sign-up-form/hidden-input';
 import type { FormInputs } from '../../ui/sign-up-form/types';
 import { addressRegexDelivery, baseRegexDelivery } from '../../utility/regexp-patterns';
+import BaseForm from './basic-form';
+import BillingAddress from './billing-address';
+import ShippingAddress from './shipping-address';
 import { getAccessToken } from '../../api/get-access-token';
 import { createNewCustomer } from '../../api/create-new-customer';
 import './signup.css';
@@ -52,18 +54,7 @@ export default function SignUpForm({
     <form id="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
       {isFirstStep && (
         <div className="first-page-wrapper">
-          {baseArray.map((element, index) => (
-            <FormInput
-              key={index}
-              label={element[0]}
-              type={element[1].type}
-              name={element[0]}
-              register={register}
-              pattern={element[1].pattern}
-              validate={element[1]?.validate}
-              error={errors}
-            />
-          ))}
+          <BaseForm baseArray={baseArray} register={register} errors={errors} />
         </div>
       )}
 
@@ -71,35 +62,13 @@ export default function SignUpForm({
         <div className="address-wrapper">
           <div className="address-style billing-address">
             <h3 className="billing-address-text">{!isChecked && 'Billing Address'}</h3>
-            {addressArray.map((element, index) => (
-              <FormInput
-                key={'billing' + index}
-                label={element[0]}
-                type={element[1].type}
-                name={`billing${element[0]}`}
-                register={register}
-                pattern={element[1].pattern}
-                validate={element[1]?.validate}
-                error={errors}
-              />
-            ))}
+            <BillingAddress addressArray={addressArray} register={register} errors={errors} />
           </div>
 
           {!isChecked && (
             <div className="address-style shipping-address">
               <h3 className="shipping-address-text">Shipping Address</h3>
-              {addressArray.map((element, index) => (
-                <FormInput
-                  key={'shipping' + index}
-                  label={element[0]}
-                  name={`shipping${element[0]}`}
-                  type={element[1].type}
-                  register={register}
-                  pattern={element[1].pattern}
-                  validate={element[1]?.validate}
-                  error={errors}
-                />
-              ))}
+              <ShippingAddress addressArray={addressArray} register={register} errors={errors} />
             </div>
           )}
         </div>

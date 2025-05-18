@@ -1,6 +1,6 @@
 import type { BaseFormInputs, AddressFormInputs } from '../ui/sign-up-form/types';
 
-type SignUpRegex = {
+export type SignUpRegex = {
   type: string;
   pattern: RegExp | SignUpPattern;
   validate?: <T>() => T;

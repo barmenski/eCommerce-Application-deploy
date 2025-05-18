@@ -1,0 +1,88 @@
+.no-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-page-header {
+  margin: 0 auto;
+  padding-top: 6rem;
+
+  font-size: 12rem;
+  color: #2f2f31;
+  text-shadow: var(--shadow);
+}
+
+.paragraph-no-page {
+  display: flex;
+  justify-content: center;
+
+  padding: 0.5rem;
+
+  font-size: 1.4rem;
+  color: var(--main-color);
+  text-align: center;
+  letter-spacing: 0.5rem;
+}
+
+.go-home {
+  display: flex;
+
+  padding: 0.6rem 1.4rem;
+  border: 1px solid;
+  border-radius: 0.5rem;
+
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--main-color);
+
+  background-color: var(--matte-black);
+}
+
+.go-home:hover {
+  cursor: pointer;
+  color: var(--hover);
+}
+
+@keyframes move {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.no-page-planet {
+  width: 90px;
+  height: 90px;
+
+  background-image: url('../../../public/img/alien.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  animation: move 3s;
+}
+
+@media (width <= 900px) {
+  .paragraph-no-page {
+    font-size: 20px;
+  }
+}
+
+@media (width <= 600px) {
+  .no-page-header {
+    font-size: 10em;
+  }
+
+  .paragraph-no-page {
+    padding: 10px;
+    font-size: 13px;
+    text-align: center;
+  }
+}

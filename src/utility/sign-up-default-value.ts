@@ -1,13 +1,20 @@
-import type { FormInputs } from '../ui/form-input';
+import type { BaseFormInputs, BillingNShipping } from '../ui/form-input';
 
-export const SIGN_UP_DEFAULT_VALUES: FormInputs = {
+export const SIGN_UP_BASE_DEFAULT_VALUES: BaseFormInputs = {
   email: 'test123@gmail.com',
   password: 'qweQWE123!',
   firstName: 'Null',
   lastName: 'Undefinedovich',
   dateOfBirth: '2001-01-02',
-  street: 'Kolotuchkinskaya st.',
-  city: 'P',
-  postalCode: '13377',
-  country: 'US',
+};
+
+export const SIGN_UP_ADDRESS_DEFAULT_VALUES: BillingNShipping = {
+  billingstreetName: 'Kolotuchkinskaya st.',
+  billingcity: 'P',
+  billingpostalCode: '13377',
+  billingcountry: 'US',
+  shippingstreetName: 'Kolotuchkinskaya st.',
+  shippingcity: 'P',
+  shippingpostalCode: '13377',
+  shippingcountry: 'US',
 };

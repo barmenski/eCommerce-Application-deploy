@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import type { JSX } from 'react';
 import './app.css';
+import Header from './Header/header';
 import MainPage from '../pages/MainPage/main-page';
 import Login from '../pages/Login/login';
 import Catalog from '../pages/Catalog/catalog';
@@ -11,6 +12,7 @@ import SignUp from '../pages/SignUp/sign-up';
 export default function App(): JSX.Element {
   return (
     <Router>
+      <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />

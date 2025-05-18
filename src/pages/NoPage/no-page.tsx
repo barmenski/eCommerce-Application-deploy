@@ -1,12 +1,10 @@
 import type { ReactElement } from 'react';
-import Header from '../../components/Header/header';
 import './no-page.css';
 import { Link } from 'react-router-dom';
 
 export default function NoPage(): ReactElement {
   return (
     <>
-      <Header />
       <section className="no-page">
         <div className="no-page-container">
           <h1 className="no-page-header">404</h1>

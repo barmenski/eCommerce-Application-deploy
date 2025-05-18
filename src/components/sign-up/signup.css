@@ -1,9 +1,17 @@
 .sign-up-wrapper {
-  height: 100vh;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+
+  min-height: calc(100vh - 64px);
+
   background-color: #010409;
 }
 
 .sign-up {
+  flex: 1;
+
   max-width: 678px;
   margin: auto;
   padding: 1px 0 20px;

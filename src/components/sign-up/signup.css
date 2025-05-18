@@ -180,7 +180,7 @@
 
 .redirect-to-login-link {
   margin-left: 5px;
-  color-scheme: dark;
+  color: #a44dc7 !important;
 }
 
 .disabled {

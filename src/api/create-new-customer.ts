@@ -1,5 +1,5 @@
 import type { AccessData } from './get-access-token';
-import type { FormInputs } from '../ui/form-input';
+import type { FormInputs } from '../ui/sign-up-form/types';
 import type { UseFormSetError } from 'react-hook-form';
 import { formatData } from '../utility/format-data';
 

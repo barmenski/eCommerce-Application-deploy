@@ -1,4 +1,4 @@
-import type { BaseFormInputs, AddressFormInputs } from '../ui/form-input';
+import type { BaseFormInputs, AddressFormInputs } from '../ui/sign-up-form/types';
 
 type SignUpRegex = {
   type: string;

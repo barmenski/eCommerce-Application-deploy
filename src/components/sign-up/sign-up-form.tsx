@@ -7,9 +7,9 @@ import type {
   UseFormResetField,
   UseFormSetError,
 } from 'react-hook-form';
-import FormInput from '../../ui/form-input';
-import { HiddenInput } from '../../ui/hidden-input';
-import type { FormInputs } from '../../ui/form-input';
+import FormInput from '../../ui/sign-up-form/form-input';
+import { HiddenInput } from '../../ui/sign-up-form/hidden-input';
+import type { FormInputs } from '../../ui/sign-up-form/types';
 import { addressRegexDelivery, baseRegexDelivery } from '../../utility/regexp-patterns';
 import { getAccessToken } from '../../api/get-access-token';
 import { createNewCustomer } from '../../api/create-new-customer';

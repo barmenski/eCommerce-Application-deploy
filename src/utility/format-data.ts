@@ -1,4 +1,4 @@
-import type { FormInputs, ShippingFormInputs, BillingFormInputs } from '../ui/form-input';
+import type { FormInputs, ShippingFormInputs, BillingFormInputs } from '../ui/sign-up-form/types';
 
 type FormatedData = {
   email: string;

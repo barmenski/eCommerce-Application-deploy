@@ -1,6 +1,6 @@
 import type { Dispatch, JSX, SetStateAction } from 'react';
 import type { UseFormRegister, UseFormResetField } from 'react-hook-form';
-import type { FormInputs } from './form-input';
+import type { FormInputs } from './types';
 
 export function HiddenInput({
   isChecked,
@@ -44,12 +44,7 @@ export function HiddenInput({
         name="shipping-billing"
         id="same-address-checkbox"
       />
-      <label
-        htmlFor="same-address-checkbox
-      "
-      >
-        Use the same address as Billing and Shipping
-      </label>
+      <label htmlFor="same-address-checkbox">Use the same address as Billing and Shipping</label>
     </>
   );
 }

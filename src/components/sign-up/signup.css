@@ -173,12 +173,14 @@
   right: 20px;
 }
 
-@media only screen and (width <= 599px) {
-  .billing-address,
-  .shipping-address {
-    display: flex;
-    flex-flow: column nowrap;
-  }
+.redirect-to-login {
+  color: #eef1f3;
+  text-align: center;
+}
+
+.redirect-to-login-link {
+  margin-left: 5px;
+  color-scheme: dark;
 }
 
 .disabled {
@@ -186,4 +188,12 @@
   cursor: default;
   color: rgb(104 104 104 / 40%) !important;
   background-color: rgb(71 71 71 / 40%) !important;
+}
+
+@media only screen and (width <= 599px) {
+  .billing-address,
+  .shipping-address {
+    display: flex;
+    flex-flow: column nowrap;
+  }
 }

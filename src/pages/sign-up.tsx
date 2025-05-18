@@ -3,7 +3,7 @@ import { useState } from 'react';
 import SignUpForm from '../components/sign-up/sign-up-form';
 import ControlButtons from '../components/sign-up/control-buttons';
 import { useForm } from 'react-hook-form';
-import type { FormInputs } from '../ui/form-input';
+import type { FormInputs } from '../ui/sign-up-form/types';
 
 export default function SignUpPage(): JSX.Element {
   const [isFirstStep, setStep] = useState(true);
@@ -41,6 +41,12 @@ export default function SignUpPage(): JSX.Element {
           setStep={() => setStep(!isFirstStep)}
           isValid={isValid}
         />
+        <div className="redirect-to-login">
+          Already have an account?
+          <a className="redirect-to-login-link" href={'/login'}>
+            Login
+          </a>
+        </div>
       </div>
     </div>
   );

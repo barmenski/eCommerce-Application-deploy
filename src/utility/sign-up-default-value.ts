@@ -1,4 +1,4 @@
-import type { BaseFormInputs, BillingNShipping } from '../ui/form-input';
+import type { BaseFormInputs, BillingNShipping } from '../ui/sign-up-form/types';
 
 export const SIGN_UP_BASE_DEFAULT_VALUES: BaseFormInputs = {
   email: 'test123@gmail.com',

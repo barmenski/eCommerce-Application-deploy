@@ -1,0 +1,106 @@
+.container-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  background-color: var(--background-color);
+}
+
+.container-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: 95vh;
+
+  background-color: var(--background-color);
+  background-image: url('../../../img/sky.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.header {
+  padding: 0.5rem;
+  padding-top: 15%;
+
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--hover);
+  text-align: center;
+  letter-spacing: 1rem;
+}
+
+.paragraph {
+  padding: 0.6rem;
+
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--hover);
+  text-align: center;
+  letter-spacing: 1rem;
+}
+
+.destinations-section {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 7%;
+}
+
+.header-h2 {
+  margin: 0;
+  padding: 2rem 0;
+
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--hover);
+  text-align: center;
+  letter-spacing: 1.5rem;
+}
+
+.planets {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.planet {
+  display: flex;
+
+  width: 6rem;
+  height: 6rem;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.planet-one {
+  background-image: url('../../../img/one.png');
+}
+
+.planet-two {
+  background-image: url('../../../img/two.png');
+}
+
+.planet-three {
+  background-image: url('../../../img/three.png');
+}
+
+@media (width <= 40rem) {
+  .planets {
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+  }
+}
+
+@media (width <= 35rem) {
+  .header-h2 {
+    font-size: 1rem;
+    letter-spacing: 1rem;
+  }
+}

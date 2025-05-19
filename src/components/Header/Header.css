@@ -1,0 +1,165 @@
+.container-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1rem 2rem 0;
+
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--main-color);
+
+  background-color: var(--background-color);
+}
+
+.hamburger {
+  display: none;
+}
+
+.ul-menu {
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  justify-content: flex-end;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.li-menu {
+  cursor: pointer;
+
+  margin-right: 2.5rem;
+
+  line-height: 3rem;
+  text-decoration: none;
+  list-style: none;
+
+  transition: 0.3s;
+}
+
+.li-menu a {
+  padding: 1rem 0;
+}
+
+.li-menu:hover {
+  color: var(--hover);
+}
+
+@media (width <= 768px) {
+  .li-menu {
+    margin-right: 0;
+  }
+}
+
+.logo {
+  cursor: pointer;
+  display: flex;
+  transition: 0.3s;
+}
+
+.logo:hover {
+  color: var(--hover);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+}
+
+.icons-container {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding-left: 0.2rem;
+}
+
+.basket {
+  cursor: pointer;
+
+  width: 2rem;
+  height: 2rem;
+
+  background-image: url('../../../public/icons/basket.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.basket:hover {
+  filter: invert(52%) sepia(10%) saturate(758%) hue-rotate(48deg) brightness(94%) contrast(87%);
+}
+
+.scroll-forbidden {
+  overflow-y: hidden;
+}
+
+@media (width <= 768px) {
+  .container-header {
+    padding: 0.6rem;
+  }
+
+  .hamburger {
+    position: absolute;
+    z-index: 30;
+    left: 0;
+
+    float: left;
+    display: block;
+
+    margin-left: 0.6rem;
+  }
+
+  .ul-menu {
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    left: -100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 100vh;
+
+    text-align: center;
+    letter-spacing: 0.3rem;
+
+    visibility: hidden;
+    background-color: var(--background-color);
+
+    transition: 0.7s;
+  }
+
+  .ul-menu.open {
+    left: 0;
+    visibility: visible;
+    transition: 0.7s;
+  }
+
+  .li-menu {
+    margin-right: 0;
+  }
+
+  .logo {
+    margin: auto;
+  }
+}
+
+@media (hover: none) {
+  .logo:hover {
+    color: var(--main-color);
+  }
+
+  .account:hover {
+    filter: none;
+  }
+
+  .basket:hover {
+    filter: none;
+  }
+}

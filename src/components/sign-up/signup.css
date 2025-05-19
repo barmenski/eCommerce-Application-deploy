@@ -1,0 +1,207 @@
+.sign-up-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+
+  min-height: calc(100vh - 64px);
+
+  background-color: #010409;
+}
+
+.sign-up {
+  flex: 1;
+
+  max-width: 678px;
+  margin: auto;
+  padding: 1px 0 20px;
+  border-radius: 17px;
+
+  background-color: #0d1117;
+}
+
+.sign-up-h1 {
+  margin-bottom: 0;
+  color: white;
+  text-align: center;
+}
+
+#sign-up-form {
+  min-width: 368px;
+  max-width: 600px;
+  max-height: 1000px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 17px;
+
+  color: #eef1f3;
+}
+
+.first-page-wrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+}
+
+.billing-address,
+.shipping-address {
+  display: grid;
+  grid-template-areas:
+    'head head'
+    'street city'
+    'postal country';
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.billing-address-text,
+.shipping-address-text {
+  grid-area: head;
+  margin-bottom: 0;
+}
+
+.billing-address:nth-of-type(2),
+.shipping-address:nth-of-type(2) {
+  grid-area: street;
+}
+
+.billing-address:nth-of-type(3),
+.shipping-address:nth-of-type(3) {
+  grid-area: city;
+}
+
+.billing-address:nth-of-type(4),
+.shipping-address:nth-of-type(4) {
+  grid-area: postal;
+}
+
+.billing-address:nth-of-type(5),
+.shipping-address:nth-of-type(5) {
+  grid-area: country;
+}
+
+.sign-up-form-li {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.sign-up-form-li > label {
+  text-transform: capitalize;
+}
+
+.sign-up-form-input-style {
+  padding: 10px;
+  border: 1px solid #30363d;
+  border-radius: 7px;
+
+  color: #eef1f3;
+
+  background-color: #161b22;
+}
+
+#sign-up-form-date-of-birth {
+  color-scheme: dark;
+}
+
+.sign-up-form-error-msg {
+  color: #ef5350;
+}
+
+.sign-up-form-big-error-msg {
+  grid-area: k;
+
+  width: 100%;
+
+  font-size: 1.2rem;
+  color: #ef5350;
+  text-align: center;
+}
+
+.sign-up-form-success-msg {
+  grid-area: k;
+
+  width: 100%;
+
+  font-size: 1.2rem;
+  color: #4caf50;
+  text-align: center;
+}
+
+#sign-up-form-submit-btn {
+  cursor: pointer;
+
+  width: 100%;
+  height: 45px;
+  margin: 20px 0;
+  border: 1px solid #30363d;
+  border-radius: 7px;
+
+  font-size: 1.2rem;
+  color: #eef1f3;
+  text-transform: uppercase;
+
+  background-color: #3ac267;
+}
+
+#sign-up-form-submit-btn:hover {
+  background-color: #1f8860e5;
+}
+
+.sign-up-form-control-buttons {
+  position: relative;
+
+  min-width: 368px;
+  max-width: 600px;
+  min-height: 35px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.control-btn-style {
+  cursor: pointer;
+
+  padding: 6px 14px;
+  border: 1px solid #30363d;
+  border-radius: 7px;
+
+  font-size: 1rem;
+  color: #eef1f3;
+  text-transform: lowercase;
+
+  background-color: #3b82f6;
+}
+
+.sign-up-form-control-back-button {
+  position: absolute;
+  left: 20px;
+}
+
+.sign-up-form-control-next-button {
+  position: absolute;
+  right: 20px;
+}
+
+.redirect-to-login {
+  color: #eef1f3;
+  text-align: center;
+}
+
+.redirect-to-login-link {
+  margin-left: 5px;
+  color: #a44dc7 !important;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: rgb(104 104 104 / 40%) !important;
+  background-color: rgb(71 71 71 / 40%) !important;
+}
+
+@media only screen and (width <= 599px) {
+  .billing-address,
+  .shipping-address {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+}

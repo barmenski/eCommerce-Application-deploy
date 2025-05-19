@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import App from '../app.tsx';
+import App from '../components/app.tsx';
 
 describe('react-component', () => {
   it('h1 title should be equal to something', () => {

@@ -1,0 +1,58 @@
+import type { Path, UseFormRegister, FieldErrors } from 'react-hook-form';
+import type { SignUpPattern } from '../../utility/regexp-patterns';
+
+export type BaseFormInputs = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+};
+
+export type AddressFormInputs = {
+  streetName: string;
+  city: string;
+  postalCode: string;
+  country: string;
+};
+
+export type ShippingFormInputs = {
+  shippingstreetName: string;
+  shippingcity: string;
+  shippingpostalCode: string;
+  shippingcountry: string;
+};
+
+export type BillingFormInputs = {
+  billingstreetName: string;
+  billingcity: string;
+  billingpostalCode: string;
+  billingcountry: string;
+};
+
+type DefaultAddresses = {
+  defaultShippingAddress: number;
+  defaultBillingAddress: number;
+};
+
+export type BillingNShipping = {} & ShippingFormInputs & BillingFormInputs;
+
+export type FormInputs = {} & BaseFormInputs & BillingNShipping & DefaultAddresses;
+
+export type InputProps = {
+  label: Path<BaseFormInputs | AddressFormInputs>;
+  type: string;
+  name: Path<BaseFormInputs | BillingFormInputs | ShippingFormInputs>;
+  register: UseFormRegister<FormInputs>;
+  required?: boolean | string;
+  pattern?: RegExp | SignUpPattern;
+  validate?: <T>() => T;
+  error: FieldErrors<FormInputs>;
+};
+
+export type SelectProps = {
+  name: Path<BaseFormInputs | BillingFormInputs | ShippingFormInputs>;
+  register: UseFormRegister<FormInputs>;
+  pattern?: RegExp | SignUpPattern;
+  validate?: <T>() => T;
+};

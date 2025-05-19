@@ -7,6 +7,7 @@ import type {
   UseFormResetField,
   UseFormSetError,
 } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { HiddenInput } from '../../ui/sign-up-form/hidden-input';
 import type { FormInputs } from '../../ui/sign-up-form/types';
 import { addressRegexDelivery, baseRegexDelivery } from '../../utility/regexp-patterns';
@@ -15,6 +16,7 @@ import BillingAddress from './billing-address';
 import ShippingAddress from './shipping-address';
 import { getAccessToken } from '../../api/get-access-token';
 import { createNewCustomer } from '../../api/create-new-customer';
+import { loginNewCustomer } from '../../api/login-new-customer';
 import './signup.css';
 
 export default function SignUpForm({
@@ -40,14 +42,19 @@ export default function SignUpForm({
   setError: UseFormSetError<FormInputs>;
   resetField: UseFormResetField<FormInputs>;
 }): JSX.Element {
+  const navigate = useNavigate();
   const baseArray = [...baseRegexDelivery().entries()];
   const addressArray = [...addressRegexDelivery().entries()];
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    console.log(data);
     const access_data = await getAccessToken();
     if (access_data instanceof Error) return;
-    await createNewCustomer(data, access_data, setError);
+    const customer_data = await createNewCustomer(data, access_data, setError);
+    if (customer_data instanceof Error) return;
+    const login = await loginNewCustomer(customer_data);
+    if (login) {
+      navigate('/');
+    }
   };
 
   return (

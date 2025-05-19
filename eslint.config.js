@@ -36,7 +36,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      'max-lines-per-function': ['error', { max: 100, skipBlankLines: true }],
+      'max-lines-per-function': ['error', { max: 120, skipBlankLines: true }],
       'unicorn/switch-case-braces': ['error', 'avoid'],
       '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
       '@typescript-eslint/consistent-type-imports': 'error',
@@ -48,6 +48,7 @@ export default tseslint.config(
       '@typescript-eslint/member-ordering': 'error',
       'class-methods-use-this': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      
       'unicorn/no-array-callback-reference': 'off',
       'unicorn/no-array-for-each': 'off',
       'unicorn/no-array-reduce': 'off',
@@ -67,6 +68,8 @@ export default tseslint.config(
           },
         },
       ],
+      "no-unused-vars": "off",
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
 )

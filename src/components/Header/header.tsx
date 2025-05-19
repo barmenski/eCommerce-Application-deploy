@@ -1,7 +1,7 @@
 import Navigation from '../Navigation/navigation';
 import './Header.css';
 import { type ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 const items = ['Home', 'Catalog', 'About', 'LogIn', 'SignUp'];
 

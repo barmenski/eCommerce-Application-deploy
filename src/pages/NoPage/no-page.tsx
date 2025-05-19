@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import './no-page.css';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 export default function NoPage(): ReactElement {
   return (

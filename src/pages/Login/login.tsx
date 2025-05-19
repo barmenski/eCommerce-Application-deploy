@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import type { JSX } from 'react';
 import {
   getApiRoot,
   buildClientWithToken,
-  logout,
   setApiRoot,
   projectKey,
   tokenCache,
   isAccessToken,
 } from '../../helpers/client-builder.ts';
 import type { AccessToken } from '../../helpers/client-builder.ts';
-import LoginForm from './login-form.tsx';
+import LoginForm from '../../components/login/login-form.tsx';
 
 async function loginWithPasswordFlow(email: string, password: string): Promise<AccessToken> {
   const authUrl = `https://auth.europe-west1.gcp.commercetools.com/oauth/${projectKey}/customers/token`;
@@ -56,18 +56,7 @@ async function loginWithPasswordFlow(email: string, password: string): Promise<A
 function Login(): JSX.Element {
   const [loginError, setLoginError] = useState('');
   const [apiRoot, setLocalApiRoot] = useState(getApiRoot());
-
-  const getCustomers: () => Promise<void> = async () => {
-    try {
-      const customers = await apiRoot.withProjectKey({ projectKey }).customers().get().execute();
-      console.log(
-        'Customers email:',
-        customers.body.results.map((customer) => customer.email),
-      );
-    } catch (error) {
-      console.error('Error loading project data:', error);
-    }
-  };
+  const navigate = useNavigate();
 
   const getCart: () => Promise<void> = async () => {
     const customerApiRoot = getApiRoot();
@@ -103,32 +92,22 @@ function Login(): JSX.Element {
       const customerApiRoot = buildClientWithToken(token.access_token);
       setApiRoot(customerApiRoot);
       setLocalApiRoot(customerApiRoot);
-      getCart();
+      await getCart();
+      navigate('/home');
     } catch (error) {
       console.error('Login failed:', error);
+      setLoginError('Login failed. Please check your credentials.');
     }
   };
 
-  const handleLogout: () => void = () => {
-    logout();
-    const anonApiRoot = getApiRoot();
-    setApiRoot(anonApiRoot);
-    setLocalApiRoot(anonApiRoot);
-    // setEmail('');
-    // setPassword('');
-  };
-
   useEffect(() => {
-    getCustomers();
-  }, [apiRoot]);
+    console.log('Customer for test: \nemail: customer@mail.com, pass: 1234Pass!\n');
+  });
 
   return (
     <div>
       <LoginForm onLogin={handleLogin} />
       {loginError && <div style={{ color: 'red' }}>{loginError}</div>}
-      <button onClick={handleLogout} style={{ marginLeft: '1em' }}>
-        Выйти
-      </button>
     </div>
   );
 }

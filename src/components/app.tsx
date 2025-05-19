@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router';
 import type { JSX } from 'react';
 import './app.css';
 import Header from './Header/header';
@@ -16,10 +16,11 @@ export default function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/about" element={<About />} />
         <Route path="/home" element={<MainPage />} />
+        <Route path="/logout" element={<MainPage />}></Route>
         <Route path="*" element={<NoPage />} />
       </Routes>
     </Router>

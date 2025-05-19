@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import Burger from '../Burger/burger';
 
 type Props = {
@@ -51,11 +51,25 @@ export default function Navigation({ items }: Props): ReactElement {
       </div>
       <nav className={'nav-menu'}>
         <ul className={isOpen ? `${['ul-menu', currentClass].join(' ')}` : 'ul-menu'}>
-          {items.map((item) => (
-            <li key={item} className={`li-menu`} onClick={closeHamburger}>
-              <Link to={`/${item}`}>{item.toUpperCase()}</Link>
-            </li>
-          ))}
+          {items.map((item) =>
+            item === 'Logout' ? (
+              <li
+                key={item}
+                className={`li-menu`}
+                onClick={() => {
+                  localStorage.clear();
+                  globalThis.dispatchEvent(new Event('storage'));
+                  closeHamburger();
+                }}
+              >
+                <Link to={`/home`}>{item.toUpperCase()}</Link>
+              </li>
+            ) : (
+              <li key={item} className={`li-menu`} onClick={closeHamburger}>
+                <Link to={`/${item}`.toLowerCase()}>{item.toUpperCase()}</Link>
+              </li>
+            ),
+          )}
         </ul>
       </nav>
     </>

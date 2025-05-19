@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 import './main-page.css';
+
 export default function MainPage(): ReactElement {
   return (
     <>

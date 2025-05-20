@@ -53,7 +53,7 @@ export default function Navigation({ items }: Props): ReactElement {
         <ul className={isOpen ? `${['ul-menu', currentClass].join(' ')}` : 'ul-menu'}>
           {items.map((item) => (
             <li key={item} className={`li-menu`} onClick={closeHamburger}>
-              <Link to={`/${item}`}>{item.toUpperCase()}</Link>
+              <Link to={`/${item}`.toLowerCase()}>{item.toUpperCase()}</Link>
             </li>
           ))}
         </ul>

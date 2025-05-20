@@ -73,7 +73,7 @@ const anonymousMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
     clientSecret: import.meta.env.VITE_CTP_CLIENT_SECRET || '',
     anonymousId,
   },
-  scopes: (import.meta.env.VITE_CTP_SCOPE || '').trim().split(/\s+/),
+  scopes: (import.meta.env.VITE_CTP_SCOPES || '').trim().split(/\s+/),
   fetch,
   tokenCache,
 };

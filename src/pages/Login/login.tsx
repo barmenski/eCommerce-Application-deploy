@@ -16,7 +16,7 @@ async function loginWithPasswordFlow(email: string, password: string): Promise<A
   const authUrl = `https://auth.europe-west1.gcp.commercetools.com/oauth/${projectKey}/customers/token`;
   const clientId = import.meta.env.VITE_CTP_CLIENT_ID || '';
   const clientSecret = import.meta.env.VITE_CTP_CLIENT_SECRET || '';
-  const clientScope = import.meta.env.VITE_CTP_SCOPE || '';
+  const clientScope = import.meta.env.VITE_CTP_SCOPES || '';
   const credentials = btoa(`${clientId}:${clientSecret}`);
   const body = new URLSearchParams({
     grant_type: 'password',

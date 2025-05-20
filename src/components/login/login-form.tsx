@@ -36,8 +36,6 @@ export default function LoginForm({ onLogin }: LoginFormProps): JSX.Element {
         newErrors.password = 'Must contain lowercase letter';
       } else if (!/\d/.test(trimmedPassword)) {
         newErrors.password = 'Must contain a digit';
-      } else if (!/[!@#$%^&*]/.test(trimmedPassword)) {
-        newErrors.password = 'Must contain a special character (!@#$%^&*)';
       } else if (password !== trimmedPassword) {
         newErrors.password = 'No leading or trailing spaces allowed';
       }

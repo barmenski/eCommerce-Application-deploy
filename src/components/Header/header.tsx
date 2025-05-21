@@ -3,7 +3,7 @@ import './Header.css';
 import { type ReactElement } from 'react';
 import { Link } from 'react-router';
 
-const items = ['Home', 'Catalog', 'About', 'LogIn', 'SignUp'];
+const items = ['Home', 'Catalog', 'About', 'LogIn', 'SignUp', 'LogOut'];
 
 export default function Header(): ReactElement {
   return (
@@ -11,7 +11,7 @@ export default function Header(): ReactElement {
       <header>
         <div className="container-header">
           <Link to="/" className="logo">
-            {`${'space travel'}`.toUpperCase()}
+            {`${'space travel'}`}
           </Link>
 
           <div className="nav-container">

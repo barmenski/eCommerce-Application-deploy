@@ -31,6 +31,7 @@ export async function loginNewCustomer(data: CustomerData): Promise<boolean | Er
         expirationTime,
       };
       setLSData('ctp_token', data);
+      globalThis.dispatchEvent(new Event('storage'));
       return true;
     }
 

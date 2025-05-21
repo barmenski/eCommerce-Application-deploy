@@ -48,6 +48,10 @@
   color: var(--hover);
 }
 
+.nav-link, .logo {
+  text-transform: uppercase;
+}
+
 @media (width <= 768px) {
   .li-menu {
     margin-right: 0;

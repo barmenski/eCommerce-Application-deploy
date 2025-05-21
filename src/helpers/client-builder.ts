@@ -51,6 +51,7 @@ export const tokenCache = {
     } else {
       localStorage.setItem('ctp_token', JSON.stringify(token));
     }
+    globalThis.dispatchEvent(new Event('storage'));
   },
 };
 
@@ -101,6 +102,7 @@ export const resetToAnonymous = (): void => {
 
 export const logout = (): void => {
   localStorage.removeItem('ctp_token');
+  globalThis.dispatchEvent(new Event('storage'));
   resetToAnonymous();
 };
 

@@ -20,9 +20,12 @@ export default function LoginForm({ onLogin }: LoginFormProps): JSX.Element {
   const validate = (): { email?: string; password?: string } => {
     const newErrors: { email?: string; password?: string } = {};
     const trimmedEmail = email.trim();
+    const emailNotTrimmed = email;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!trimmedEmail) {
       newErrors.email = 'Email is required';
+    } else if (emailNotTrimmed !== trimmedEmail) {
+      newErrors.email = 'Email address must not contain leading or trailing whitespace';
     } else if (!emailRegex.test(trimmedEmail)) {
       newErrors.email = 'Invalid email format';
     }
@@ -70,7 +73,7 @@ export default function LoginForm({ onLogin }: LoginFormProps): JSX.Element {
         </label>
         <input
           id="email"
-          type="email"
+          type="text"
           value={email}
           onChange={(event_) => {
             setEmail(event_.target.value);

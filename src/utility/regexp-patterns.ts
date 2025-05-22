@@ -21,18 +21,16 @@ export function baseRegexDelivery(): Map<keyof BaseFormInputs, SignUpRegex> {
       type: 'date',
       pattern: /^\d{4}-\d{2}-\d{2}$/,
       validate: (value: string) => {
-        const array = value.split('-');
-        const [year, month, day] = array;
-        const date = new Date(`${year}-${month}-${day}`);
+        const date = new Date(value);
         const today = new Date();
-        let age = today.getFullYear() - date.getFullYear();
 
-        if (
-          today.getMonth() > date.getMonth() ||
-          (date.getMonth() === today.getMonth() && today.getDate() > date.getDate())
-        ) {
-          age -= 1;
+        let age = today.getFullYear() - date.getFullYear();
+        const monthDiff = today.getMonth() - date.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < date.getDate())) {
+          age--;
         }
+
         return age >= 13 || 'User must be 13 or older!';
       },
     });

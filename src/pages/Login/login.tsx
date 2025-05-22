@@ -110,12 +110,12 @@ function Login(): JSX.Element {
 
       const token = await loginWithPasswordFlow(email, password);
       tokenCache.set(token);
-      localStorage.setItem('ctp_token', JSON.stringify(tokenCache.get()));
       const customerApiRoot = buildClientWithToken(token.access_token);
       setApiRoot(customerApiRoot);
       setLocalApiRoot(customerApiRoot);
       await makeCart();
       await getCart();
+      localStorage.setItem('ctp_token', JSON.stringify(tokenCache.get()));
       navigate('/home');
     } catch (error) {
       console.error('Login failed:', error);

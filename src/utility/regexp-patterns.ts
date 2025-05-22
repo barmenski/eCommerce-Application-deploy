@@ -14,7 +14,7 @@ export type SignUpPattern = {
 export function baseRegexDelivery(): Map<keyof BaseFormInputs, SignUpRegex> {
   const REGEXP: Map<keyof BaseFormInputs, SignUpRegex> = new Map()
     .set('email', { type: 'email', pattern: /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/ })
-    .set('password', { type: 'password', pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,72}$/ })
+    .set('password', { type: 'password', pattern: /^(?=\S*\d)(?=\S*[a-z])(?=\S*[A-Z])\S{8,72}$/ })
     .set('firstName', { type: 'text', pattern: /^[a-zA-Z]{1,72}$/ })
     .set('lastName', { type: 'text', pattern: /^[a-zA-Z]{1,72}$/ })
     .set('dateOfBirth', {

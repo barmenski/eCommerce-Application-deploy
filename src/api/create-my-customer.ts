@@ -2,6 +2,7 @@ import type { AccessData } from './get-access-token';
 import type { FormInputs } from '../ui/sign-up-form/types';
 import type { UseFormSetError } from 'react-hook-form';
 import { formatData } from '../utility/format-data';
+import { setLSData } from '../utility/local-storage';
 
 export type CustomerData = {
   email: string;
@@ -38,6 +39,7 @@ export async function createMyCustomer(
     }
 
     if (response.status === 400 || response.status === 401) {
+      setLSData('ctp_anonymous_id', crypto.randomUUID());
       setError('root', {
         message: dataFromApi.message,
       });

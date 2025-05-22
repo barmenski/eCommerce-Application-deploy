@@ -48,8 +48,9 @@
   display: grid;
   grid-template-areas:
     'head head'
-    'street city'
-    'postal country';
+    'street street'
+    'postal postal'
+    'checkbox checkbox';
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
@@ -78,6 +79,17 @@
 .billing-address:nth-of-type(5),
 .shipping-address:nth-of-type(5) {
   grid-area: country;
+}
+
+.billing-address:nth-of-type(6),
+.shipping-address:nth-of-type(6) {
+  grid-area: checkbox;
+}
+
+.same-address-checkbox {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #eef1f3;
 }
 
 .sign-up-form-li {

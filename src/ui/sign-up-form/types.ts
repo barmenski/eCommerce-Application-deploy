@@ -31,8 +31,9 @@ export type BillingFormInputs = {
 };
 
 type DefaultAddresses = {
-  defaultShippingAddress: number;
-  defaultBillingAddress: number;
+  defaultShippingAddress: number | 'true' | 'false';
+  defaultBillingAddress: number | 'true' | 'false';
+  shippingBilling: number | 'true' | 'false';
 };
 
 export type BillingNShipping = {} & ShippingFormInputs & BillingFormInputs;

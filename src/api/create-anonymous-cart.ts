@@ -1,6 +1,11 @@
+import type { UseFormSetError } from 'react-hook-form';
 import type { AnonymousData } from './get-anonymous-token';
+import type { FormInputs } from '../ui/sign-up-form/types';
 
-export async function createAnonymousCart(access_data: AnonymousData): Promise<void> {
+export async function createAnonymousCart(
+  access_data: AnonymousData,
+  setError: UseFormSetError<FormInputs>,
+): Promise<void> {
   const jsonData = JSON.stringify({ currency: 'USD' });
   const url = `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/me/carts`;
 
@@ -16,14 +21,9 @@ export async function createAnonymousCart(access_data: AnonymousData): Promise<v
 
     const dataFromApi = await response.json();
 
-    if (response.status === 201) {
-      console.log('Success:', dataFromApi);
-      return;
-    }
-
     if (response.status === 400 || response.status === 401) {
+      setError('root', { message: dataFromApi.message });
       console.error('Error:', dataFromApi);
-      return;
     }
   } catch (error) {
     console.error('You probably should change url', error);

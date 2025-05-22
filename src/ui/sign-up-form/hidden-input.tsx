@@ -5,8 +5,8 @@ import type { FormInputs } from './types';
 export function HiddenInput({
   isChecked,
   setIsChecked,
-  register,
   resetField,
+  register,
 }: {
   isChecked: boolean;
   setIsChecked: Dispatch<SetStateAction<boolean>>;
@@ -22,29 +22,17 @@ export function HiddenInput({
   }
 
   return (
-    <>
+    <div className="same-address-checkbox">
       <input
-        {...register('defaultShippingAddress')}
-        type="hidden"
-        id="default-shipping-address"
-        name="defaultShippingAddress"
-        value={isChecked ? 0 : ''}
-      />
-      <input
-        {...register('defaultBillingAddress')}
-        type="hidden"
-        id="default-billing-address"
-        name="defaultBillingAddress"
-        value={isChecked ? 0 : ''}
-      />
-      <input
+        {...register('shippingBilling')}
         checked={isChecked}
         onChange={handleCheckboxCheck}
         type="checkbox"
-        name="shipping-billing"
+        name="shippingBilling"
         id="same-address-checkbox"
+        value={isChecked ? 'true' : 'false'}
       />
       <label htmlFor="same-address-checkbox">Use the same address as Billing and Shipping</label>
-    </>
+    </div>
   );
 }

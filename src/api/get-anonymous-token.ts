@@ -1,3 +1,5 @@
+import type { UseFormSetError } from 'react-hook-form';
+import type { FormInputs } from '../ui/sign-up-form/types';
 import { setLSData } from '../utility/local-storage';
 
 export type AnonymousData = {
@@ -6,9 +8,13 @@ export type AnonymousData = {
   expires_in: number;
   refresh_token: string;
   scope: string;
+  code?: string;
+  message?: string;
 };
 
-export async function getAnonymousToken(): Promise<AnonymousData | Error> {
+export async function getAnonymousToken(
+  setError: UseFormSetError<FormInputs>,
+): Promise<AnonymousData | Error> {
   let anonymousId = localStorage.getItem('ctp_anonymous_id');
   if (!anonymousId) {
     const id = crypto.randomUUID();
@@ -30,8 +36,16 @@ export async function getAnonymousToken(): Promise<AnonymousData | Error> {
         body: bodyData,
       },
     );
-    const access_data: Promise<AnonymousData> = await response.json();
-    return access_data;
+    const access_data: AnonymousData = await response.json();
+
+    if (response.ok || response.status === 201) {
+      return access_data;
+    }
+
+    if (response.status === 400 || response.status === 401) {
+      setError('root', { message: access_data.message });
+      console.error('Error:', access_data);
+    }
   } catch (error) {
     console.error('Error:', error);
   }

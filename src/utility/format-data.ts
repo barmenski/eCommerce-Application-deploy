@@ -7,6 +7,8 @@ type FormatedData = {
   lastName: string;
   dateOfBirth: string;
   addresses: Record<string, string | number>[];
+  defaultBillingAddress?: number;
+  defaultShippingAddress?: number;
 };
 
 export function formatData(data: FormInputs): FormatedData {
@@ -42,21 +44,31 @@ export function formatData(data: FormInputs): FormatedData {
 
   const isShipping = Object.keys(shipping).length > 0;
 
-  rest.defaultBillingAddress = 0;
-  rest.defaultShippingAddress = isShipping ? 1 : 0;
-
   const addressArray = isShipping ? [billing, shipping] : [billing];
 
-  const formatedData = {
+  const formatedData: FormatedData = {
     email,
     password,
     firstName,
     lastName,
     dateOfBirth,
     addresses: addressArray,
-    defaultBillingAddress: rest.defaultBillingAddress,
-    defaultShippingAddress: rest.defaultShippingAddress,
   };
+
+  if (rest.shippingBilling === 'true') {
+    if (rest.defaultBillingAddress === 'true') {
+      formatedData['defaultBillingAddress'] = 0;
+      formatedData['defaultShippingAddress'] = 0;
+    }
+  } else {
+    if (rest.defaultBillingAddress === 'true') {
+      formatedData['defaultBillingAddress'] = 0;
+    }
+
+    if (rest.defaultShippingAddress === 'true') {
+      formatedData['defaultShippingAddress'] = 1;
+    }
+  }
 
   return formatedData;
 }

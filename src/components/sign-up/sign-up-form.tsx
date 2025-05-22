@@ -19,6 +19,7 @@ import { createAnonymousCart } from '../../api/create-anonymous-cart';
 import { createMyCustomer } from '../../api/create-my-customer';
 import { createCustomerToken } from '../../api/create-customer-token';
 import { loginCustomer } from '../../api/login-customer';
+import AddressCheckBox from '../../ui/sign-up-form/address-checkbox';
 import './signup.css';
 
 export default function SignUpForm({
@@ -49,16 +50,20 @@ export default function SignUpForm({
   const addressArray = [...addressRegexDelivery().entries()];
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    const access_data = await getAnonymousToken();
-    if (access_data instanceof Error) return;
-    await createAnonymousCart(access_data);
-    const customer_data = await createMyCustomer(data, access_data, setError);
-    if (customer_data instanceof Error) return;
-    const customer_token = await createCustomerToken(customer_data);
-    if (customer_token instanceof Error) return;
-    const login = await loginCustomer(customer_token, customer_data);
-    if (login) {
-      navigate('/');
+    try {
+      const access_data = await getAnonymousToken(setError);
+      if (access_data instanceof Error) return;
+      await createAnonymousCart(access_data, setError);
+      const customer_data = await createMyCustomer(data, access_data, setError);
+      if (customer_data instanceof Error) return;
+      const customer_token = await createCustomerToken(customer_data);
+      if (customer_token instanceof Error) return;
+      const login = await loginCustomer(customer_token, customer_data);
+      if (login) {
+        navigate('/');
+      }
+    } catch (error) {
+      console.error('Submit Error:', error);
     }
   };
 
@@ -75,12 +80,24 @@ export default function SignUpForm({
           <div className="address-style billing-address">
             <h3 className="billing-address-text">{!isChecked && 'Billing Address'}</h3>
             <BillingAddress addressArray={addressArray} register={register} errors={errors} />
+            <AddressCheckBox
+              name="billing"
+              label="defaultBillingAddress"
+              register={register}
+              isChecked={isChecked}
+            />
           </div>
 
           {!isChecked && (
             <div className="address-style shipping-address">
               <h3 className="shipping-address-text">Shipping Address</h3>
               <ShippingAddress addressArray={addressArray} register={register} errors={errors} />
+              <AddressCheckBox
+                name="shipping"
+                label="defaultShippingAddress"
+                register={register}
+                isChecked={isChecked}
+              />
             </div>
           )}
         </div>

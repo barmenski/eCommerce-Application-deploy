@@ -58,6 +58,28 @@ function Login(): JSX.Element {
   const [apiRoot, setLocalApiRoot] = useState(getApiRoot());
   const navigate = useNavigate();
 
+  const makeCart: () => Promise<void> = async () => {
+    const customerApiRoot = getApiRoot();
+    await customerApiRoot
+      .withProjectKey({ projectKey })
+      .me()
+      .carts()
+      .post({
+        body: {
+          currency: 'USD',
+          country: 'US',
+          lineItems: [
+            {
+              productId: '9a02a229-8e83-4fd4-8d5b-0d2bd03467fd',
+              variantId: 1,
+              quantity: 1,
+            },
+          ],
+        },
+      })
+      .execute();
+  };
+
   const getCart: () => Promise<void> = async () => {
     const customerApiRoot = getApiRoot();
     const cartActive = await customerApiRoot
@@ -91,6 +113,7 @@ function Login(): JSX.Element {
       const customerApiRoot = buildClientWithToken(token.access_token);
       setApiRoot(customerApiRoot);
       setLocalApiRoot(customerApiRoot);
+      await makeCart();
       await getCart();
       localStorage.setItem('ctp_token', JSON.stringify(tokenCache.get()));
       navigate('/home');

@@ -57,11 +57,13 @@ export const tokenCache = {
 
 function getOrCreateAnonymousId(): string {
   const stored = localStorage.getItem('ctp_anonymous_id');
-  if (stored) return stored;
-
-  const newId = crypto.randomUUID();
-  localStorage.setItem('ctp_anonymous_id', newId);
-  return newId;
+  const token = tokenCache.get();
+  if (!stored || !token.token) {
+    const newId = crypto.randomUUID();
+    localStorage.setItem('ctp_anonymous_id', newId);
+    return newId;
+  }
+  return stored;
 }
 
 const anonymousId = getOrCreateAnonymousId();
@@ -102,6 +104,7 @@ export const resetToAnonymous = (): void => {
 
 export const logout = (): void => {
   localStorage.removeItem('ctp_token');
+  localStorage.removeItem('ctp_anonymous_id');
   globalThis.dispatchEvent(new Event('storage'));
   resetToAnonymous();
 };

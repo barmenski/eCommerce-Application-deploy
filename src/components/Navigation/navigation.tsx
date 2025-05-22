@@ -51,7 +51,7 @@ export default function Navigation({ items }: Props): ReactElement {
   };
 
   const closeHamburger = (): void => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth <= 768) {
       toggleHamburger();
     }
   };

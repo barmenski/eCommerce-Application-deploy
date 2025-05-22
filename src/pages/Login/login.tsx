@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import type { JSX } from 'react';
 import {
@@ -34,7 +34,8 @@ async function loginWithPasswordFlow(email: string, password: string): Promise<A
     body: body.toString(),
   });
 
-  if (!response.ok) {
+  if (response.status === 400 || response.status === 401) {
+    console.log('response.status:', response.status);
     let errorText = `HTTP ${response.status}`;
     try {
       const errorJson = await response.json();
@@ -50,12 +51,13 @@ async function loginWithPasswordFlow(email: string, password: string): Promise<A
     console.log('🎫 Access token:', data.access_token);
     return data;
   }
-  return { access_token: '', expires_in: 0, refresh_token: '', scope: '', token_type: '' };
+  throw new Error('Invalid token response');
+  // return { access_token: '', expires_in: 0, refresh_token: '', scope: '', token_type: '' };
 }
 
 function Login(): JSX.Element {
   const [loginError, setLoginError] = useState('');
-  const [apiRoot, setLocalApiRoot] = useState(getApiRoot());
+  const [, setLocalApiRoot] = useState(getApiRoot());
   const navigate = useNavigate();
 
   const makeCart: () => Promise<void> = async () => {
@@ -94,19 +96,19 @@ function Login(): JSX.Element {
   const handleLogin = async (email: string, password: string): Promise<void> => {
     setLoginError('');
     try {
-      await apiRoot
-        .withProjectKey({ projectKey })
-        .me()
-        .login()
-        .post({
-          body: {
-            email,
-            password,
-            activeCartSignInMode: 'MergeWithExistingCustomerCart',
-            updateProductData: true,
-          },
-        })
-        .execute();
+      // await apiRoot
+      //   .withProjectKey({ projectKey })
+      //   .me()
+      //   .login()
+      //   .post({
+      //     body: {
+      //       email,
+      //       password,
+      //       activeCartSignInMode: 'MergeWithExistingCustomerCart',
+      //       updateProductData: true,
+      //     },
+      //   })
+      //   .execute();
 
       const token = await loginWithPasswordFlow(email, password);
       tokenCache.set(token);
@@ -123,14 +125,9 @@ function Login(): JSX.Element {
     }
   };
 
-  useEffect(() => {
-    console.log('Customer for test: \nemail: customer@mail.com, pass: 1234Pass!\n');
-  });
-
   return (
     <div>
-      <LoginForm onLogin={handleLogin} />
-      {loginError && <div style={{ color: 'red' }}>{loginError}</div>}
+      <LoginForm onLogin={handleLogin} loginError={loginError} />
     </div>
   );
 }

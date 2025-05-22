@@ -5,9 +5,10 @@ import './login-form.css';
 
 type LoginFormProps = {
   onLogin: (_email: string, _password: string) => void;
+  loginError?: string;
 };
 
-export default function LoginForm({ onLogin }: LoginFormProps): JSX.Element {
+export default function LoginForm({ onLogin, loginError }: LoginFormProps): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -117,6 +118,11 @@ export default function LoginForm({ onLogin }: LoginFormProps): JSX.Element {
             Signup
           </Link>
         </p>
+        {loginError && (
+          <div className="error-message" style={{ color: 'red', marginTop: '1rem' }}>
+            {loginError}
+          </div>
+        )}
         <button type="submit" className="login-button mt-8" disabled={!isValid}>
           Login
         </button>

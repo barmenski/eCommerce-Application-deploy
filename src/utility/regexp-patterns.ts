@@ -21,9 +21,17 @@ export function baseRegexDelivery(): Map<keyof BaseFormInputs, SignUpRegex> {
       type: 'date',
       pattern: /^\d{4}-\d{2}-\d{2}$/,
       validate: (value: string) => {
-        const year = value.replace(/-\d{2}-\d{2}$/, '');
+        const date = new Date(value);
         const today = new Date();
-        return today.getFullYear() - +year >= 13 || 'User must be 13 or older!';
+
+        let age = today.getFullYear() - date.getFullYear();
+        const monthDiff = today.getMonth() - date.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < date.getDate())) {
+          age--;
+        }
+
+        return age >= 13 || 'User must be 13 or older!';
       },
     });
 
@@ -46,7 +54,7 @@ export function addressRegexDelivery(): Map<keyof AddressFormInputs, SignUpRegex
   const REGEXP: Map<keyof AddressFormInputs, SignUpRegex> = new Map()
     .set('streetName', { type: 'text', pattern: /^.{1,72}$/ })
     .set('city', { type: 'text', pattern: /^[a-zA-Z]{1,72}$/ })
-    .set('postalCode', { type: 'number', pattern: /^[0-9]{5}(?:-[0-9]{4})?$/ })
+    .set('postalCode', { type: 'text', pattern: /^[0-9]{5}(?:-[0-9]{4})?$/ })
     .set('country', { type: 'text', pattern: /^(united states|us)$/i });
 
   const formErrorMessages = signUpAddressErrorMessages();

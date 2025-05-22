@@ -1,13 +1,23 @@
 import type { CustomerData } from './create-new-customer';
 import { setLSData } from '../utility/local-storage';
 
-type CustomerLSData = {
+export type CustomerLSData = {
   access_token: string;
   refresh_token: string;
   expirationTime: number;
 };
 
-export async function loginNewCustomer(data: CustomerData): Promise<boolean | Error> {
+export type CustomerToken = {
+  access_token: string;
+  expires_in: number;
+  scope: string;
+  refresh_token: string;
+  token_type: string;
+  code?: string;
+  message?: string;
+};
+
+export async function createCustomerToken(data: CustomerData): Promise<CustomerLSData | Error> {
   const bodyData = `grant_type=password&username=${data.email}&password=${data.password}&scope=${import.meta.env.VITE_CTP_SCOPES}`;
   const authData =
     import.meta.env.VITE_CTP_CLIENT_ID + ':' + import.meta.env.VITE_CTP_CLIENT_SECRET;
@@ -21,7 +31,7 @@ export async function loginNewCustomer(data: CustomerData): Promise<boolean | Er
       },
       body: bodyData,
     });
-    const login_data = await response.json();
+    const login_data: CustomerToken = await response.json();
 
     if (response.ok) {
       const expirationTime = Date.now() + login_data.expires_in * 1000;
@@ -32,7 +42,7 @@ export async function loginNewCustomer(data: CustomerData): Promise<boolean | Er
       };
       setLSData('ctp_token', data);
       globalThis.dispatchEvent(new Event('storage'));
-      return true;
+      return data;
     }
 
     if (response.status === 400 || response.status === 401) {

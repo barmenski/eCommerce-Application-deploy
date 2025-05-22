@@ -14,9 +14,11 @@ import { addressRegexDelivery, baseRegexDelivery } from '../../utility/regexp-pa
 import BaseForm from './basic-form';
 import BillingAddress from './billing-address';
 import ShippingAddress from './shipping-address';
-import { getAccessToken } from '../../api/get-access-token';
-import { createNewCustomer } from '../../api/create-new-customer';
-import { loginNewCustomer } from '../../api/login-new-customer';
+import { getAnonymousToken } from '../../api/get-anonymous-token';
+import { createAnonymousCart } from '../../api/create-anonymous-cart';
+import { createMyCustomer } from '../../api/create-my-customer';
+import { createCustomerToken } from '../../api/create-customer-token';
+import { loginCustomer } from '../../api/login-customer';
 import './signup.css';
 
 export default function SignUpForm({
@@ -47,11 +49,14 @@ export default function SignUpForm({
   const addressArray = [...addressRegexDelivery().entries()];
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    const access_data = await getAccessToken();
+    const access_data = await getAnonymousToken();
     if (access_data instanceof Error) return;
-    const customer_data = await createNewCustomer(data, access_data, setError);
+    await createAnonymousCart(access_data);
+    const customer_data = await createMyCustomer(data, access_data, setError);
     if (customer_data instanceof Error) return;
-    const login = await loginNewCustomer(customer_data);
+    const customer_token = await createCustomerToken(customer_data);
+    if (customer_token instanceof Error) return;
+    const login = await loginCustomer(customer_token, customer_data);
     if (login) {
       navigate('/');
     }

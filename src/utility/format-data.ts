@@ -28,7 +28,7 @@ export function formatData(data: FormInputs): FormatedData {
     shippingpostalCode = '',
     ...rest
   } = data;
-  console.log('DATA', data);
+
   const billing = renameKeys({ billingstreetName, billingcity, billingpostalCode, billingcountry });
 
   let shipping = {};
@@ -69,8 +69,6 @@ export function formatData(data: FormInputs): FormatedData {
       formatedData['defaultShippingAddress'] = 1;
     }
   }
-  console.log('DATA2', data);
-  console.log('DATA2', formatedData);
 
   return formatedData;
 }

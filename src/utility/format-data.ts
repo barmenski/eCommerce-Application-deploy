@@ -56,8 +56,10 @@ export function formatData(data: FormInputs): FormatedData {
   };
 
   if (rest.shippingBilling === 'true') {
-    formatedData['defaultBillingAddress'] = 0;
-    formatedData['defaultShippingAddress'] = 0;
+    if (rest.defaultBillingAddress === 'true') {
+      formatedData['defaultBillingAddress'] = 0;
+      formatedData['defaultShippingAddress'] = 0;
+    }
   } else {
     if (rest.defaultBillingAddress === 'true') {
       formatedData['defaultBillingAddress'] = 0;

@@ -86,7 +86,7 @@ export default function Navigation({ items }: Props): ReactElement {
                   </li>
                 ))
             : items
-                .filter((element) => element !== 'LogOut')
+                .filter((element) => element !== 'LogOut' && element !== 'Profile')
                 .map((item) => (
                   <li key={item} className={`li-menu`} onClick={closeHamburger}>
                     <Link className="nav-link" to={`/${item}`}>

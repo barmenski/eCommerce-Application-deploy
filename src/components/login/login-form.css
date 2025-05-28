@@ -2,7 +2,6 @@
 
 body {
   margin: 0;
-  font-family: sans-serif;
   background-color: rgb(3 7 9);
 }
 
@@ -11,23 +10,29 @@ body {
   align-items: center;
   justify-content: center;
 
-  min-height: 90vh;
+  min-height: calc(100vh - 64px);
   padding: 1rem;
 
-  background-color: #0d0f11;
+  color-scheme: dark;
+  background-color: var(--background-color-2);
+  background-image: url('/img/rocket_4.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .login-card {
   width: 100%;
   max-width: 400px;
+  min-height: 400px;
   padding: 2.5rem;
-  border: 1px solid #2a2d33;
   border-radius: 1rem;
 
   color: white;
 
-  background-color: #1b1d21;
-  box-shadow: 0 10px 25px rgb(0 0 0 / 30%);
+  background: #00000017;
+  background-color: var(--background-color-3);
+  backdrop-filter: blur(7px);
 }
 
 .login-title {
@@ -41,26 +46,28 @@ body {
   display: block;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
-  color: #d1d5db;
+  color: var(--font-color);
 }
 
 .login-input {
   width: 100%;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #2a2d33;
+  border: 1px solid transparent;
   border-radius: 0.375rem;
 
   font-size: 1rem;
   color: white;
 
-  background-color: #0d0f11;
+  background: #00000080;
+  background-color: var(--background-color-2);
+  backdrop-filter: blur(50px);
   outline: none;
 
-  transition: border 0.2s ease;
+  transition: border var(--transition);
 }
 
 .login-input:focus {
-  border-color: #dcdcdc;
+  border-color: var(--border-color-2);
 }
 
 .login-button {
@@ -78,7 +85,7 @@ body {
 
   background-color: #3d66f5;
 
-  transition: background-color 0.2s ease;
+  transition: background-color var(--transition);
 }
 
 .login-button:disabled {
@@ -89,7 +96,7 @@ body {
 }
 
 .login-button:hover {
-  background-color: #365adc;
+  background-color: var(--btn-color-2);
 }
 
 .error-message {
@@ -97,7 +104,7 @@ body {
   margin-top: 4px;
 
   font-size: 0.9em;
-  color: red;
+  color: var(--error-color);
 
   visibility: visible;
 }
@@ -134,12 +141,16 @@ body {
   align-items: center;
 
   font-size: 0.9rem;
-  color: #d1d5db;
+  color: var(--border-color);
 }
 
 .checkbox-input {
   cursor: pointer;
   margin-right: 0.5em;
+}
+
+.redirect {
+  color: var(--border-color);
 }
 
 .redirect-to-login-link {

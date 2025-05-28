@@ -40,7 +40,6 @@ export const tokenCache = {
     return { token: '', expirationTime: 0 };
   },
   set: (token: TokenStore | AccessToken): void => {
-    console.log(token);
     if (isAccessToken(token)) {
       const expirationTime = Date.now() + token.expires_in * 1000;
       const adapted: TokenStore = {
@@ -146,5 +145,6 @@ export const checkToken = (): void => {
   if (!valueToken && !valueAnonToken) {
     resetToAnonymous();
   }
+  localStorage.removeItem('ctp_anonymous_id');
 };
 checkToken();

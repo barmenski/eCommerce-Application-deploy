@@ -23,7 +23,7 @@ export const isAccessToken = (data: unknown): data is AccessToken => {
   );
 };
 
-const isTokenStore = (data: unknown): data is TokenStore => {
+export const isTokenStore = (data: unknown): data is TokenStore => {
   return typeof data === 'object' && data !== null && 'token' in data && 'expirationTime' in data;
 };
 

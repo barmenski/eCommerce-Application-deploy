@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { JSX } from 'react';
+import { Link } from 'react-router';
 import { getProducts } from '../../api/get-products';
 import { isTokenStore, isAccessToken } from '../../helpers/client-builder';
 import ProductCard from '../../components/Catalog/product-card';
@@ -23,9 +24,6 @@ const getToken = (): string => {
   }
 
   return '';
-};
-const handleBuy = (): void => {
-  console.log('Item added to cart!');
 };
 
 const ManageCatalog: React.FC = (): JSX.Element => {
@@ -56,19 +54,24 @@ const ManageCatalog: React.FC = (): JSX.Element => {
           const image =
             productData.masterVariant.images[0]?.url ?? 'https://via.placeholder.com/300x200';
           const price = productData.masterVariant.prices[0]?.value.centAmount ?? 0;
+          const discountedPrice =
+            productData.masterVariant.prices[0].discounted?.value.centAmount ?? 0;
           const currency = productData.masterVariant.prices[0].value.currencyCode ?? '';
+          const description =
+            productData.description['en-US'].replaceAll(/<\/?[^>]+(>|$)/g, '') || "Let's travel!";
 
           return (
-            <ProductCard
-              key={product.id}
-              image={image}
-              title={name}
-              description={productData.description['en-US'] || "Let's travel!"}
-              price={price / 100}
-              discountedPrice={(price / 100) * 0.75}
-              onBuyClick={handleBuy}
-              currency={currency}
-            />
+            <Link to={`/product/${product.id}`} key={product.id}>
+              <ProductCard
+                key={product.id}
+                image={image}
+                title={name}
+                description={description}
+                price={price / 100}
+                discountedPrice={discountedPrice / 100}
+                currency={currency}
+              />
+            </Link>
           );
         })
       ) : (

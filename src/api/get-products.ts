@@ -13,11 +13,19 @@ type Image = {
   dimensions: { w: number; h: number };
 };
 
+type PriceValue = {
+  centAmount: number;
+  currencyCode: string;
+  fractionDigits: number;
+  type: string;
+};
+
 type Price = {
-  country: string;
+  country?: string;
+  discounted: { discount: { id: string; typeId: string }; value: PriceValue };
   id: string;
-  key: string;
-  value: { centAmount: number; currencyCode: string; fractionDigits: number; type: string };
+  key?: string;
+  value: PriceValue;
 };
 
 type Variant = {
@@ -120,6 +128,7 @@ export async function getProducts(token: string): Promise<Products | null> {
       },
     });
     const products: unknown = await response.json();
+    console.log(products);
     if ((response.ok || response.status === 201) && isProducts(products)) {
       return products;
     } else {

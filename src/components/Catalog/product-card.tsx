@@ -7,7 +7,6 @@ type ProductCardProps = {
   description: string;
   price: number;
   discountedPrice?: number;
-  onBuyClick?: () => void;
   currency: string;
 };
 
@@ -17,7 +16,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   description,
   price,
   discountedPrice,
-  onBuyClick,
   currency,
 }) => {
   const showDiscount = discountedPrice && discountedPrice < price;
@@ -41,13 +39,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </span>
             </>
           ) : (
-            <span className="normal-price">{price.toFixed(2)} Br</span>
+            <span className="normal-price">
+              {price.toFixed(2)} {currency}
+            </span>
           )}
         </div>
-
-        <button className="buy-button" onClick={onBuyClick}>
-          Buy now
-        </button>
       </div>
     </div>
   );

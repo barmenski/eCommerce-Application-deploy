@@ -10,10 +10,12 @@ import NoPage from '../pages/NoPage/no-page';
 import SignUp from '../pages/SignUp/sign-up';
 import { Navigate } from 'react-router';
 import ProductPage from '../pages/ProductPage/product-page';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export default function App(): JSX.Element {
   const isToken = !!localStorage.getItem('ctp_token');
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(isToken);
+  const queryClient = new QueryClient();
 
   useEffect(() => {
     const onStorage = (): void => {
@@ -27,17 +29,19 @@ export default function App(): JSX.Element {
     };
   }, []);
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<ProductPage />} />
-        <Route path="/login" element={isUserLoggedIn ? <Navigate to="/home" /> : <Login />} />
-        <Route path="/signUp" element={<SignUp />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/home" element={<MainPage />} />
-        <Route path="*" element={<NoPage />} />
-      </Routes>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<ProductPage />} />
+          <Route path="/login" element={isUserLoggedIn ? <Navigate to="/home" /> : <Login />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/home" element={<MainPage />} />
+          <Route path="*" element={<NoPage />} />
+        </Routes>
+      </Router>
+    </QueryClientProvider>
   );
 }

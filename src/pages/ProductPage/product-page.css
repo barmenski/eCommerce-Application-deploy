@@ -1,0 +1,50 @@
+.container-section-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  background-color: var(--background-color);
+}
+
+.new-price {
+  font-size: 1.5rem;
+  color: #a44dc3;
+}
+
+.old-price {
+  color: var(--main-color);
+  text-decoration: line-through;
+}
+
+.standard-price {
+  color: var(--main-color);
+}
+
+.product-container {
+  display: flex;
+  flex-direction: row;
+  gap: 4%;
+  align-items: center;
+}
+
+.product-info {
+  max-width: 600px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  color: #e7e7e7;
+}
+
+.product-info p {
+  text-align: justify;
+}
+
+.product-name {
+  color: #a44dc3;
+}
+
+.prices-container {
+  display: flex;
+  gap: 5%;
+}

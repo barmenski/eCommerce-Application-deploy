@@ -96,20 +96,6 @@ function Login(): JSX.Element {
   const handleLogin = async (email: string, password: string): Promise<void> => {
     setLoginError('');
     try {
-      // await apiRoot
-      //   .withProjectKey({ projectKey })
-      //   .me()
-      //   .login()
-      //   .post({
-      //     body: {
-      //       email,
-      //       password,
-      //       activeCartSignInMode: 'MergeWithExistingCustomerCart',
-      //       updateProductData: true,
-      //     },
-      //   })
-      //   .execute();
-
       const token = await loginWithPasswordFlow(email, password);
       tokenCache.set(token);
       const customerApiRoot = buildClientWithToken(token.access_token);

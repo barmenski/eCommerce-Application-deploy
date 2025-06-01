@@ -52,7 +52,6 @@ export default function LoginForm({ onLogin, loginError }: LoginFormProps): JSX.
     const validationErrors = validate();
     setErrors(validationErrors);
     setIsValid(Object.keys(validationErrors).length === 0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, password]);
 
   const handleSubmit = (event_: React.FormEvent): void => {

@@ -9,6 +9,7 @@ import About from '../pages/About/about';
 import NoPage from '../pages/NoPage/no-page';
 import SignUp from '../pages/SignUp/sign-up';
 import { Navigate } from 'react-router';
+import ProductPage from '../pages/ProductPage/product-page';
 
 export default function App(): JSX.Element {
   const isToken = !!localStorage.getItem('ctp_token');
@@ -29,7 +30,7 @@ export default function App(): JSX.Element {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<ProductPage />} />
         <Route path="/login" element={isUserLoggedIn ? <Navigate to="/home" /> : <Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/catalog" element={<Catalog />} />

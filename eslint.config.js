@@ -6,8 +6,10 @@ import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 
 export default tseslint.config(
+  ...pluginQuery.configs['flat/recommended'],
   eslint.configs.recommended,
   tseslint.configs.strict,
   tseslint.configs.stylistic,

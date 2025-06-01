@@ -22,11 +22,18 @@
   color: var(--main-color);
 }
 
+.slider-container {
+  z-index: 0;
+  max-width: 500px;
+}
+
 .product-container {
   display: flex;
   flex-direction: row;
   gap: 4%;
   align-items: center;
+
+  padding: 5px;
 }
 
 .product-info {
@@ -36,10 +43,6 @@
   color: #e7e7e7;
 }
 
-.product-info p {
-  text-align: justify;
-}
-
 .product-name {
   color: #a44dc3;
 }
@@ -47,4 +50,136 @@
 .prices-container {
   display: flex;
   gap: 5%;
+}
+
+/* swiper */
+.swiper-slide {
+  z-index: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+
+  font-size: 18px;
+  text-align: center;
+
+  background: var(--background-color);
+}
+
+.swiper-slide img {
+  display: block;
+
+  width: 100%;
+  height: 570px;
+
+  object-fit: contain;
+  object-position: 55% 50%;
+}
+
+.swiper-pagination-bullet {
+  --swiper-pagination-bullet-inactive-color: red;
+
+  bottom: 0;
+
+  width: 20px;
+  height: 20px;
+
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+
+  opacity: 1;
+}
+
+.swiper-pagination {
+  bottom: 0;
+}
+
+.swiper-pagination-bullet-active {
+  color: #fff;
+  background: #007aff;
+}
+
+@media (width <= 968px) {
+  .product-container {
+    flex-direction: column;
+  }
+}
+
+@media (width <= 580px) {
+  .product-container {
+    flex-direction: column;
+  }
+
+  .swiper {
+    z-index: 0;
+    width: min(100%, 400px);
+    border-radius: 10px;
+  }
+
+  .product-info {
+    max-width: 400px;
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .slider-container {
+    z-index: 0;
+    max-width: 300px;
+  }
+
+  .swiper-slide img {
+    height: 450px;
+  }
+}
+
+.modal-swiper {
+  position: absolute;
+  z-index: 50;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 800px;
+  padding: 50px 10px;
+
+  background-color: var(--background-color);
+  outline: none;
+  box-shadow: 8px 16px 16px hsl(0deg 2% 50% / 25%);
+}
+
+.swiper-slide .zoom-image {
+  max-width: 800px;
+  height: 670px;
+  object-fit: contain;
+  object-position: 55% 50%;
+}
+
+.my-swiper.swiper {
+  z-index: 0;
+  width: min(100%, 800px);
+  border-radius: 10px;
+}
+
+.btn-close {
+  float: right;
+  border: 2px solid;
+  background-color: var(--main-color);
+}
+
+.btn-close:hover {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+@media (width <= 789px) {
+  .modal-swiper {
+    max-width: 90%;
+  }
+
+  .swiper-slide .zoom-image {
+    height: 570px;
+  }
 }

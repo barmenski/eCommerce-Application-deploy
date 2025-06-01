@@ -47,7 +47,7 @@ const ManageCatalog: React.FC = (): JSX.Element => {
 
   return (
     <div className="product-card-wrapper">
-      {products ? (
+      {products && products[0].masterData.current.masterVariant.prices[0] ? (
         products.map((product) => {
           const productData = product.masterData.current;
           const name = productData.name['en-US'];
@@ -75,7 +75,7 @@ const ManageCatalog: React.FC = (): JSX.Element => {
           );
         })
       ) : (
-        <p>Items is loading...</p>
+        <p className="product-card-error">Loading...</p>
       )}
     </div>
   );

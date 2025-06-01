@@ -128,7 +128,6 @@ export async function getProducts(token: string): Promise<Products | null> {
       },
     });
     const products: unknown = await response.json();
-    console.log(products);
     if ((response.ok || response.status === 201) && isProducts(products)) {
       return products;
     } else {
@@ -137,7 +136,7 @@ export async function getProducts(token: string): Promise<Products | null> {
       return null;
     }
   } catch (error) {
-    console.error('You probably should change url', error);
+    console.error('You probably should refresh anonToken', error);
     return null;
   }
 }

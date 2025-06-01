@@ -145,6 +145,27 @@ export const checkToken = (): void => {
   if (!valueToken && !valueAnonToken) {
     resetToAnonymous();
   }
+
+  try {
+    if (valueAnonToken) {
+      const parsedToken: unknown = JSON.parse(valueAnonToken);
+      if (!isTokenStore(parsedToken)) {
+        resetToAnonymous();
+        return;
+      }
+
+      const { expirationTime } = parsedToken;
+      const now = Date.now();
+
+      if (now >= expirationTime - 60_000) {
+        console.warn('⏳ Anonymous token is expired or about to expire, refreshing...');
+        resetToAnonymous();
+      }
+    }
+  } catch (error) {
+    console.error('❌ Failed to parse anonymous token, resetting session', error);
+    resetToAnonymous();
+  }
   localStorage.removeItem('ctp_anonymous_id');
 };
 checkToken();

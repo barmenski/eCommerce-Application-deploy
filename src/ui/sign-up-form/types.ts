@@ -1,5 +1,14 @@
-import type { Path, UseFormRegister, FieldErrors } from 'react-hook-form';
-import type { SignUpPattern } from '../../utility/regexp-patterns';
+import type {
+  Path,
+  UseFormRegister,
+  FieldErrors,
+  UseFormResetField,
+  UseFormHandleSubmit,
+  UseFormSetError,
+  UseFormReset,
+} from 'react-hook-form';
+import type { SignUpPattern, SignUpRegex } from '../../utility/regexp-patterns';
+import type { Dispatch, Ref, SetStateAction } from 'react';
 
 export type BaseFormInputs = {
   email: string;
@@ -56,4 +65,43 @@ export type SelectProps = {
   register: UseFormRegister<FormInputs>;
   pattern?: RegExp | SignUpPattern;
   validate?: <T>() => T;
+};
+
+export type CheckboxProps = {
+  name: string;
+  label: keyof FormInputs;
+  register: UseFormRegister<FormInputs>;
+  isChecked: boolean;
+};
+
+export type SpecialCheckboxProps = {
+  isChecked: boolean;
+  setIsChecked: Dispatch<SetStateAction<boolean>>;
+  register: UseFormRegister<FormInputs>;
+  resetField: UseFormResetField<FormInputs>;
+};
+
+export type SignUpFormProps = {
+  isFirstStep: boolean;
+  isChecked: boolean;
+  setIsChecked: Dispatch<SetStateAction<boolean>>;
+  register: UseFormRegister<FormInputs>;
+  errors: FieldErrors<FormInputs>;
+  isValid: boolean;
+  isSubmitSuccessful: boolean;
+  handleSubmit: UseFormHandleSubmit<FormInputs, FormInputs>;
+  setError: UseFormSetError<FormInputs>;
+  resetField: UseFormResetField<FormInputs>;
+};
+
+export type ModalProps = {
+  dialogReference: Ref<HTMLDialogElement> | undefined;
+  setEditMode: Dispatch<SetStateAction<{ state: boolean; value: string; version: number }>>;
+  isEditMode: { state: boolean; value: string; version: number };
+  handleSubmit: UseFormHandleSubmit<FormInputs, FormInputs>;
+  register: UseFormRegister<FormInputs>;
+  isValid: boolean;
+  reset: UseFormReset<FormInputs>;
+  errors: FieldErrors<FormInputs>;
+  array: [keyof BaseFormInputs, SignUpRegex][];
 };

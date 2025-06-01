@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  background-color: rgb(3 7 9);
+  background-color: var(--background-color);
 }
 
 .login-wrapper {
@@ -31,7 +31,8 @@ body {
   color: white;
 
   background: #00000017;
-  background-color: var(--background-color-3);
+
+  /* background-color: var(--background-color-3); */
   backdrop-filter: blur(7px);
 }
 
@@ -59,7 +60,8 @@ body {
   color: white;
 
   background: #00000080;
-  background-color: var(--background-color-2);
+
+  /* background-color: var(--background-color-2); */
   backdrop-filter: blur(50px);
   outline: none;
 

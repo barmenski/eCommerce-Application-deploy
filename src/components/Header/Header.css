@@ -88,7 +88,7 @@
   width: 2rem;
   height: 2rem;
 
-  background-image: url('../../../public/icons/basket.svg');
+  background-image: url('/icons/basket.svg');
   background-repeat: no-repeat;
   background-position: center;
 }

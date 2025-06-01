@@ -35,7 +35,7 @@
   text-align: center;
 }
 
-#sign-up-form {
+#form {
   min-width: 368px;
   max-width: 600px;
   max-height: 1000px;
@@ -70,35 +70,35 @@
   margin-bottom: 0;
 }
 
-.sign-up-form-li {
+.form-li {
   display: flex;
   flex-flow: column wrap;
 }
 
-.sign-up-form-li > label {
+.form-li > label {
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   color: var(--font-color);
   text-transform: capitalize;
 }
 
-.billing-address .sign-up-form-li:nth-of-type(1),
-.shipping-address .sign-up-form-li:nth-of-type(1) {
+.billing-address .form-li:nth-of-type(1),
+.shipping-address .form-li:nth-of-type(1) {
   grid-area: street;
 }
 
-.billing-address .sign-up-form-li:nth-of-type(2),
-.shipping-address .sign-up-form-li:nth-of-type(2) {
+.billing-address .form-li:nth-of-type(2),
+.shipping-address .form-li:nth-of-type(2) {
   grid-area: city;
 }
 
-.billing-address .sign-up-form-li:nth-of-type(3),
-.shipping-address .sign-up-form-li:nth-of-type(3) {
+.billing-address .form-li:nth-of-type(3),
+.shipping-address .form-li:nth-of-type(3) {
   grid-area: postal;
 }
 
-.billing-address .sign-up-form-li:nth-of-type(4),
-.shipping-address .sign-up-form-li:nth-of-type(4) {
+.billing-address .form-li:nth-of-type(4),
+.shipping-address .form-li:nth-of-type(4) {
   grid-area: country;
 }
 
@@ -114,7 +114,7 @@
   border-top: 1px solid var(--font-color-2);
 }
 
-.sign-up-form-input-style {
+.form-input-style {
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 7px;
@@ -128,16 +128,16 @@
   transition: border var(--transition);
 }
 
-.sign-up-form-input-style:focus {
+.form-input-style:focus {
   border-color: var(--border-color-2);
 }
 
-.sign-up-form-error-msg {
+.form-error-msg {
   font-size: 0.9rem;
   color: var(--error-color);
 }
 
-.sign-up-form-big-error-msg {
+.form-big-error-msg {
   grid-area: k;
 
   width: 100%;
@@ -147,7 +147,7 @@
   text-align: center;
 }
 
-.sign-up-form-success-msg {
+.form-success-msg {
   grid-area: k;
 
   width: 100%;
@@ -157,7 +157,7 @@
   text-align: center;
 }
 
-#sign-up-form-submit-btn {
+#form-submit-btn {
   cursor: pointer;
 
   width: 100%;
@@ -173,15 +173,15 @@
   background-color: var(--btn-color);
 }
 
-.sign-up-form-input-style option {
+.form-input-style option {
   background-color: var(--background-color-2);
 }
 
-#sign-up-form-submit-btn:hover {
+#form-submit-btn:hover {
   background-color: var(--btn-hoover-color);
 }
 
-.sign-up-form-control-buttons {
+.form-control-buttons {
   position: relative;
 
   min-width: 368px;
@@ -205,12 +205,12 @@
   background-color: var(--btn-color-2);
 }
 
-.sign-up-form-control-back-button {
+.form-control-back-button {
   position: absolute;
   left: 20px;
 }
 
-.sign-up-form-control-next-button {
+.form-control-next-button {
   position: absolute;
   right: 20px;
 }

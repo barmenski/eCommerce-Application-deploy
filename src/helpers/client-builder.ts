@@ -1,5 +1,4 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import type { CustomerLSData } from '../api/create-customer-token';
 import type {
   TokenStore,
   HttpMiddlewareOptions,
@@ -27,12 +26,6 @@ export const isTokenStore = (data: unknown): data is TokenStore => {
   return typeof data === 'object' && data !== null && 'token' in data && 'expirationTime' in data;
 };
 
-export const isCustomerLSData = (data: unknown): data is CustomerLSData => {
-  return (
-    typeof data === 'object' && data !== null && 'access_token' in data && 'refresh_token' in data
-  );
-};
-
 export const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY || '';
 
 export const tokenCache = {
@@ -40,22 +33,18 @@ export const tokenCache = {
     const valueToken = localStorage.getItem('ctp_token');
     if (!valueToken) return { token: '', expirationTime: 0 }; // fallback
     const parsedToken: unknown = JSON.parse(valueToken);
-    if (isCustomerLSData(parsedToken)) {
-      const adapted: TokenStore = {
-        token: parsedToken.access_token,
-        refreshToken: parsedToken.refresh_token,
-        expirationTime: parsedToken.expirationTime,
-      };
-      return adapted;
+    if (isTokenStore(parsedToken)) {
+      return parsedToken;
     }
+
     return { token: '', expirationTime: 0 };
   },
   set: (token: TokenStore | AccessToken): void => {
     if (isAccessToken(token)) {
       const expirationTime = Date.now() + token.expires_in * 1000;
-      const adapted: CustomerLSData = {
-        access_token: token.access_token,
-        refresh_token: token.refresh_token,
+      const adapted: TokenStore = {
+        token: token.access_token,
+        refreshToken: token.refresh_token,
         expirationTime,
       };
       localStorage.setItem('ctp_token', JSON.stringify(adapted));

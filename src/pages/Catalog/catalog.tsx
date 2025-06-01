@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import type { JSX } from 'react';
 import { Link } from 'react-router';
 import { getProducts } from '../../api/get-products';
-import { isTokenStore, isAccessToken } from '../../helpers/client-builder';
+import { isTokenStore, checkToken } from '../../helpers/client-builder';
 import ProductCard from '../../components/Catalog/product-card';
 import type { Product } from '../../api/get-products';
 import './catalog.css';
 
 const getToken = (): string => {
+  checkToken();
   const valueToken = localStorage.getItem('ctp_token');
   const valueAnonToken = localStorage.getItem('ctp_anon_token');
-
   if (valueToken) {
     const parsedToken: unknown = JSON.parse(valueToken);
-    if (isAccessToken(parsedToken)) {
-      return parsedToken.access_token;
+    if (isTokenStore(parsedToken)) {
+      return parsedToken.token;
     }
   } else if (valueAnonToken) {
     const parsedAnonToken: unknown = JSON.parse(valueAnonToken);

@@ -1,5 +1,4 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-
 import type {
   TokenStore,
   HttpMiddlewareOptions,
@@ -37,6 +36,7 @@ export const tokenCache = {
     if (isTokenStore(parsedToken)) {
       return parsedToken;
     }
+
     return { token: '', expirationTime: 0 };
   },
   set: (token: TokenStore | AccessToken): void => {

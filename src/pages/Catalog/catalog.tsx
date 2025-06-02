@@ -45,6 +45,8 @@ const ManageCatalog: React.FC = (): JSX.Element => {
     fetchData();
   }, []);
 
+  console.log('слайдер с одной картинкой - планета B6XX205');
+
   return (
     <div className="product-card-wrapper">
       {products && products[0].masterData.current.masterVariant.prices[0] ? (
@@ -61,7 +63,7 @@ const ManageCatalog: React.FC = (): JSX.Element => {
             productData.description['en-US'].replaceAll(/<\/?[^>]+(>|$)/g, '') || "Let's travel!";
 
           return (
-            <Link to={`/product/${product.id}`} key={product.id}>
+            <Link to={`/product/${product.key}`} key={product.id}>
               <ProductCard
                 key={product.id}
                 image={image}

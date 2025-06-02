@@ -1,0 +1,192 @@
+.container-section-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  background-color: var(--background-color);
+}
+
+.new-price {
+  font-size: 1.5rem;
+  color: #a44dc3;
+}
+
+.old-price {
+  color: var(--main-color);
+  text-decoration: line-through;
+}
+
+.standard-price {
+  color: var(--main-color);
+}
+
+.slider-container {
+  z-index: 0;
+  max-width: 400px;
+}
+
+.product-container {
+  display: flex;
+  flex-direction: row;
+  gap: 4%;
+  align-items: center;
+
+  padding: 5px;
+}
+
+.product-info {
+  max-width: 600px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  color: #e7e7e7;
+}
+
+.product-name {
+  color: #a44dc3;
+}
+
+.prices-container {
+  display: flex;
+  gap: 5%;
+}
+
+/* swiper */
+.swiper-slide {
+  z-index: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+
+  font-size: 18px;
+  text-align: center;
+
+  background: var(--background-color);
+}
+
+.swiper-slide img {
+  display: block;
+
+  width: 100%;
+  height: 570px;
+
+  object-fit: contain;
+  object-position: 55% 50%;
+}
+
+.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
+  position: relative;
+  bottom: 0;
+  margin-top: 5px;
+}
+
+.swiper-pagination-bullet {
+  --swiper-pagination-bullet-inactive-color: red;
+
+  bottom: 0;
+
+  width: 20px;
+  height: 20px;
+
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  color: #fff;
+  background: #007aff;
+}
+
+@media (width <= 968px) {
+  .product-container {
+    flex-direction: column;
+  }
+}
+
+@media (width <= 670px) {
+  .product-container {
+    flex-direction: column;
+  }
+
+  .swiper {
+    z-index: 0;
+    width: min(100%, 400px);
+    border-radius: 10px;
+  }
+
+  .product-info {
+    max-width: 400px;
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .slider-container {
+    z-index: 0;
+    max-width: 300px;
+  }
+
+  .swiper-slide img {
+    height: 450px;
+  }
+}
+
+.modal-swiper {
+  position: absolute;
+  z-index: 50;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 800px;
+  margin: 5px;
+  padding: 50px 10px;
+
+  background-color: var(--background-color);
+  outline: none;
+  box-shadow: 8px 16px 16px hsl(0deg 2% 50% / 25%);
+}
+
+.swiper-slide .zoom-image {
+  max-width: 800px;
+  height: 670px;
+  object-fit: contain;
+  object-position: 55% 50%;
+}
+
+.my-swiper.swiper {
+  z-index: 0;
+  width: min(100%, 800px);
+  border-radius: 10px;
+}
+
+.btn-close {
+  float: right;
+  border: 2px solid;
+  background-color: var(--main-color);
+}
+
+.btn-close:hover {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+@media (width <= 789px) {
+  .modal-swiper {
+    width: 90%;
+  }
+
+  .swiper-slide .zoom-image {
+    height: 570px;
+  }
+}
+
+.swiper-slide.my-swiper {
+  overflow: visible;
+}

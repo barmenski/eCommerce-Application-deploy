@@ -5,7 +5,7 @@ export type AccessData = {
   token_type: string;
 };
 
-export async function getAccessToken(): Promise<AccessData | Error> {
+export async function getAccessToken(): Promise<AccessData> {
   const bodyData = `grant_type=client_credentials&scope=${import.meta.env.VITE_CTP_SCOPES}`;
   const authData =
     import.meta.env.VITE_CTP_CLIENT_ID + ':' + import.meta.env.VITE_CTP_CLIENT_SECRET;

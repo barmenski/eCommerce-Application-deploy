@@ -9,6 +9,7 @@ import About from '../pages/About/about';
 import NoPage from '../pages/NoPage/no-page';
 import SignUp from '../pages/SignUp/sign-up';
 import { Navigate } from 'react-router';
+import ProductPage from '../pages/ProductPage/product-page';
 
 export default function App(): JSX.Element {
   const isToken = !!localStorage.getItem('ctp_token');
@@ -25,6 +26,7 @@ export default function App(): JSX.Element {
       globalThis.removeEventListener('storage', onStorage);
     };
   }, []);
+
   return (
     <Router>
       <Header />
@@ -36,6 +38,7 @@ export default function App(): JSX.Element {
         <Route path="/about" element={<About />} />
         <Route path="/home" element={<MainPage />} />
         <Route path="*" element={<NoPage />} />
+        <Route path="/product/:key" element={<ProductPage />} />
       </Routes>
     </Router>
   );

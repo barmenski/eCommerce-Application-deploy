@@ -23,7 +23,7 @@ export const isAccessToken = (data: unknown): data is AccessToken => {
   );
 };
 
-const isTokenStore = (data: unknown): data is TokenStore => {
+export const isTokenStore = (data: unknown): data is TokenStore => {
   return typeof data === 'object' && data !== null && 'token' in data && 'expirationTime' in data;
 };
 
@@ -49,7 +49,7 @@ export const tokenCache = {
       };
       localStorage.setItem('ctp_token', JSON.stringify(adapted));
     } else {
-      localStorage.setItem('ctp_token', JSON.stringify(token));
+      localStorage.setItem('ctp_anon_token', JSON.stringify(token));
     }
     globalThis.dispatchEvent(new Event('storage'));
   },
@@ -57,8 +57,8 @@ export const tokenCache = {
 
 function getOrCreateAnonymousId(): string {
   const stored = localStorage.getItem('ctp_anonymous_id');
-  const token = tokenCache.get();
-  if (!stored || !token.token) {
+  const valueAnonToken = localStorage.getItem('ctp_anon_token');
+  if (!stored || !valueAnonToken) {
     const newId = crypto.randomUUID();
     localStorage.setItem('ctp_anonymous_id', newId);
     return newId;
@@ -100,6 +100,17 @@ export const resetToAnonymous = (): void => {
     .build();
 
   currentApiRoot = createApiBuilderFromCtpClient(anonClient);
+  currentApiRoot
+    .withProjectKey({ projectKey: import.meta.env.VITE_CTP_PROJECT_KEY })
+    .products()
+    .get({ queryArgs: { limit: 1 } })
+    .execute()
+    .then(() => {
+      tokenCache.get();
+    })
+    .catch((error) => {
+      console.error('❌ Failed to initialize anonymous session:', error);
+    });
 };
 
 export const logout = (): void => {
@@ -127,3 +138,34 @@ let currentApiRoot: ApiRoot = createApiBuilderFromCtpClient(
     .withHttpMiddleware(httpMiddlewareOptions)
     .build(),
 );
+
+export const checkToken = (): void => {
+  const valueToken = localStorage.getItem('ctp_token');
+  const valueAnonToken = localStorage.getItem('ctp_anon_token');
+  if (!valueToken && !valueAnonToken) {
+    resetToAnonymous();
+  }
+
+  try {
+    if (valueAnonToken) {
+      const parsedToken: unknown = JSON.parse(valueAnonToken);
+      if (!isTokenStore(parsedToken)) {
+        resetToAnonymous();
+        return;
+      }
+
+      const { expirationTime } = parsedToken;
+      const now = Date.now();
+
+      if (now >= expirationTime - 60_000) {
+        console.warn('⏳ Anonymous token is expired or about to expire, refreshing...');
+        resetToAnonymous();
+      }
+    }
+  } catch (error) {
+    console.error('❌ Failed to parse anonymous token, resetting session', error);
+    resetToAnonymous();
+  }
+  localStorage.removeItem('ctp_anonymous_id');
+};
+checkToken();

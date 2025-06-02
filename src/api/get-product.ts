@@ -55,6 +55,9 @@ export async function getProduct(key: string): Promise<Planet> {
     if (productData.statusCode === 401) {
       console.log('Error:', productData.message);
     }
+    if (productData.statusCode === 404) {
+      console.log('Error:', productData.message);
+    }
     return productData;
   } catch (error) {
     console.error('Error:', error);

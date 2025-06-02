@@ -1,0 +1,22 @@
+.product-card-wrapper {
+    overflow: hidden;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-card-error {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

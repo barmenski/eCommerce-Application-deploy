@@ -26,17 +26,21 @@ export default function App(): JSX.Element {
       globalThis.removeEventListener('storage', onStorage);
     };
   }, []);
+
+  // let { key } = useParams();
+
   return (
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<ProductPage />} />
+        {/* <Route path="/" element={<ProductPage />} /> */}
         <Route path="/login" element={isUserLoggedIn ? <Navigate to="/home" /> : <Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/about" element={<About />} />
         <Route path="/home" element={<MainPage />} />
         <Route path="*" element={<NoPage />} />
+        <Route path="/product/:key" element={<ProductPage />} />
       </Routes>
     </Router>
   );

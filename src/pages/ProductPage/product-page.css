@@ -108,7 +108,7 @@
   }
 }
 
-@media (width <= 580px) {
+@media (width <= 670px) {
   .product-container {
     flex-direction: column;
   }
@@ -143,6 +143,7 @@
   transform: translate(-50%, -50%);
 
   max-width: 800px;
+  margin: 5px;
   padding: 50px 10px;
 
   background-color: var(--background-color);

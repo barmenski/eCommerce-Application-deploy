@@ -24,7 +24,6 @@ export default function SignUpForm(props: SignUpFormProps): JSX.Element {
     register,
     errors,
     isValid,
-    isSubmitSuccessful,
     handleSubmit,
     setError,
     resetField,
@@ -111,8 +110,6 @@ export default function SignUpForm(props: SignUpFormProps): JSX.Element {
       )}
 
       {errors.root && <div className="form-big-error-msg">{errors.root.message}</div>}
-
-      {isSubmitSuccessful && <div className="form-success-msg">You Successfully Register!</div>}
     </form>
   );
 }

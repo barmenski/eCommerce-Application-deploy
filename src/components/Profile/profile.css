@@ -42,9 +42,18 @@
 }
 
 .profile-edit-button {
+  cursor: pointer;
+
   grid-area: button;
   place-self: end;
-  width: 50px;
+
+  padding: 4px 18px;
+  border: none;
+  border-radius: 5px;
+
+  text-align: center;
+
+  background-color: var(--btn-color-2);
 }
 
 .profile-data {
@@ -124,4 +133,57 @@
 
 .modal-save-btn:hover {
   background-color: var(--btn-hoover-color);
+}
+
+.feedback {
+  position: fixed;
+  z-index: 5;
+  top: 70px;
+  right: 0;
+
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 320px;
+  margin: 0;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 15px 0 0 15px;
+
+  background-color: var(--success-color);
+  box-shadow: -3px 1px 20px 3px #13633efc;
+
+  animation-name: show-modal;
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
+}
+
+.feedback-msg {
+  min-width: 100%;
+  border: none;
+
+  font-size: 1.5rem;
+  color: var(--font-color-2);
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+
+  background-color: inherit;
+}
+
+@keyframes show-modal {
+  from {
+    transform: translateX(100%);
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+  }
 }

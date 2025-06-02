@@ -18,6 +18,7 @@ export default function Modal(props: ModalProps): JSX.Element {
     errors,
     reset,
     setError,
+    setIsVisible,
     array,
   } = props;
 
@@ -50,6 +51,8 @@ export default function Modal(props: ModalProps): JSX.Element {
         if (update instanceof Error) return;
         queryClient.invalidateQueries({ queryKey: ['data'] });
         handleCloseEvent();
+
+        setIsVisible(true);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -93,6 +96,7 @@ export default function Modal(props: ModalProps): JSX.Element {
             </button>
           </form>
         )}
+
         {errors.root && <div className="form-big-error-msg">{errors.root.message}</div>}
       </div>
     </dialog>

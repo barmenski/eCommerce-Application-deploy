@@ -105,5 +105,6 @@ export type ModalProps = {
   isValid: boolean;
   reset: UseFormReset<FormInputs>;
   errors: FieldErrors<FormInputs>;
+  setIsVisible: Dispatch<SetStateAction<boolean>>;
   array: [keyof BaseFormInputs, SignUpRegex][];
 };

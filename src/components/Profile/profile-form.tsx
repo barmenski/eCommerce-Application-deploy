@@ -8,10 +8,12 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { formatString } from '../../utility/format-string';
 import Modal from '../../ui/modal';
 import { isKeyOfType } from '../../utility/key-of-type';
+import Feedback from '../../ui/feedback';
 
 export function ProfileForm(): JSX.Element {
   const dialogReference = useRef<HTMLDialogElement>(null);
   const [isEditMode, setEditMode] = useState({ state: false, value: '', version: 1 });
+  const [isVisible, setIsVisible] = useState(false);
 
   const { data } = useSuspenseQuery({
     queryKey: ['data'],
@@ -90,7 +92,14 @@ export function ProfileForm(): JSX.Element {
         errors={errors}
         reset={reset}
         setError={setError}
+        setIsVisible={setIsVisible}
         array={baseArray.filter((item) => item[0] === isEditMode.value)}
+      />
+      <Feedback
+        message={'success'}
+        duration={3000}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
       />
     </>
   );

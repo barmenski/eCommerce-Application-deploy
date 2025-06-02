@@ -16,6 +16,7 @@ export type BaseFormInputs = {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
+  currentPassword?: string;
 };
 
 export type AddressFormInputs = {
@@ -100,6 +101,7 @@ export type ModalProps = {
   isEditMode: { state: boolean; value: string; version: number };
   handleSubmit: UseFormHandleSubmit<FormInputs, FormInputs>;
   register: UseFormRegister<FormInputs>;
+  setError: UseFormSetError<FormInputs>;
   isValid: boolean;
   reset: UseFormReset<FormInputs>;
   errors: FieldErrors<FormInputs>;

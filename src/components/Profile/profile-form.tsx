@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, type JSX } from 'react';
 import { getCustomer } from '../../api/get-customer';
 import './profile.css';
 import { useForm } from 'react-hook-form';
-import type { FormInputs } from '../../ui/sign-up-form/types';
+import type { BaseFormInputs, FormInputs } from '../../ui/sign-up-form/types';
 import { baseRegexDelivery } from '../../utility/regexp-patterns';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { formatString } from '../../utility/format-string';
@@ -18,7 +18,7 @@ export function ProfileForm(): JSX.Element {
     queryFn: getCustomer,
   });
 
-  const basicData = {
+  const basicData: BaseFormInputs = {
     email: data?.email,
     firstName: data?.firstName,
     lastName: data?.lastName,
@@ -36,6 +36,7 @@ export function ProfileForm(): JSX.Element {
     formState: { errors, isValid },
     resetField,
     reset,
+    setError,
   } = useForm<FormInputs>({
     mode: 'onChange',
     // defaultValues: { ...basicData },
@@ -71,7 +72,7 @@ export function ProfileForm(): JSX.Element {
         <h3 className="profile-name">User Info</h3>
         {baseArray.map((item) => (
           <div className="profile-el" key={item[0]} data-value={item[0]} data-type={item[1].type}>
-            <label className="profile-label">{formatString(item[0], ' ')}</label>
+            <span className="profile-label">{formatString(item[0], ' ')}</span>
             <button className="profile-edit-button" onClick={handleEditClick}>
               edit
             </button>
@@ -88,6 +89,7 @@ export function ProfileForm(): JSX.Element {
         isValid={isValid}
         errors={errors}
         reset={reset}
+        setError={setError}
         array={baseArray.filter((item) => item[0] === isEditMode.value)}
       />
     </>

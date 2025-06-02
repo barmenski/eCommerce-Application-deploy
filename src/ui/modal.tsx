@@ -5,6 +5,7 @@ import type { SubmitHandler } from 'react-hook-form';
 import updateSetting from '../api/update-setting';
 import { useQueryClient } from '@tanstack/react-query';
 import { updateCustomerMap } from '../utility/update-customer-map';
+import PasswordInput from '../components/Profile/password-input';
 
 export default function Modal(props: ModalProps): JSX.Element {
   const {
@@ -16,6 +17,7 @@ export default function Modal(props: ModalProps): JSX.Element {
     isValid,
     errors,
     reset,
+    setError,
     array,
   } = props;
 
@@ -23,19 +25,17 @@ export default function Modal(props: ModalProps): JSX.Element {
 
   function handleEscape(event: { key: string }): void {
     if (event.key === 'Escape') {
-      setEditMode({
-        state: !isEditMode.state,
-        value: isEditMode.value,
-        version: isEditMode.version,
-      });
+      setEditMode({ ...isEditMode, state: !isEditMode.state });
+      reset();
     }
   }
 
   function handleCloseEvent(): void {
     if (!dialogReference) return;
-    setEditMode({ state: !isEditMode.state, value: isEditMode.value, version: isEditMode.version });
+    setEditMode({ ...isEditMode, state: !isEditMode.state });
 
     if ('current' in dialogReference) {
+      reset();
       dialogReference?.current?.close();
     }
   }
@@ -44,11 +44,11 @@ export default function Modal(props: ModalProps): JSX.Element {
     try {
       const action = updateCustomerMap().get(isEditMode.value);
       const version = isEditMode.version;
-      if (typeof action === 'string') {
-        await updateSetting(action, data, version);
 
+      if (typeof action === 'string') {
+        const update = await updateSetting(action, data, version, setError);
+        if (update instanceof Error) return;
         queryClient.invalidateQueries({ queryKey: ['data'] });
-        reset();
         handleCloseEvent();
       }
     } catch (error) {
@@ -70,6 +70,7 @@ export default function Modal(props: ModalProps): JSX.Element {
         </div>
         {isEditMode.state && (
           <form id="profile-form" onSubmit={handleSubmit(onSubmit)}>
+            {array?.[0]?.[0] === 'password' && <PasswordInput register={register} error={errors} />}
             {array.map((item) => (
               <FormInput
                 key={item + '1'}
@@ -92,6 +93,7 @@ export default function Modal(props: ModalProps): JSX.Element {
             </button>
           </form>
         )}
+        {errors.root && <div className="form-big-error-msg">{errors.root.message}</div>}
       </div>
     </dialog>
   );

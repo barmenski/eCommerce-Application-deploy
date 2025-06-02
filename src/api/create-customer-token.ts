@@ -2,8 +2,8 @@ import type { CustomerData } from './create-new-customer';
 import { setLSData } from '../utility/local-storage';
 
 export type CustomerLSData = {
-  access_token: string;
-  refresh_token: string;
+  token: string;
+  refreshToken: string;
   expirationTime: number;
 };
 
@@ -36,8 +36,8 @@ export async function createCustomerToken(data: CustomerData): Promise<CustomerL
     if (response.ok) {
       const expirationTime = Date.now() + login_data.expires_in * 1000;
       const data: CustomerLSData = {
-        access_token: login_data.access_token,
-        refresh_token: login_data.refresh_token,
+        token: login_data.access_token,
+        refreshToken: login_data.refresh_token,
         expirationTime,
       };
       setLSData('ctp_token', data);

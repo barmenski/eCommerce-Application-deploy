@@ -2,10 +2,9 @@ import type { JSX } from 'react';
 import { getProduct } from '../../api/get-product';
 import './product-page.css';
 import { useQuery } from '@tanstack/react-query';
-import Slider from './swiper';
+import Slider from '../../components/Swiper/swiper';
 import { useParams } from 'react-router';
 
-// const product: Planet = await getProduct('flight-starship-2017-OF201');
 function assertIsDefined<T>(value: T): NonNullable<T> {
   if (value === undefined || value === null) {
     throw new Error(`Value is not defined`);
@@ -14,12 +13,6 @@ function assertIsDefined<T>(value: T): NonNullable<T> {
 }
 
 export default function ProductPage(): JSX.Element {
-  //flight-2017-OF201
-  // const queryClient = useQueryClient();
-  //flight-HD149026b
-  //flight-B6XX205
-  //flight-A890-V513
-
   const { key } = useParams();
 
   const { isPending, isError, data, error } = useQuery({

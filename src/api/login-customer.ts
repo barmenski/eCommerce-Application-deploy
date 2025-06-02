@@ -11,7 +11,7 @@ export async function loginCustomer(
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + customerToken.access_token,
+        Authorization: 'Bearer ' + customerToken.token,
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: bodyData,

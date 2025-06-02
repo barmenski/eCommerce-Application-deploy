@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { Pagination } from 'swiper/modules';
 import type { ReactNode } from 'react';
-import './product-page.css';
+import '../../pages/ProductPage/product-page.css';
 import type { PlanetImages } from '../../api/get-product';
 import React, { useState } from 'react';
 import Modal from 'react-modal';
@@ -71,7 +71,7 @@ export default function Slider(images: PlanetImages[]): ReactNode {
           initialSlide={imageIndex}
         >
           {...arrayImages.map((image, index) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={index} className="zoom-image">
               <div>
                 <img src={image.url} />
               </div>

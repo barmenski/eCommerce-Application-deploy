@@ -27,13 +27,11 @@ export default function App(): JSX.Element {
     };
   }, []);
 
-  // let { key } = useParams();
-
   return (
     <Router>
       <Header />
       <Routes>
-        {/* <Route path="/" element={<ProductPage />} /> */}
+        <Route path="/" element={<MainPage />} />
         <Route path="/login" element={isUserLoggedIn ? <Navigate to="/home" /> : <Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/catalog" element={<Catalog />} />

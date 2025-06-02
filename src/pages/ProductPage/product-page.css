@@ -24,7 +24,7 @@
 
 .slider-container {
   z-index: 0;
-  max-width: 500px;
+  max-width: 400px;
 }
 
 .product-container {
@@ -78,6 +78,12 @@
   object-position: 55% 50%;
 }
 
+.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
+  position: relative;
+  bottom: 0;
+  margin-top: 5px;
+}
+
 .swiper-pagination-bullet {
   --swiper-pagination-bullet-inactive-color: red;
 
@@ -91,10 +97,6 @@
   text-align: center;
 
   opacity: 1;
-}
-
-.swiper-pagination {
-  bottom: 0;
 }
 
 .swiper-pagination-bullet-active {
@@ -177,10 +179,14 @@
 
 @media (width <= 789px) {
   .modal-swiper {
-    max-width: 90%;
+    width: 90%;
   }
 
   .swiper-slide .zoom-image {
     height: 570px;
   }
+}
+
+.swiper-slide.my-swiper {
+  overflow: visible;
 }

@@ -1,3 +1,7 @@
+body[class$='open'] {
+  overflow: hidden;
+}
+
 .container-section-product {
   display: flex;
   flex-direction: column;
@@ -140,7 +144,7 @@
 .modal-swiper {
   position: absolute;
   z-index: 50;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -167,14 +171,33 @@
 }
 
 .btn-close {
-  float: right;
-  border: 2px solid;
-  background-color: var(--main-color);
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 51;
+  top: 10px;
+  right: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+
+  background-color: inherit;
+}
+
+.btn-close::after {
+  content: url('/icons/cross_48.svg');
+  width: 48px;
+  height: 48px;
 }
 
 .btn-close:hover {
   cursor: pointer;
-  background-color: var(--hover);
 }
 
 @media (width <= 789px) {

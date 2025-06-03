@@ -111,7 +111,7 @@ export default function LoginForm({ onLogin, loginError }: LoginFormProps): JSX.
             Show password
           </label>
         </div>
-        <p>
+        <p className="redirect">
           You are not registered?{' '}
           <Link className="redirect-to-login-link" to={'/signUp'}>
             Signup

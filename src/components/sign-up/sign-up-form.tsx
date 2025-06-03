@@ -1,15 +1,9 @@
-import type { Dispatch, JSX, SetStateAction } from 'react';
-import type {
-  FieldErrors,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormResetField,
-  UseFormSetError,
-} from 'react-hook-form';
+import type { JSX } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+
 import { useNavigate } from 'react-router';
 import { HiddenInput } from '../../ui/sign-up-form/hidden-input';
-import type { FormInputs } from '../../ui/sign-up-form/types';
+import type { FormInputs, SignUpFormProps } from '../../ui/sign-up-form/types';
 import { addressRegexDelivery, baseRegexDelivery } from '../../utility/regexp-patterns';
 import BaseForm from './basic-form';
 import BillingAddress from './billing-address';
@@ -22,29 +16,19 @@ import { loginCustomer } from '../../api/login-customer';
 import AddressCheckBox from '../../ui/sign-up-form/address-checkbox';
 import './signup.css';
 
-export default function SignUpForm({
-  isFirstStep,
-  isChecked,
-  setIsChecked,
-  register,
-  errors,
-  isValid,
-  isSubmitSuccessful,
-  handleSubmit,
-  setError,
-  resetField,
-}: {
-  isFirstStep: boolean;
-  isChecked: boolean;
-  setIsChecked: Dispatch<SetStateAction<boolean>>;
-  register: UseFormRegister<FormInputs>;
-  errors: FieldErrors<FormInputs>;
-  isValid: boolean;
-  isSubmitSuccessful: boolean;
-  handleSubmit: UseFormHandleSubmit<FormInputs, FormInputs>;
-  setError: UseFormSetError<FormInputs>;
-  resetField: UseFormResetField<FormInputs>;
-}): JSX.Element {
+export default function SignUpForm(props: SignUpFormProps): JSX.Element {
+  const {
+    isFirstStep,
+    isChecked,
+    setIsChecked,
+    register,
+    errors,
+    isValid,
+    handleSubmit,
+    setError,
+    resetField,
+  } = props;
+
   const navigate = useNavigate();
   const baseArray = [...baseRegexDelivery().entries()];
   const addressArray = [...addressRegexDelivery().entries()];
@@ -60,7 +44,9 @@ export default function SignUpForm({
       if (customer_token instanceof Error) return;
       const login = await loginCustomer(customer_token, customer_data);
       if (login) {
-        navigate('/');
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
       }
     } catch (error) {
       console.error('Submit Error:', error);
@@ -68,7 +54,7 @@ export default function SignUpForm({
   };
 
   return (
-    <form id="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
+    <form id="form" onSubmit={handleSubmit(onSubmit)}>
       {isFirstStep && (
         <div className="first-page-wrapper">
           <BaseForm baseArray={baseArray} register={register} errors={errors} />
@@ -117,17 +103,13 @@ export default function SignUpForm({
           className={[!isValid && 'disabled', ''].join(' ')}
           disabled={!isValid}
           type="submit"
-          id="sign-up-form-submit-btn"
+          id="form-submit-btn"
         >
           Submit
         </button>
       )}
 
-      {errors.root && <div className="sign-up-form-big-error-msg">{errors.root.message}</div>}
-
-      {isSubmitSuccessful && (
-        <div className="sign-up-form-success-msg">You Successfully Register!</div>
-      )}
+      {errors.root && <div className="form-big-error-msg">{errors.root.message}</div>}
     </form>
   );
 }

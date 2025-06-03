@@ -59,9 +59,7 @@ export default function Slider(images: PlanetImages[]): ReactNode {
           },
         }}
       >
-        <button onClick={closeModal} className="btn-close">
-          ✖️
-        </button>
+        <button onClick={closeModal} className="btn-close"></button>
         <Swiper
           effect={'fade'}
           watchOverflow={true}

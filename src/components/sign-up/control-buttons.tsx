@@ -18,12 +18,12 @@ export default function ControlButtons({
   }
 
   return (
-    <div className="sign-up-form-control-buttons">
+    <div className="form-control-buttons">
       {!isFirstStep && (
         <button
           className={[
             'control-btn-style',
-            'sign-up-form-control-back-button',
+            'form-control-back-button',
             isFirstStep && 'disabled',
           ].join(' ')}
           onClick={handleBackButton}
@@ -35,11 +35,9 @@ export default function ControlButtons({
       )}
       {isFirstStep && (
         <button
-          className={[
-            'control-btn-style',
-            'sign-up-form-control-next-button',
-            !isValid && 'disabled',
-          ].join(' ')}
+          className={['control-btn-style', 'form-control-next-button', !isValid && 'disabled'].join(
+            ' ',
+          )}
           onClick={handleNextButton}
           type="button"
           disabled={!isValid}

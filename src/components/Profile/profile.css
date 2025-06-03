@@ -1,0 +1,189 @@
+.profile-wrapper {
+  padding: 0 40px;
+  padding: 20px;
+  color-scheme: dark;
+  background-color: var(--background-color-3);
+}
+
+.profile-h1 {
+  color: white;
+}
+
+.profile-name {
+  color: white;
+}
+
+.profile {
+  /* max-width: 400px; */
+  display: flex;
+  flex-flow: column nowrap;
+
+  /* gap: 10px; */
+  color: white;
+}
+
+.profile-el {
+  display: grid;
+  grid-template-areas:
+    'label button'
+    'data data';
+
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+
+  background-color: var(--background-color-2);
+}
+
+.profile-label {
+  grid-area: label;
+  font-size: 0.8rem;
+  color: var(--font-color-2);
+  text-transform: capitalize;
+}
+
+.profile-edit-button {
+  cursor: pointer;
+
+  grid-area: button;
+  place-self: end;
+
+  padding: 4px 18px;
+  border: none;
+  border-radius: 5px;
+
+  text-align: center;
+
+  background-color: var(--btn-color-2);
+}
+
+.profile-data {
+  grid-area: data;
+  margin: 5px 0;
+}
+
+.profile-modal {
+  min-width: 360px;
+  max-width: 360px;
+  border: none;
+  border-radius: 17px;
+
+  color: var(--font-color-2);
+
+  background-color: inherit;
+}
+
+.profile-modal-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 20px;
+}
+
+.modal-head {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-head-txt {
+  font-size: 1.1rem;
+}
+
+.close-modal-btn {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+
+  background-color: inherit;
+}
+
+.close-modal-btn::after {
+  content: url('/icons/cross_24.svg');
+  width: 24px;
+  height: 24px;
+}
+
+#profile-form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 20px;
+}
+
+.modal-save-btn {
+  cursor: pointer;
+
+  align-self: flex-end;
+
+  width: 70px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 24px;
+
+  text-transform: uppercase;
+
+  background-color: var(--btn-color);
+}
+
+.modal-save-btn:hover {
+  background-color: var(--btn-hoover-color);
+}
+
+.feedback {
+  position: fixed;
+  z-index: 5;
+  top: 70px;
+  right: 0;
+
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 320px;
+  margin: 0;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 15px 0 0 15px;
+
+  background-color: var(--success-color);
+  box-shadow: -3px 1px 20px 3px #13633efc;
+
+  animation-name: show-modal;
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
+}
+
+.feedback-msg {
+  min-width: 100%;
+  border: none;
+
+  font-size: 1.5rem;
+  color: var(--font-color-2);
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+
+  background-color: inherit;
+}
+
+@keyframes show-modal {
+  from {
+    transform: translateX(100%);
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+  }
+}

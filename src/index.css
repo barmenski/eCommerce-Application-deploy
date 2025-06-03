@@ -1,15 +1,35 @@
 :root {
   --background-color: rgb(3 7 9);
+  --background-color-2: #0d0f11;
+  --background-color-3: #1b1d21;
+  --border-color: #2a2d33;
+  --border-color-2: #dcdcdc;
+  --border-radius: 0.375rem;
+  --font-color: #d1d5db;
+  --font-color-2: #eef1f3;
   --main-color: #9c9c9c;
+  --error-color: #ef5350;
+  --success-color: #4caf50;
+  --btn-color: #3ac267;
+  --btn-color-2: #3b82f6;
+  --btn-hoover-color: #1f8860e5;
+  --matte-black: #242424;
   --hover: #dcdcdc;
   --shadow:
     0 0 7px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #86b2c5, 0 0 80px #86b2c5,
     0 0 190px #86b2c5, 0 0 105px #86b2c5, 0 0 155px #86b2c5;
-  --matte-black: #242424;
+  --shadow-2: 0 10px 25px rgb(0 0 0 / 30%);
+  --transition: 0.2s ease;
+}
+
+@font-face {
+  font-family: SF-Fourche;
+  src: url('/fonts/SF-Fourche.woff') format('woff');
 }
 
 * {
   box-sizing: border-box;
+  font-family: SF-Fourche, sans-serif;
 }
 
 body {

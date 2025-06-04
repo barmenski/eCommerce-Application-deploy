@@ -38,7 +38,7 @@ type Variant = {
   sku: string;
 };
 
-type ProductData = {
+export type ProductData = {
   attributes: string[];
   categories: ID[];
   categoryOrderHints: string;
@@ -72,6 +72,28 @@ export type Product = {
   versionModifiedAt: string;
 };
 
+export type SmallProduct = {
+  createdAt: string;
+  id: string;
+  key: string;
+  lastModifiedAt: number;
+  attributes: string[];
+  categories: ID[];
+  categoryOrderHints: string;
+  description: { 'en-US': string };
+  masterVariant: Variant;
+  metaTitle: { 'en-US': string };
+  metaDescription: { 'en-US': string };
+  name: { 'en-US': string };
+  searchKeywords: string;
+  slug: { 'en-US': string };
+  variants: Variant[];
+  priceMode: string;
+  productType: ID;
+  taxCategory: ID;
+  version: number;
+};
+
 export type Products = {
   count: number;
   limit: number;
@@ -80,7 +102,35 @@ export type Products = {
   total: number;
 };
 
-function isProduct(object: unknown): object is Product {
+export type SmallProducts = {
+  count: number;
+  limit: number;
+  offset: number;
+  results: [SmallProduct];
+  total: number;
+};
+
+// function isProduct(object: unknown): object is Product {
+//   if (typeof object !== 'object' || object === null) return false;
+
+//   if (
+//     'id' in object &&
+//     typeof object.id === 'string' &&
+//     'key' in object &&
+//     typeof object.key === 'string' &&
+//     'createdAt' in object &&
+//     typeof object.createdAt === 'string' &&
+//     'masterData' in object &&
+//     typeof object.masterData === 'object' &&
+//     object.masterData !== null
+//   ) {
+//     return true;
+//   }
+
+//   return false;
+// }
+
+function isSmallProduct(object: unknown): object is SmallProduct {
   if (typeof object !== 'object' || object === null) return false;
 
   if (
@@ -90,9 +140,9 @@ function isProduct(object: unknown): object is Product {
     typeof object.key === 'string' &&
     'createdAt' in object &&
     typeof object.createdAt === 'string' &&
-    'masterData' in object &&
-    typeof object.masterData === 'object' &&
-    object.masterData !== null
+    'masterVariant' in object &&
+    typeof object.masterVariant === 'object' &&
+    object.masterVariant !== null
   ) {
     return true;
   }
@@ -100,7 +150,23 @@ function isProduct(object: unknown): object is Product {
   return false;
 }
 
-function isProducts(object: unknown): object is Products {
+// function isProducts(object: unknown): object is Products {
+//   if (typeof object !== 'object' || object === null) return false;
+
+//   if (
+//     'count' in object &&
+//     typeof object.count === 'number' &&
+//     'results' in object &&
+//     Array.isArray(object.results) &&
+//     object.results.every((item) => isProduct(item))
+//   ) {
+//     return true;
+//   }
+
+//   return false;
+// }
+
+function isSmallProducts(object: unknown): object is SmallProducts {
   if (typeof object !== 'object' || object === null) return false;
 
   if (
@@ -108,7 +174,7 @@ function isProducts(object: unknown): object is Products {
     typeof object.count === 'number' &&
     'results' in object &&
     Array.isArray(object.results) &&
-    object.results.every((item) => isProduct(item))
+    object.results.every((item) => isSmallProduct(item))
   ) {
     return true;
   }
@@ -116,8 +182,39 @@ function isProducts(object: unknown): object is Products {
   return false;
 }
 
-export async function getProducts(token: string): Promise<Products | null> {
-  const url = `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/products`;
+// export async function getProducts(token: string): Promise<Products | null> {
+//   const url = `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/products`;
+
+//   try {
+//     const response = await fetch(url, {
+//       method: 'GET',
+//       headers: {
+//         Authorization: 'Bearer ' + token,
+//         'Content-Type': 'application/json;charset=utf-8',
+//       },
+//     });
+//     const products: unknown = await response.json();
+//     console.log("products: \n", products);
+//     if ((response.ok || response.status === 201) && isProducts(products)) {
+//       return products;
+//     } else {
+//       console.error('Error:', products);
+//       return null;
+//     }
+//   } catch (error) {
+//     console.error('Error get products', error);
+//     return null;
+//   }
+// }
+
+export async function getProductsByCategoryId(
+  token: string,
+  categoryId?: string,
+): Promise<SmallProducts | null> {
+  let url = '';
+  url = categoryId
+    ? `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/product-projections/search?filter=categories.id:"${categoryId}"`
+    : `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/product-projections`;
 
   try {
     const response = await fetch(url, {
@@ -128,15 +225,14 @@ export async function getProducts(token: string): Promise<Products | null> {
       },
     });
     const products: unknown = await response.json();
-    if ((response.ok || response.status === 201) && isProducts(products)) {
+    if ((response.ok || response.status === 201) && isSmallProducts(products)) {
       return products;
     } else {
-      const errorData = await response.json();
-      console.error('Error:', errorData);
+      console.error('Error:', products);
       return null;
     }
   } catch (error) {
-    console.error('You probably should refresh anonToken', error);
+    console.error('Error get products by categoryId', error);
     return null;
   }
 }

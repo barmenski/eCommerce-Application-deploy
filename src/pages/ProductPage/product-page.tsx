@@ -30,7 +30,10 @@ export default function ProductPage(): JSX.Element {
   } else {
     const name = data.masterData.current.name['en-US'];
 
-    const description = data.masterData.current.description['en-US'];
+    const description = data.masterData.current.description['en-US'].replaceAll(
+      /<\/?[^>]+(>|$)/g,
+      '',
+    );
 
     const images = data.masterData.current.masterVariant.images;
 
@@ -70,11 +73,7 @@ export default function ProductPage(): JSX.Element {
                   </div>
                 )}
               </div>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: description,
-                }}
-              />
+              <div>{description}</div>
             </div>
           </div>
         </div>

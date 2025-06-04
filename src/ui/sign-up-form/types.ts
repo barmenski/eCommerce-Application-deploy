@@ -57,13 +57,7 @@ export type FormInputs = {} & BaseFormInputs &
 export type InputProps = {
   label: Path<BaseFormInputs | AddressFormInputs>;
   type: string;
-  name: Path<
-    | BaseFormInputs
-    | BillingFormInputs
-    | ShippingFormInputs
-    | AddressFormInputs
-    | keyof AddressFormInputs
-  >;
+  name: Path<FormInputs>;
   register: UseFormRegister<FormInputs>;
   required?: boolean | string;
   pattern?: RegExp | SignUpPattern;
@@ -72,7 +66,7 @@ export type InputProps = {
 };
 
 export type SelectProps = {
-  name: Path<BaseFormInputs | BillingFormInputs | ShippingFormInputs>;
+  name: Path<FormInputs>;
   register: UseFormRegister<FormInputs>;
   pattern?: RegExp | SignUpPattern;
   validate?: <T>() => T;
@@ -103,6 +97,7 @@ export type SignUpFormProps = {
   handleSubmit: UseFormHandleSubmit<FormInputs, FormInputs>;
   setError: UseFormSetError<FormInputs>;
   resetField: UseFormResetField<FormInputs>;
+  setIsVisible: Dispatch<SetStateAction<boolean>>;
 };
 
 export type ModalProps = {

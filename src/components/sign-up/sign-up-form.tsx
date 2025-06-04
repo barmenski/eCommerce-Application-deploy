@@ -27,6 +27,7 @@ export default function SignUpForm(props: SignUpFormProps): JSX.Element {
     handleSubmit,
     setError,
     resetField,
+    setIsVisible,
   } = props;
 
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ export default function SignUpForm(props: SignUpFormProps): JSX.Element {
       if (customer_token instanceof Error) return;
       const login = await loginCustomer(customer_token, customer_data);
       if (login) {
+        setIsVisible(true);
         setTimeout(() => {
           navigate('/');
         }, 2000);

@@ -4,11 +4,13 @@ import './profile.css';
 import { useForm } from 'react-hook-form';
 import type { FormInputs } from '../../ui/sign-up-form/types';
 import { addressRegexDelivery } from '../../utility/regexp-patterns';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { formatString } from '../../utility/format-string';
 import Modal from '../../ui/modal';
 import { isKeyOfType } from '../../utility/key-of-type';
 import Feedback from '../../ui/feedback';
+import removeAddress from '../../api/remove-address';
+import { updateCustomerMap } from '../../utility/update-customer-map';
 
 type AddressesData = {
   city: string;
@@ -27,6 +29,8 @@ export function Addresses(): JSX.Element {
     queryKey: ['data'],
     queryFn: getCustomer,
   });
+
+  const queryClient = useQueryClient();
 
   const addressData: AddressesData[] = data.addresses;
 
@@ -51,17 +55,41 @@ export function Addresses(): JSX.Element {
 
     if (target instanceof HTMLButtonElement) {
       const parent = target.closest<HTMLDivElement>('.address-li')?.dataset.key;
-      console.log('PARENT', parent);
+
       setEditMode({
         state: !isEditMode.state,
         value: 'update',
         version: isEditMode.version,
         key: parent || '',
       });
+
       if (typeof parent === 'string' && isKeyOfType(addressData[0], parent)) {
         resetField(parent);
       }
+
       handleDialog();
+    }
+  }
+
+  async function handleDeleteClick(event: { target: EventTarget | null }): Promise<void> {
+    const target: EventTarget | null = event.target;
+
+    if (target instanceof HTMLButtonElement) {
+      const parent = target.closest<HTMLDivElement>('.address-li')?.dataset.key;
+
+      const action = updateCustomerMap().get('remove');
+      const version = isEditMode.version;
+
+      if (action && parent) {
+        try {
+          const remove = await removeAddress(action, version, setError, parent);
+          if (remove instanceof Error) return;
+          queryClient.invalidateQueries({ queryKey: ['data'] });
+          setIsVisible(true);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
     }
   }
 
@@ -95,8 +123,11 @@ export function Addresses(): JSX.Element {
                 </div>
               ))}
               <div className="profile-edit-wrapper">
-                <button className="profile-edit-button" onClick={handleEditClick}>
+                <button className="profile-edit-button edit-btn" onClick={handleEditClick}>
                   edit
+                </button>
+                <button className="profile-edit-button delete-btn" onClick={handleDeleteClick}>
+                  delete
                 </button>
               </div>
             </div>

@@ -64,7 +64,7 @@ export default function Modal(props: ModalProps): JSX.Element {
     <dialog ref={dialogReference} onKeyDown={handleEscape} className="profile-modal">
       <div className="profile-modal-wrapper">
         <div className="modal-head">
-          <span className="modal-head-txt">{`Edit ${array?.[0]?.[0]}`}</span>
+          <span className="modal-head-txt">{`Edit`}</span>
           <button
             type="button"
             name="close-modal"

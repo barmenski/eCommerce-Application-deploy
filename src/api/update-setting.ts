@@ -7,7 +7,7 @@ import { loginCustomer } from './login-customer';
 type BodyData = {
   version: number;
   actions?: {
-    [x: string]: string | number;
+    [x: string]: string | number | FormInputs;
     action: string;
   }[];
   currentPassword?: string | number;
@@ -28,6 +28,7 @@ export default async function updateSetting(
   data: FormInputs,
   version: number,
   setError: UseFormSetError<FormInputs>,
+  key: string,
 ): Promise<BaseFormInputs> {
   const customerToken = getLSData<CustomerLSData>('ctp_token');
   const url = `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/me${actionName === 'newPassword' ? '/password' : ''}`;
@@ -50,6 +51,18 @@ export default async function updateSetting(
     bodyData.currentPassword = data.currentPassword;
     bodyData[actionName] = data.password;
   }
+
+  if (actionName === 'changeAddress' && key && bodyData?.actions) {
+    delete bodyData.actions;
+    bodyData.actions = [
+      {
+        action: actionName,
+        addressId: key,
+        address: data,
+      },
+    ];
+  }
+
   try {
     const response = await fetch(url, {
       method: 'POST',

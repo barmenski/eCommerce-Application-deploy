@@ -24,6 +24,7 @@ export type AddressFormInputs = {
   city: string;
   postalCode: string;
   country: string;
+  id?: string;
 };
 
 export type ShippingFormInputs = {
@@ -48,17 +49,26 @@ type DefaultAddresses = {
 
 export type BillingNShipping = {} & ShippingFormInputs & BillingFormInputs;
 
-export type FormInputs = {} & BaseFormInputs & BillingNShipping & DefaultAddresses;
+export type FormInputs = {} & BaseFormInputs &
+  BillingNShipping &
+  DefaultAddresses &
+  AddressFormInputs;
 
 export type InputProps = {
   label: Path<BaseFormInputs | AddressFormInputs>;
   type: string;
-  name: Path<BaseFormInputs | BillingFormInputs | ShippingFormInputs>;
+  name: Path<
+    | BaseFormInputs
+    | BillingFormInputs
+    | ShippingFormInputs
+    | AddressFormInputs
+    | keyof AddressFormInputs
+  >;
   register: UseFormRegister<FormInputs>;
   required?: boolean | string;
   pattern?: RegExp | SignUpPattern;
   validate?: <T>() => T;
-  error: FieldErrors<FormInputs>;
+  errors: FieldErrors<FormInputs>;
 };
 
 export type SelectProps = {
@@ -97,8 +107,15 @@ export type SignUpFormProps = {
 
 export type ModalProps = {
   dialogReference: Ref<HTMLDialogElement> | undefined;
-  setEditMode: Dispatch<SetStateAction<{ state: boolean; value: string; version: number }>>;
-  isEditMode: { state: boolean; value: string; version: number };
+  setEditMode: Dispatch<
+    SetStateAction<{ state: boolean; value: string; version: number; key: string }>
+  >;
+  isEditMode: {
+    state: boolean;
+    value: string;
+    version: number;
+    key: string;
+  };
   handleSubmit: UseFormHandleSubmit<FormInputs, FormInputs>;
   register: UseFormRegister<FormInputs>;
   setError: UseFormSetError<FormInputs>;
@@ -106,5 +123,5 @@ export type ModalProps = {
   reset: UseFormReset<FormInputs>;
   errors: FieldErrors<FormInputs>;
   setIsVisible: Dispatch<SetStateAction<boolean>>;
-  array: [keyof BaseFormInputs, SignUpRegex][];
+  array: [keyof BaseFormInputs | keyof AddressFormInputs, SignUpRegex][];
 };

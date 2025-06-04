@@ -5,8 +5,14 @@
   background-color: var(--background-color-3);
 }
 
-.profile-h1 {
-  color: white;
+.profile-nav {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--font-color-2);
+  text-transform: uppercase;
 }
 
 .profile-name {
@@ -59,6 +65,15 @@
 .profile-data {
   grid-area: data;
   margin: 5px 0;
+}
+
+.address-li {
+  margin-bottom: 15px;
+}
+
+.profile-edit-wrapper {
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-color-2);
 }
 
 .profile-modal {

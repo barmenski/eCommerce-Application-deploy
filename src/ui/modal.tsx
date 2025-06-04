@@ -45,9 +45,10 @@ export default function Modal(props: ModalProps): JSX.Element {
     try {
       const action = updateCustomerMap().get(isEditMode.value);
       const version = isEditMode.version;
+      const key = isEditMode.key;
 
       if (typeof action === 'string') {
-        const update = await updateSetting(action, data, version, setError);
+        const update = await updateSetting(action, data, version, setError, key);
         if (update instanceof Error) return;
         queryClient.invalidateQueries({ queryKey: ['data'] });
         handleCloseEvent();
@@ -76,14 +77,14 @@ export default function Modal(props: ModalProps): JSX.Element {
             {array?.[0]?.[0] === 'password' && <PasswordInput register={register} error={errors} />}
             {array.map((item) => (
               <FormInput
-                key={item + '1'}
+                key={item[0] + '1'}
                 label={item[0]}
                 type={item[1].type}
                 name={item[0]}
                 register={register}
                 pattern={item[1].pattern}
                 validate={item[1]?.validate}
-                error={errors}
+                errors={errors}
               />
             ))}
 

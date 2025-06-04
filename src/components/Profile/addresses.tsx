@@ -2,15 +2,23 @@ import { useRef, useState, useEffect, type JSX } from 'react';
 import { getCustomer } from '../../api/get-customer';
 import './profile.css';
 import { useForm } from 'react-hook-form';
-import type { BaseFormInputs, FormInputs } from '../../ui/sign-up-form/types';
-import { baseRegexDelivery } from '../../utility/regexp-patterns';
+import type { FormInputs } from '../../ui/sign-up-form/types';
+import { addressRegexDelivery } from '../../utility/regexp-patterns';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { formatString } from '../../utility/format-string';
 import Modal from '../../ui/modal';
 import { isKeyOfType } from '../../utility/key-of-type';
 import Feedback from '../../ui/feedback';
 
-export function ProfileForm(): JSX.Element {
+type AddressesData = {
+  city: string;
+  country: string;
+  id: string;
+  postalCode: string;
+  streetName: string;
+};
+
+export function Addresses(): JSX.Element {
   const dialogReference = useRef<HTMLDialogElement>(null);
   const [isEditMode, setEditMode] = useState({ state: false, value: '', version: 1, key: '' });
   const [isVisible, setIsVisible] = useState(false);
@@ -20,13 +28,7 @@ export function ProfileForm(): JSX.Element {
     queryFn: getCustomer,
   });
 
-  const basicData: BaseFormInputs = {
-    email: data?.email,
-    firstName: data?.firstName,
-    lastName: data?.lastName,
-    dateOfBirth: data?.dateOfBirth,
-    password: data?.password,
-  };
+  const addressData: AddressesData[] = data.addresses;
 
   useEffect(() => {
     setEditMode({ ...isEditMode, version: data.version });
@@ -48,14 +50,15 @@ export function ProfileForm(): JSX.Element {
     const target: EventTarget | null = event.target;
 
     if (target instanceof HTMLButtonElement) {
-      const parent = target.closest<HTMLDivElement>('.profile-el')?.dataset.value;
+      const parent = target.closest<HTMLDivElement>('.address-li')?.dataset.key;
+      console.log('PARENT', parent);
       setEditMode({
-        ...isEditMode,
         state: !isEditMode.state,
-        value: parent || '',
+        value: 'update',
         version: isEditMode.version,
+        key: parent || '',
       });
-      if (typeof parent === 'string' && isKeyOfType(basicData, parent)) {
+      if (typeof parent === 'string' && isKeyOfType(addressData[0], parent)) {
         resetField(parent);
       }
       handleDialog();
@@ -71,21 +74,34 @@ export function ProfileForm(): JSX.Element {
     }
   }
 
-  const baseArray = [...baseRegexDelivery().entries()];
+  const addressArray = [...addressRegexDelivery().entries()];
 
   return (
     <>
-      <div className="profile">
-        <h3 className="profile-name">User Info</h3>
-        {baseArray.map((item) => (
-          <div className="profile-el" key={item[0]} data-value={item[0]} data-type={item[1].type}>
-            <span className="profile-label">{formatString(item[0], ' ')}</span>
-            <button className="profile-edit-button" onClick={handleEditClick}>
-              edit
-            </button>
-            <p className="profile-data">{basicData[item[0]]}</p>
-          </div>
-        ))}
+      <div className="profile address-profile">
+        <h3 className="profile-name">Addresses</h3>
+        {addressData.map((element: AddressesData) => {
+          return (
+            <div className="address-li" key={element.id} data-key={element.id}>
+              {addressArray.map((item) => (
+                <div
+                  className="profile-el"
+                  key={item[0]}
+                  data-value={item[0]}
+                  data-type={item[1].type}
+                >
+                  <span className="profile-label">{formatString(item[0], ' ')}</span>
+                  <p className="profile-data">{element[item[0]]}</p>
+                </div>
+              ))}
+              <div className="profile-edit-wrapper">
+                <button className="profile-edit-button" onClick={handleEditClick}>
+                  edit
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <Modal
@@ -99,9 +115,8 @@ export function ProfileForm(): JSX.Element {
         reset={reset}
         setError={setError}
         setIsVisible={setIsVisible}
-        array={baseArray.filter((item) => item[0] === isEditMode.value)}
+        array={addressArray}
       />
-
       <Feedback
         message={'success'}
         duration={3000}

@@ -24,7 +24,7 @@ export default function BaseForm({
           register={register}
           pattern={element[1].pattern}
           validate={element[1]?.validate}
-          error={errors}
+          errors={errors}
         />
       ))}
     </>

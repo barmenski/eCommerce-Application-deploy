@@ -10,6 +10,15 @@
   white-space: nowrap;
 }
 
+.product-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  color: white;
+}
+
 .product-card-error {
   display: flex;
   flex-flow: row wrap;
@@ -19,4 +28,16 @@
   color: white;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.product-filter{
+  flex: 0 0 200px;
+}
+
+.product-filter li {
+  cursor: pointer;
+}
+
+.product-filter li:hover {
+  text-decoration: underline;
 }

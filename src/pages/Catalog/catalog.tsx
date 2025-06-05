@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { JSX } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, Outlet, useLocation } from 'react-router';
 import { getProductsByCategoryId } from '../../api/get-products';
 import { getCategoryIds } from '../../api/get-categories';
 import { isTokenStore, checkToken } from '../../helpers/client-builder';
@@ -34,6 +34,8 @@ const ManageCatalog: React.FC = (): JSX.Element => {
   const [activeCategoryId, setActiveCategoryId] = useState<string>('');
   const [breadcrumb, setBreadcrumb] = useState<string[]>(['Main']);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isProductPage = location.pathname.startsWith('/catalog/product/');
 
   const fetchData = async (): Promise<void> => {
     const token = getToken();
@@ -65,6 +67,7 @@ const ManageCatalog: React.FC = (): JSX.Element => {
     if (step === 'Main') {
       const cutted = breadcrumb.slice(0, 1);
       setBreadcrumb(cutted);
+      navigate(`/catalog`);
     } else {
       const index = breadcrumb.indexOf(step);
       const cutted = breadcrumb.slice(0, index + 1);
@@ -118,6 +121,7 @@ const ManageCatalog: React.FC = (): JSX.Element => {
               key={step}
               onClick={() => {
                 breadcrumbNavigation(step);
+                navigate(-1);
               }}
             >
               {step}
@@ -125,6 +129,7 @@ const ManageCatalog: React.FC = (): JSX.Element => {
           ))}
         </ul>
       </div>
+
       <div className="product-wrapper">
         <aside className="product-filter">
           <label>Category:</label>
@@ -154,42 +159,45 @@ const ManageCatalog: React.FC = (): JSX.Element => {
             Reset
           </button>
         </aside>
-        <div className="product-card-wrapper">
-          {products && products[0].masterVariant.prices[0] ? (
-            products.map((product) => {
-              const productData = product;
-              const name = productData.name['en-US'];
-              const image =
-                productData.masterVariant.images[0]?.url ?? 'https://via.placeholder.com/300x200';
-              const price = productData.masterVariant.prices[0]?.value.centAmount ?? 0;
-              const discountedPrice =
-                productData.masterVariant.prices[0].discounted?.value.centAmount ?? 0;
-              const currency = productData.masterVariant.prices[0].value.currencyCode ?? '';
-              const description =
-                productData.description['en-US'].replaceAll(/<\/?[^>]+(>|$)/g, '') ||
-                "Let's travel!";
+        {!isProductPage && (
+          <div className="product-card-wrapper">
+            {products && products[0].masterVariant.prices[0] ? (
+              products.map((product) => {
+                const productData = product;
+                const name = productData.name['en-US'];
+                const image =
+                  productData.masterVariant.images[0]?.url ?? 'https://via.placeholder.com/300x200';
+                const price = productData.masterVariant.prices[0]?.value.centAmount ?? 0;
+                const discountedPrice =
+                  productData.masterVariant.prices[0].discounted?.value.centAmount ?? 0;
+                const currency = productData.masterVariant.prices[0].value.currencyCode ?? '';
+                const description =
+                  productData.description['en-US'].replaceAll(/<\/?[^>]+(>|$)/g, '') ||
+                  "Let's travel!";
 
-              return (
-                <ProductCard
-                  key={product.id}
-                  image={image}
-                  title={name}
-                  description={description}
-                  price={price / 100}
-                  discountedPrice={discountedPrice / 100}
-                  currency={currency}
-                  onClick={() => {
-                    addStep(name, 2);
-                    navigate(`/product/${product.key}`);
-                  }}
-                />
-              );
-            })
-          ) : (
-            <p className="product-card-error">Loading...</p>
-          )}
-        </div>
+                return (
+                  <ProductCard
+                    key={product.id}
+                    image={image}
+                    title={name}
+                    description={description}
+                    price={price / 100}
+                    discountedPrice={discountedPrice / 100}
+                    currency={currency}
+                    onClick={() => {
+                      addStep(name, 2);
+                      navigate(`product/${product.key}`);
+                    }}
+                  />
+                );
+              })
+            ) : (
+              <p className="product-card-error">Loading...</p>
+            )}
+          </div>
+        )}
       </div>
+      <Outlet />
     </>
   );
 };

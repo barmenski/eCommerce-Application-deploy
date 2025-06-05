@@ -117,11 +117,7 @@ export default function LoginForm({ onLogin, loginError }: LoginFormProps): JSX.
             Signup
           </Link>
         </p>
-        {loginError && (
-          <div className="error-message" style={{ color: 'red', marginTop: '1rem' }}>
-            {loginError}
-          </div>
-        )}
+        {loginError && <div className="error-message">{loginError}</div>}
         <button type="submit" className="login-button mt-8" disabled={!isValid}>
           Login
         </button>

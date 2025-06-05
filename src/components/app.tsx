@@ -41,11 +41,12 @@ export default function App(): JSX.Element {
           <Route path="addresses" element={<Addresses />} />
         </Route>
         <Route path="/signUp" element={<SignUp />} />
-        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/catalog" element={<Catalog />}>
+          <Route path="product/:key" element={<ProductPage />} />
+        </Route>
         <Route path="/about" element={<About />} />
         <Route path="/home" element={<MainPage />} />
         <Route path="*" element={<NoPage />} />
-        <Route path="/product/:key" element={<ProductPage />} />
       </Routes>
     </Router>
   );

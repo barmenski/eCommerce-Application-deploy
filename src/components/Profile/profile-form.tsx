@@ -12,7 +12,16 @@ import Feedback from '../../ui/feedback';
 
 export function ProfileForm(): JSX.Element {
   const dialogReference = useRef<HTMLDialogElement>(null);
-  const [isEditMode, setEditMode] = useState({ state: false, value: '', version: 1, key: '' });
+  const [isEditMode, setEditMode] = useState({
+    state: false,
+    value: '',
+    version: 1,
+    key: '',
+    billing: '',
+    shipping: '',
+    defaultBilling: '',
+    defaultShipping: '',
+  });
   const [isVisible, setIsVisible] = useState(false);
 
   const { data } = useSuspenseQuery({

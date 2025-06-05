@@ -47,12 +47,18 @@ type DefaultAddresses = {
   shippingBilling: number | 'true' | 'false';
 };
 
+type Address = {
+  billingAddress: string;
+  shippingAddress: string;
+};
+
 export type BillingNShipping = {} & ShippingFormInputs & BillingFormInputs;
 
 export type FormInputs = {} & BaseFormInputs &
   BillingNShipping &
   DefaultAddresses &
-  AddressFormInputs;
+  AddressFormInputs &
+  Address;
 
 export type InputProps = {
   label: Path<BaseFormInputs | AddressFormInputs>;
@@ -79,6 +85,12 @@ export type CheckboxProps = {
   isChecked: boolean;
 };
 
+export type CheckboxProps2 = {
+  name: string;
+  label: keyof FormInputs;
+  register: UseFormRegister<FormInputs>;
+};
+
 export type SpecialCheckboxProps = {
   isChecked: boolean;
   setIsChecked: Dispatch<SetStateAction<boolean>>;
@@ -103,13 +115,26 @@ export type SignUpFormProps = {
 export type ModalProps = {
   dialogReference: Ref<HTMLDialogElement> | undefined;
   setEditMode: Dispatch<
-    SetStateAction<{ state: boolean; value: string; version: number; key: string }>
+    SetStateAction<{
+      state: boolean;
+      value: string;
+      version: number;
+      key: string;
+      billing: string;
+      shipping: string;
+      defaultBilling: string;
+      defaultShipping: string;
+    }>
   >;
   isEditMode: {
     state: boolean;
     value: string;
     version: number;
     key: string;
+    billing: string;
+    shipping: string;
+    defaultBilling: string;
+    defaultShipping: string;
   };
   handleSubmit: UseFormHandleSubmit<FormInputs, FormInputs>;
   register: UseFormRegister<FormInputs>;

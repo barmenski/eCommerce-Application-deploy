@@ -11,6 +11,7 @@ import { isKeyOfType } from '../../utility/key-of-type';
 import Feedback from '../../ui/feedback';
 import removeAddress from '../../api/remove-address';
 import { updateCustomerMap } from '../../utility/update-customer-map';
+import { AddressType } from './address-type';
 
 type AddressesData = {
   city: string;
@@ -20,15 +21,33 @@ type AddressesData = {
   streetName: string;
 };
 
+const addressNames = ['Billing', 'Shipping', 'DefaultBilling', 'DefaultShipping'];
+
 export function Addresses(): JSX.Element {
   const dialogReference = useRef<HTMLDialogElement>(null);
-  const [isEditMode, setEditMode] = useState({ state: false, value: '', version: 1, key: '' });
+  const [isEditMode, setEditMode] = useState({
+    state: false,
+    value: '',
+    version: 1,
+    key: '',
+    billing: '',
+    shipping: '',
+    defaultBilling: '',
+    defaultShipping: '',
+  });
   const [isVisible, setIsVisible] = useState(false);
 
   const { data } = useSuspenseQuery({
     queryKey: ['data'],
     queryFn: getCustomer,
   });
+
+  const bilAndShip = [
+    data.billingAddressIds,
+    data.shippingAddressIds,
+    [data.defaultBillingAddressId],
+    [data.defaultShippingAddressId],
+  ];
 
   const queryClient = useQueryClient();
 
@@ -61,6 +80,10 @@ export function Addresses(): JSX.Element {
         value: 'update',
         version: isEditMode.version,
         key: parent || '',
+        billing: data.billingAddressIds.find((item: string) => item === parent) || '',
+        shipping: data.shippingAddressIds.find((item: string) => item === parent) || '',
+        defaultBilling: data.defaultBillingAddressId || '',
+        defaultShipping: data.defaultShippingAddressId || '',
       });
 
       if (typeof parent === 'string' && isKeyOfType(addressData[0], parent)) {
@@ -93,6 +116,15 @@ export function Addresses(): JSX.Element {
     }
   }
 
+  function handleAddAddress(): void {
+    setEditMode({
+      ...isEditMode,
+      state: !isEditMode.state,
+      value: 'add',
+    });
+    handleDialog();
+  }
+
   function handleDialog(): void {
     if (!dialogReference) return;
     if (dialogReference.current?.hasAttribute('open')) {
@@ -107,7 +139,17 @@ export function Addresses(): JSX.Element {
   return (
     <>
       <div className="profile address-profile">
-        <h3 className="profile-name">Addresses</h3>
+        <div className="address-header">
+          <h3 className="profile-name">Addresses</h3>
+          <button
+            type="button"
+            className="add-address"
+            title="add address"
+            name="add address button"
+            onClick={handleAddAddress}
+          ></button>
+        </div>
+
         {addressData.map((element: AddressesData) => {
           return (
             <div className="address-li" key={element.id} data-key={element.id}>
@@ -122,6 +164,21 @@ export function Addresses(): JSX.Element {
                   <p className="profile-data">{element[item[0]]}</p>
                 </div>
               ))}
+
+              <div className="types">
+                <span className="types-label">Types</span>
+                <div className="types-group">
+                  {bilAndShip.map((type, index) => (
+                    <AddressType
+                      key={index}
+                      name={addressNames[index]}
+                      array={type}
+                      keyName={element.id}
+                    />
+                  ))}
+                </div>
+              </div>
+
               <div className="profile-edit-wrapper">
                 <button className="profile-edit-button edit-btn" onClick={handleEditClick}>
                   edit

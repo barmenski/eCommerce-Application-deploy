@@ -1,6 +1,8 @@
 .profile-wrapper {
+  min-height: calc(100vh - 64px);
   padding: 0 40px;
   padding: 20px;
+
   color-scheme: dark;
   background-color: var(--background-color-3);
 }
@@ -15,14 +17,51 @@
   text-transform: uppercase;
 }
 
+.address-header {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  min-width: 350px;
+  max-width: 700px;
+  margin: 10px 0;
+}
+
 .profile-name {
   color: white;
 }
 
+.add-address {
+  /* position: absolute;
+  top: 5px;
+  right: calc(100vw - 14rem); */
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+
+  background-color: inherit;
+}
+
+.add-address::after {
+  content: url('/icons/add_36.svg');
+  width: 36px;
+  height: 36px;
+}
+
 .profile {
-  /* max-width: 400px; */
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
 
   /* gap: 10px; */
   color: white;
@@ -34,6 +73,9 @@
     'label button'
     'data data';
 
+  width: 100%;
+  min-width: 350px;
+  max-width: 700px;
   padding: 10px;
   border-bottom: 1px solid var(--border-color);
 
@@ -68,12 +110,65 @@
 }
 
 .address-li {
+  width: 100%;
+  min-width: 350px;
+  max-width: 700px;
   margin-bottom: 15px;
 }
 
-.profile-edit-wrapper {
+.types {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 10px;
+  align-items: start;
+  justify-content: center;
+
+  min-height: 60px;
+  padding: 10px;
   border-bottom: 1px solid var(--border-color);
+
   background-color: var(--background-color-2);
+}
+
+.types-group {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: start;
+}
+
+.type {
+  padding: 10px 12px;
+  border: 1px solid var(--btn-color);
+  border-radius: 17px;
+
+  font-size: 0.8rem;
+
+  background-color: var(--background-color-3);
+}
+
+.profile-edit-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* position: absolute;
+  top: 15px;
+  right: 0; */
+  border-bottom: 1px solid var(--border-color);
+
+  background-color: var(--background-color-2);
+}
+
+.edit-btn,
+.delete-btn {
+  width: 100%;
+  min-height: 35px;
+  border-radius: 0;
+
+  font-size: 1rem;
+  letter-spacing: 3px;
 }
 
 .profile-modal {
@@ -90,7 +185,10 @@
 .profile-modal-wrapper {
   display: flex;
   flex-flow: column nowrap;
-  gap: 20px;
+}
+
+.delete-btn {
+  background-color: var(--error-color);
 }
 
 .modal-head {

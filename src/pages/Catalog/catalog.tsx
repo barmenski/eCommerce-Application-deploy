@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import type { JSX } from 'react';
 import { Link } from 'react-router';
-import { getProductsByCategoryId } from '../../api/get-products';
+import { getProductsByCategoryId, getSortedItems } from '../../api/get-products';
 import { getCategoryIds } from '../../api/get-categories';
 import { isTokenStore, checkToken } from '../../helpers/client-builder';
 import ProductCard from '../../components/Catalog/product-card';
@@ -33,6 +33,17 @@ const ManageCatalog: React.FC = (): JSX.Element => {
   const [categories, setCategories] = useState<Category[] | null>(null);
   const [activeCategoryId, setActiveCategoryId] = useState<string>('');
 
+  const [sorting, setSorting] = React.useState(false);
+
+  const [open, setIsOpen] = React.useState(false);
+
+  const handleOpen = (): void => {
+    setIsOpen(!open);
+  };
+  const toggle = (): void => {
+    setIsOpen(!setSorting);
+  };
+
   useEffect((): void => {
     const fetchData = async (): Promise<void> => {
       const token = getToken();
@@ -59,6 +70,7 @@ const ManageCatalog: React.FC = (): JSX.Element => {
       const token = getToken();
       try {
         const productionData = await getProductsByCategoryId(token, activeCategoryId);
+
         if (productionData !== null) {
           setProducts(productionData.results);
         }
@@ -72,6 +84,24 @@ const ManageCatalog: React.FC = (): JSX.Element => {
   }, [activeCategoryId]);
 
   console.log('слайдер с одной картинкой - планета B6XX205');
+
+  useEffect((): void => {
+    const sortItAlready = async (): Promise<void> => {
+      const token = getToken();
+      try {
+        const productionDataSorted = await getSortedItems(token, 'price asc', activeCategoryId);
+
+        if (productionDataSorted) {
+          setProducts(productionDataSorted.results);
+        }
+      } catch (error) {
+        console.error('Submit Error:', error);
+      }
+    };
+    if (sorting) {
+      sortItAlready();
+    }
+  }, [activeCategoryId, sorting]);
 
   return (
     <div className="product-wrapper">
@@ -93,6 +123,36 @@ const ManageCatalog: React.FC = (): JSX.Element => {
             <p className="product-card-error">Wait for categories list...</p>
           )}
         </ul>
+
+        <div>
+          <button className="sort-button" onClick={handleOpen}>
+            Sort by
+            <div className="arrow-icon"></div>
+          </button>
+          {open ? (
+            <ul>
+              <li>
+                <button>Price: High to Low</button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    setSorting(true);
+                    toggle();
+                  }}
+                >
+                  Price: Low to High
+                </button>
+              </li>
+              <li>
+                <button>Alphabetically: A-Z</button>
+              </li>
+              <li>
+                <button>Alphabetically: Z-A</button>
+              </li>
+            </ul>
+          ) : null}
+        </div>
       </aside>
       <div className="product-card-wrapper">
         {products && products[0].masterVariant.prices[0] ? (

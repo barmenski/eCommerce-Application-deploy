@@ -1,3 +1,5 @@
+// import { getAccessToken } from './get-access-token';
+
 type ID = {
   id: string;
   typeId: string;
@@ -215,6 +217,67 @@ export async function getProductsByCategoryId(
   url = categoryId
     ? `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/product-projections/search?filter=categories.id:"${categoryId}"`
     : `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/product-projections`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    });
+    const products: unknown = await response.json();
+    if ((response.ok || response.status === 201) && isSmallProducts(products)) {
+      return products;
+    } else {
+      console.error('Error:', products);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error get products by categoryId', error);
+    return null;
+  }
+}
+
+// export async function sort(categoryId?: string): Promise<Promise<SmallProducts | null>> {
+//   const getToken = await getAccessToken();
+
+//   try {
+//     const response = await fetch(
+//       `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/product-projections/search?sort=price asc&filter=categories.id:"${categoryId}"`,
+//       {
+//         method: 'GET',
+//         headers: {
+//           Authorization: 'Bearer ' + getToken.access_token,
+//           'Content-Type': 'application/json;charset=utf-8',
+//         },
+//       },
+//     );
+//     const productData = await response.json();
+//     console.log(productData);
+//     if (productData.statusCode === 401) {
+//       console.log('Error:', productData.message);
+//     }
+//     if (productData.statusCode === 404) {
+//       console.log('Error:', productData.message);
+//     }
+//     console.log(productData);
+//     return productData;
+//   } catch (error) {
+//     console.error('Error:', error);
+//   }
+//   throw new Error('something went wrong');
+// }
+
+export async function getSortedItems(
+  token: string,
+  search: string,
+  categoryId?: string,
+): Promise<SmallProducts | null> {
+  let url = '';
+  url = categoryId
+    ? `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/product-projections/search?sort=${search}&filter=categories.id:"${categoryId}"`
+    : `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/product-projections/search?sort=${search}`;
 
   try {
     const response = await fetch(url, {

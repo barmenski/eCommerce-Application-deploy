@@ -30,7 +30,7 @@
   white-space: nowrap;
 }
 
-.product-filter{
+.product-filter {
   flex: 0 0 200px;
 }
 
@@ -40,4 +40,24 @@
 
 .product-filter li:hover {
   text-decoration: underline;
+}
+
+.sort-button {
+  display: flex;
+  font-size: 0.9rem;
+}
+
+.sort-button:hover {
+  cursor: pointer;
+}
+
+.arrow-icon {
+  align-items: center;
+
+  width: 20px;
+  height: 20px;
+  margin-left: 0.47rem;
+
+  background-image: url('../../../icons/down.png');
+  background-size: contain;
 }

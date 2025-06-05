@@ -8,6 +8,7 @@ type ProductCardProps = {
   price: number;
   discountedPrice?: number;
   currency: string;
+  onClick: () => void;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -17,11 +18,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   discountedPrice,
   currency,
+  onClick,
 }) => {
   const showDiscount = discountedPrice && discountedPrice < price;
 
   return (
-    <div className="product-card">
+    <div className="product-card" onClick={onClick}>
       <img src={image} alt={title} className="product-image" />
 
       <div className="product-info">

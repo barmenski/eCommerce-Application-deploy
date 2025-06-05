@@ -30,14 +30,37 @@
   white-space: nowrap;
 }
 
-.product-filter{
+.product-filter {
   flex: 0 0 200px;
+  margin: 0.5rem;
 }
 
 .product-filter li {
   cursor: pointer;
 }
 
+.breadcrumb-nav li {
+  cursor: pointer;
+  list-style-type: none;
+}
+
 .product-filter li:hover {
   text-decoration: underline;
+}
+
+.breadcrumb-wrapper {
+  color: white;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.breadcrumb-nav li::before {
+  content: '►';
+  padding-right: 0.5em;
+  padding-left: 0.5em;
 }

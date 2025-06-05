@@ -5,10 +5,12 @@ import ControlButtons from '../../components/sign-up/control-buttons';
 import { useForm } from 'react-hook-form';
 import type { FormInputs } from '../../ui/sign-up-form/types';
 import { Link } from 'react-router';
+import Feedback from '../../ui/feedback';
 
 export default function SignUp(): JSX.Element {
   const [isFirstStep, setStep] = useState(true);
   const [isChecked, setIsChecked] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   const {
     register,
@@ -36,6 +38,7 @@ export default function SignUp(): JSX.Element {
           handleSubmit={handleSubmit}
           setError={setError}
           resetField={resetField}
+          setIsVisible={setIsVisible}
         />
         <ControlButtons
           isFirstStep={isFirstStep}
@@ -49,6 +52,12 @@ export default function SignUp(): JSX.Element {
           </Link>
         </div>
       </div>
+      <Feedback
+        message={'success'}
+        duration={3000}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+      />
     </div>
   );
 }

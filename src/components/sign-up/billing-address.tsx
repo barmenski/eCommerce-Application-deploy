@@ -15,18 +15,20 @@ export default function BillingAddress({
 }): JSX.Element {
   return (
     <>
-      {addressArray.map((element, index) => (
-        <FormInput
-          key={'billing' + index}
-          label={element[0]}
-          type={element[1].type}
-          name={`billing${element[0]}`}
-          register={register}
-          pattern={element[1].pattern}
-          validate={element[1]?.validate}
-          error={errors}
-        />
-      ))}
+      {addressArray.map((element, index) => {
+        return (
+          <FormInput
+            key={'billing' + index}
+            label={element[0]}
+            type={element[1].type}
+            name={`billing${element[0]}`}
+            register={register}
+            pattern={element[1].pattern}
+            validate={element[1]?.validate}
+            errors={errors}
+          />
+        );
+      })}
     </>
   );
 }

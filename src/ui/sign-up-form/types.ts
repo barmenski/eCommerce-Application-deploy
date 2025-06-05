@@ -24,6 +24,7 @@ export type AddressFormInputs = {
   city: string;
   postalCode: string;
   country: string;
+  id?: string;
 };
 
 export type ShippingFormInputs = {
@@ -46,23 +47,32 @@ type DefaultAddresses = {
   shippingBilling: number | 'true' | 'false';
 };
 
+type Address = {
+  billingAddress: string;
+  shippingAddress: string;
+};
+
 export type BillingNShipping = {} & ShippingFormInputs & BillingFormInputs;
 
-export type FormInputs = {} & BaseFormInputs & BillingNShipping & DefaultAddresses;
+export type FormInputs = {} & BaseFormInputs &
+  BillingNShipping &
+  DefaultAddresses &
+  AddressFormInputs &
+  Address;
 
 export type InputProps = {
   label: Path<BaseFormInputs | AddressFormInputs>;
   type: string;
-  name: Path<BaseFormInputs | BillingFormInputs | ShippingFormInputs>;
+  name: Path<FormInputs>;
   register: UseFormRegister<FormInputs>;
   required?: boolean | string;
   pattern?: RegExp | SignUpPattern;
   validate?: <T>() => T;
-  error: FieldErrors<FormInputs>;
+  errors: FieldErrors<FormInputs>;
 };
 
 export type SelectProps = {
-  name: Path<BaseFormInputs | BillingFormInputs | ShippingFormInputs>;
+  name: Path<FormInputs>;
   register: UseFormRegister<FormInputs>;
   pattern?: RegExp | SignUpPattern;
   validate?: <T>() => T;
@@ -73,6 +83,12 @@ export type CheckboxProps = {
   label: keyof FormInputs;
   register: UseFormRegister<FormInputs>;
   isChecked: boolean;
+};
+
+export type CheckboxProps2 = {
+  name: string;
+  label: keyof FormInputs;
+  register: UseFormRegister<FormInputs>;
 };
 
 export type SpecialCheckboxProps = {
@@ -93,12 +109,33 @@ export type SignUpFormProps = {
   handleSubmit: UseFormHandleSubmit<FormInputs, FormInputs>;
   setError: UseFormSetError<FormInputs>;
   resetField: UseFormResetField<FormInputs>;
+  setIsVisible: Dispatch<SetStateAction<boolean>>;
 };
 
 export type ModalProps = {
   dialogReference: Ref<HTMLDialogElement> | undefined;
-  setEditMode: Dispatch<SetStateAction<{ state: boolean; value: string; version: number }>>;
-  isEditMode: { state: boolean; value: string; version: number };
+  setEditMode: Dispatch<
+    SetStateAction<{
+      state: boolean;
+      value: string;
+      version: number;
+      key: string;
+      billing: string;
+      shipping: string;
+      defaultBilling: string;
+      defaultShipping: string;
+    }>
+  >;
+  isEditMode: {
+    state: boolean;
+    value: string;
+    version: number;
+    key: string;
+    billing: string;
+    shipping: string;
+    defaultBilling: string;
+    defaultShipping: string;
+  };
   handleSubmit: UseFormHandleSubmit<FormInputs, FormInputs>;
   register: UseFormRegister<FormInputs>;
   setError: UseFormSetError<FormInputs>;
@@ -106,5 +143,5 @@ export type ModalProps = {
   reset: UseFormReset<FormInputs>;
   errors: FieldErrors<FormInputs>;
   setIsVisible: Dispatch<SetStateAction<boolean>>;
-  array: [keyof BaseFormInputs, SignUpRegex][];
+  array: [keyof BaseFormInputs | keyof AddressFormInputs, SignUpRegex][];
 };

@@ -12,7 +12,16 @@ import Feedback from '../../ui/feedback';
 
 export function ProfileForm(): JSX.Element {
   const dialogReference = useRef<HTMLDialogElement>(null);
-  const [isEditMode, setEditMode] = useState({ state: false, value: '', version: 1 });
+  const [isEditMode, setEditMode] = useState({
+    state: false,
+    value: '',
+    version: 1,
+    key: '',
+    billing: '',
+    shipping: '',
+    defaultBilling: '',
+    defaultShipping: '',
+  });
   const [isVisible, setIsVisible] = useState(false);
 
   const { data } = useSuspenseQuery({
@@ -49,7 +58,12 @@ export function ProfileForm(): JSX.Element {
 
     if (target instanceof HTMLButtonElement) {
       const parent = target.closest<HTMLDivElement>('.profile-el')?.dataset.value;
-      setEditMode({ state: !isEditMode.state, value: parent || '', version: isEditMode.version });
+      setEditMode({
+        ...isEditMode,
+        state: !isEditMode.state,
+        value: parent || '',
+        version: isEditMode.version,
+      });
       if (typeof parent === 'string' && isKeyOfType(basicData, parent)) {
         resetField(parent);
       }
@@ -71,7 +85,9 @@ export function ProfileForm(): JSX.Element {
   return (
     <>
       <div className="profile">
-        <h3 className="profile-name">User Info</h3>
+        <div className="userinfo-header">
+          <h3 className="profile-name">User Info</h3>
+        </div>
         {baseArray.map((item) => (
           <div className="profile-el" key={item[0]} data-value={item[0]} data-type={item[1].type}>
             <span className="profile-label">{formatString(item[0], ' ')}</span>
@@ -82,6 +98,7 @@ export function ProfileForm(): JSX.Element {
           </div>
         ))}
       </div>
+
       <Modal
         dialogReference={dialogReference}
         setEditMode={setEditMode}
@@ -95,6 +112,7 @@ export function ProfileForm(): JSX.Element {
         setIsVisible={setIsVisible}
         array={baseArray.filter((item) => item[0] === isEditMode.value)}
       />
+
       <Feedback
         message={'success'}
         duration={3000}

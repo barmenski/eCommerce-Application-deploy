@@ -64,7 +64,7 @@ export function addressRegexDelivery(): Map<keyof AddressFormInputs, SignUpRegex
     if (part && part.pattern instanceof RegExp) {
       part.pattern = {
         value: part.pattern,
-        message: formErrorMessages[key],
+        message: formErrorMessages[key] || '',
       };
       REGEXP.set(key, part);
     }

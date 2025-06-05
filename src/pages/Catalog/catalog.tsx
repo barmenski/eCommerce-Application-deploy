@@ -8,6 +8,8 @@ import ProductCard from '../../components/Catalog/product-card';
 import type { SmallProduct } from '../../api/get-products';
 import type { Category } from '../../api/get-categories';
 import './catalog.css';
+import Search from '../../components/Catalog/search';
+import type { searchResponse } from '../../api/search-product';
 
 const getToken = (): string => {
   checkToken();
@@ -37,6 +39,8 @@ const ManageCatalog: React.FC = (): JSX.Element => {
   const location = useLocation();
   const isProductPage = location.pathname.startsWith('/catalog/product/');
 
+  const [searchValue, setSearchValue] = useState<searchResponse>([]);
+
   const fetchData = async (): Promise<void> => {
     const token = getToken();
     try {
@@ -47,6 +51,13 @@ const ManageCatalog: React.FC = (): JSX.Element => {
 
       const productionData = await getProductsByCategoryId(token);
       if (productionData !== null) {
+        if (searchValue?.results?.length >= 1) {
+          const filteredArray = productionData.results.filter((item1) =>
+            searchValue.results.some((item2) => item1.id === item2.id),
+          );
+          setProducts(filteredArray);
+          return;
+        }
         setProducts(productionData.results);
       }
     } catch (error) {
@@ -55,7 +66,7 @@ const ManageCatalog: React.FC = (): JSX.Element => {
   };
   useEffect((): void => {
     fetchData();
-  }, []);
+  }, [searchValue]);
 
   const addStep = (step: string, position: number): void => {
     const cutted = breadcrumb.slice(0, position);
@@ -128,6 +139,10 @@ const ManageCatalog: React.FC = (): JSX.Element => {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="search-wrapper">
+        <Search setSearchValue={setSearchValue} />
       </div>
 
       <div className="product-wrapper">

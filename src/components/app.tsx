@@ -36,7 +36,7 @@ export default function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={isUserLoggedIn ? <Navigate to="/home" /> : <Login />} />
-        <Route path="profile" element={isUserLoggedIn ? <Profile /> : <Navigate to="/home" />}>
+        <Route path="profile" element={isUserLoggedIn ? <Profile /> : <Navigate to="/login" />}>
           <Route path="userinfo" element={<ProfileForm />} />
           <Route path="addresses" element={<Addresses />} />
         </Route>

@@ -39,7 +39,17 @@ const ManageCatalog: React.FC = (): JSX.Element => {
   const location = useLocation();
   const isProductPage = location.pathname.startsWith('/catalog/product/');
 
-  const [searchValue, setSearchValue] = useState<searchResponse>([]);
+  const [searchValue, setSearchValue] = useState<searchResponse>({
+    total: 0,
+    offset: 0,
+    limit: 0,
+    facets: [],
+    results: [
+      {
+        id: '',
+      },
+    ],
+  });
 
   const fetchData = async (): Promise<void> => {
     const token = getToken();

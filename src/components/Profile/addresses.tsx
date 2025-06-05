@@ -12,8 +12,9 @@ import Feedback from '../../ui/feedback';
 import removeAddress from '../../api/remove-address';
 import { updateCustomerMap } from '../../utility/update-customer-map';
 import { AddressType } from './address-type';
+import AddressSelect from './select-address';
 
-type AddressesData = {
+export type AddressesData = {
   city: string;
   country: string;
   id: string;
@@ -141,6 +142,7 @@ export function Addresses(): JSX.Element {
       <div className="profile address-profile">
         <div className="address-header">
           <h3 className="profile-name">Addresses</h3>
+
           <button
             type="button"
             className="add-address"
@@ -148,6 +150,28 @@ export function Addresses(): JSX.Element {
             name="add address button"
             onClick={handleAddAddress}
           ></button>
+        </div>
+
+        <div className="select-address-wrapper">
+          <AddressSelect
+            name={'defaultBillingAddress'}
+            option="SET DEFAULT BILLING"
+            addressData={addressData}
+            type={data.defaultBillingAddressId}
+            isEditMode={isEditMode}
+            setError={setError}
+            setIsVisible={setIsVisible}
+          />
+
+          <AddressSelect
+            name={'defaultShippingAddress'}
+            option="SET DEFAULT SHIPPING"
+            addressData={addressData}
+            type={data.defaultShippingAddressId}
+            isEditMode={isEditMode}
+            setError={setError}
+            setIsVisible={setIsVisible}
+          />
         </div>
 
         {addressData.map((element: AddressesData) => {

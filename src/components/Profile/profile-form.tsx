@@ -85,7 +85,9 @@ export function ProfileForm(): JSX.Element {
   return (
     <>
       <div className="profile">
-        <h3 className="profile-name">User Info</h3>
+        <div className="userinfo-header">
+          <h3 className="profile-name">User Info</h3>
+        </div>
         {baseArray.map((item) => (
           <div className="profile-el" key={item[0]} data-value={item[0]} data-type={item[1].type}>
             <span className="profile-label">{formatString(item[0], ' ')}</span>

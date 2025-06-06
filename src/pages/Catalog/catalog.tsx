@@ -44,11 +44,7 @@ const ManageCatalog: React.FC = (): JSX.Element => {
     offset: 0,
     limit: 0,
     facets: [],
-    results: [
-      {
-        id: '',
-      },
-    ],
+    results: [{}],
   });
 
   const fetchData = async (): Promise<void> => {
@@ -61,7 +57,7 @@ const ManageCatalog: React.FC = (): JSX.Element => {
 
       const productionData = await getProductsByCategoryId(token);
       if (productionData !== null) {
-        if (searchValue?.results?.length >= 1) {
+        if (searchValue?.results && Object.keys(searchValue.results[0]).length > 0) {
           const filteredArray = productionData.results.filter((item1) =>
             searchValue.results.some((item2) => item1.id === item2.id),
           );

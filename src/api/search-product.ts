@@ -19,13 +19,14 @@ export type searchResponse = {
   facets: [];
   results: [
     {
-      id: string;
+      id?: string;
     },
   ];
 };
 
 export default async function searchProduct(searchValue: string): Promise<searchResponse> {
   const customerToken = getLSData<CustomerLSData>('ctp_token');
+  const anonToken = getLSData<CustomerLSData>('ctp_anon_token');
   const url = `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/products/search`;
 
   const bodyData: BodyData = {
@@ -43,7 +44,7 @@ export default async function searchProduct(searchValue: string): Promise<search
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        Authorization: 'Bearer ' + customerToken?.token,
+        Authorization: 'Bearer ' + (customerToken?.token ?? anonToken?.token),
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify(bodyData),

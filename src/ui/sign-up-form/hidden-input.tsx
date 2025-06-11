@@ -1,18 +1,9 @@
-import type { Dispatch, JSX, SetStateAction } from 'react';
-import type { UseFormRegister, UseFormResetField } from 'react-hook-form';
-import type { FormInputs } from './types';
+import type { JSX } from 'react';
+import type { SpecialCheckboxProps } from './types';
 
-export function HiddenInput({
-  isChecked,
-  setIsChecked,
-  resetField,
-  register,
-}: {
-  isChecked: boolean;
-  setIsChecked: Dispatch<SetStateAction<boolean>>;
-  register: UseFormRegister<FormInputs>;
-  resetField: UseFormResetField<FormInputs>;
-}): JSX.Element {
+export function HiddenInput(props: SpecialCheckboxProps): JSX.Element {
+  const { isChecked, setIsChecked, resetField, register } = props;
+
   function handleCheckboxCheck(): void {
     setIsChecked(!isChecked);
     resetField('shippingstreetName');

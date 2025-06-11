@@ -3,7 +3,8 @@
   align-items: center;
   justify-content: space-between;
 
-  padding: 1rem 2rem 0;
+  height: 64px;
+  padding: 0.5rem 2rem;
 
   font-size: 1rem;
   font-weight: 600;
@@ -48,7 +49,8 @@
   color: var(--hover);
 }
 
-.nav-link, .logo {
+.nav-link,
+.logo {
   text-transform: uppercase;
 }
 
@@ -86,7 +88,7 @@
   width: 2rem;
   height: 2rem;
 
-  background-image: url('../../../public/icons/basket.svg');
+  background-image: url('/icons/basket.svg');
   background-repeat: no-repeat;
   background-position: center;
 }

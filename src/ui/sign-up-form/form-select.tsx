@@ -2,12 +2,9 @@ import { formatString } from '../../utility/format-string';
 import type { JSX } from 'react';
 import type { SelectProps } from './types';
 
-export default function FormSelect({
-  name,
-  register,
-  pattern,
-  validate,
-}: SelectProps): JSX.Element {
+export default function FormSelect(props: SelectProps): JSX.Element {
+  const { name, register, pattern, validate } = props;
+
   return (
     <select
       {...register(name, {
@@ -15,8 +12,8 @@ export default function FormSelect({
         pattern: pattern,
         validate: validate,
       })}
-      className="sign-up-form-input-style"
-      id={'sign-up-form-' + formatString(name, '-')}
+      className="form-input-style"
+      id={'form-' + formatString(name, '-')}
       name={name}
     >
       <option value="">-- Choose country --</option>

@@ -6,7 +6,12 @@
 
   min-height: calc(100vh - 64px);
 
-  background-color: #010409;
+  color-scheme: dark;
+  background-color: var(--background-color-2);
+  background-image: url('/img/space_2.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .sign-up {
@@ -15,18 +20,22 @@
   max-width: 678px;
   margin: auto;
   padding: 1px 0 20px;
+  border: 1px solid var(--border-color);
   border-radius: 17px;
 
-  background-color: #0d1117;
+  background: #00000080;
+  backdrop-filter: blur(50px);
+  box-shadow: var(--shadow-2);
 }
 
 .sign-up-h1 {
+  margin-top: 50px;
   margin-bottom: 0;
   color: white;
   text-align: center;
 }
 
-#sign-up-form {
+#form {
   min-width: 368px;
   max-width: 600px;
   max-height: 1000px;
@@ -34,7 +43,7 @@
   padding: 20px;
   border-radius: 17px;
 
-  color: #eef1f3;
+  color: var(--font-color-2);
 }
 
 .first-page-wrapper {
@@ -48,8 +57,8 @@
   display: grid;
   grid-template-areas:
     'head head'
-    'street street'
-    'postal postal'
+    'street city'
+    'postal country'
     'checkbox checkbox';
   grid-template-columns: 1fr 1fr;
   gap: 10px;
@@ -61,105 +70,118 @@
   margin-bottom: 0;
 }
 
-.billing-address:nth-of-type(2),
-.shipping-address:nth-of-type(2) {
+.form-li {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.form-li > label {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--font-color);
+  text-transform: capitalize;
+}
+
+.billing-address .form-li:nth-of-type(1),
+.shipping-address .form-li:nth-of-type(1) {
   grid-area: street;
 }
 
-.billing-address:nth-of-type(3),
-.shipping-address:nth-of-type(3) {
+.billing-address .form-li:nth-of-type(2),
+.shipping-address .form-li:nth-of-type(2) {
   grid-area: city;
 }
 
-.billing-address:nth-of-type(4),
-.shipping-address:nth-of-type(4) {
+.billing-address .form-li:nth-of-type(3),
+.shipping-address .form-li:nth-of-type(3) {
   grid-area: postal;
 }
 
-.billing-address:nth-of-type(5),
-.shipping-address:nth-of-type(5) {
+.billing-address .form-li:nth-of-type(4),
+.shipping-address .form-li:nth-of-type(4) {
   grid-area: country;
 }
 
-.billing-address:nth-of-type(6),
-.shipping-address:nth-of-type(6) {
+.billing-checkbox,
+.shipping-checkbox {
   grid-area: checkbox;
+  font-size: 0.9rem;
 }
 
 .same-address-checkbox {
   margin-top: 20px;
   padding-top: 10px;
-  border-top: 1px solid #eef1f3;
+  border-top: 1px solid var(--font-color-2);
 }
 
-.sign-up-form-li {
-  display: flex;
-  flex-flow: column wrap;
-}
-
-.sign-up-form-li > label {
-  text-transform: capitalize;
-}
-
-.sign-up-form-input-style {
+.form-input-style {
   padding: 10px;
-  border: 1px solid #30363d;
+  border: 1px solid var(--border-color);
   border-radius: 7px;
 
-  color: #eef1f3;
+  color: var(--font-color-2);
 
-  background-color: #161b22;
+  background: #00000080;
+  backdrop-filter: blur(50px);
+  outline: none;
+
+  transition: border var(--transition);
 }
 
-#sign-up-form-date-of-birth {
-  color-scheme: dark;
+.form-input-style:focus {
+  border-color: var(--border-color-2);
 }
 
-.sign-up-form-error-msg {
-  color: #ef5350;
+.form-error-msg {
+  font-size: 0.9rem;
+  color: var(--error-color);
 }
 
-.sign-up-form-big-error-msg {
+.form-big-error-msg {
   grid-area: k;
 
   width: 100%;
 
   font-size: 1.2rem;
-  color: #ef5350;
+  color: var(--error-color);
   text-align: center;
 }
 
-.sign-up-form-success-msg {
+.form-success-msg {
   grid-area: k;
 
   width: 100%;
 
   font-size: 1.2rem;
-  color: #4caf50;
+  color: var(--success-color);
   text-align: center;
 }
 
-#sign-up-form-submit-btn {
+#form-submit-btn {
   cursor: pointer;
 
   width: 100%;
   height: 45px;
   margin: 20px 0;
-  border: 1px solid #30363d;
+  border: 1px solid var(--border-color);
   border-radius: 7px;
 
   font-size: 1.2rem;
-  color: #eef1f3;
+  color: var(--font-color-2);
   text-transform: uppercase;
 
-  background-color: #3ac267;
+  background-color: var(--btn-color);
 }
 
-#sign-up-form-submit-btn:hover {
-  background-color: #1f8860e5;
+.form-input-style option {
+  background-color: var(--background-color-2);
 }
 
-.sign-up-form-control-buttons {
+#form-submit-btn:hover {
+  background-color: var(--btn-hoover-color);
+}
+
+.form-control-buttons {
   position: relative;
 
   min-width: 368px;
@@ -173,28 +195,29 @@
   cursor: pointer;
 
   padding: 6px 14px;
-  border: 1px solid #30363d;
+  border: 1px solid var(--border-color);
   border-radius: 7px;
 
   font-size: 1rem;
-  color: #eef1f3;
+  color: var(--font-color-2);
   text-transform: lowercase;
 
-  background-color: #3b82f6;
+  background-color: var(--btn-color-2);
 }
 
-.sign-up-form-control-back-button {
+.form-control-back-button {
   position: absolute;
   left: 20px;
 }
 
-.sign-up-form-control-next-button {
+.form-control-next-button {
   position: absolute;
   right: 20px;
 }
 
 .redirect-to-login {
-  color: #eef1f3;
+  margin-top: 10px;
+  color: var(--font-color-2);
   text-align: center;
 }
 
@@ -211,6 +234,11 @@
 }
 
 @media only screen and (width <= 599px) {
+  .sign-up {
+    min-height: calc(100vh - 64px);
+    border-radius: 0;
+  }
+
   .billing-address,
   .shipping-address {
     display: flex;

@@ -6,8 +6,10 @@ import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import pluginQuery from '@tanstack/eslint-plugin-query'
 
 export default tseslint.config(
+  ...pluginQuery.configs['flat/recommended'],
   eslint.configs.recommended,
   tseslint.configs.strict,
   tseslint.configs.stylistic,
@@ -36,7 +38,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      'max-lines-per-function': ['error', { max: 120, skipBlankLines: true }],
+      'max-lines-per-function': ['error', { max: 200, skipBlankLines: true }],
       'unicorn/switch-case-braces': ['error', 'avoid'],
       '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
       '@typescript-eslint/consistent-type-imports': 'error',

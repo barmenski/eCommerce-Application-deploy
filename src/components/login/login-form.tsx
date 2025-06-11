@@ -52,7 +52,6 @@ export default function LoginForm({ onLogin, loginError }: LoginFormProps): JSX.
     const validationErrors = validate();
     setErrors(validationErrors);
     setIsValid(Object.keys(validationErrors).length === 0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, password]);
 
   const handleSubmit = (event_: React.FormEvent): void => {
@@ -112,17 +111,13 @@ export default function LoginForm({ onLogin, loginError }: LoginFormProps): JSX.
             Show password
           </label>
         </div>
-        <p>
+        <p className="redirect">
           You are not registered?{' '}
           <Link className="redirect-to-login-link" to={'/signUp'}>
             Signup
           </Link>
         </p>
-        {loginError && (
-          <div className="error-message" style={{ color: 'red', marginTop: '1rem' }}>
-            {loginError}
-          </div>
-        )}
+        {loginError && <div className="error-message">{loginError}</div>}
         <button type="submit" className="login-button mt-8" disabled={!isValid}>
           Login
         </button>

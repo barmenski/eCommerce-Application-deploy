@@ -9,16 +9,13 @@ import { Link } from 'react-router';
 import SimpleModal from '../../ui/simple-modal/simple-modal';
 
 export default function Basket(): JSX.Element {
-  const { data, isError } = useQuery({
+  const { data } = useQuery({
     queryKey: ['active-cart'],
     queryFn: getActiveCart,
-    retry: false,
   });
   const queryClient = useQueryClient();
 
   const dialogReference = useRef<HTMLDialogElement>(null);
-
-  if (isError) return <h1 className="no-cart">You don't have a cart. ☹</h1>;
 
   const items = data?.lineItems;
   const id = data?.id;

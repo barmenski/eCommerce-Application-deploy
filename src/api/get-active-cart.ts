@@ -1,4 +1,5 @@
 import { getLSData } from '../utility/local-storage';
+import { createAnonymousCart } from './create-anonymous-cart';
 import type { CustomerLSData } from './create-customer-token';
 
 export type ActiveCart = {
@@ -73,6 +74,7 @@ export async function getActiveCart(): Promise<ActiveCart> {
     }
 
     if (response.status === 404) {
+      await createAnonymousCart();
       console.log('create new anon cart');
     }
   } catch (error) {

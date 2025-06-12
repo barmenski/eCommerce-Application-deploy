@@ -11,6 +11,9 @@ import {
 } from '../../helpers/client-builder.ts';
 import type { AccessToken } from '../../helpers/client-builder.ts';
 import LoginForm from '../../components/login/login-form.tsx';
+import { loginCustomer } from '../../api/login-customer.ts';
+import { getLSData } from '../../utility/local-storage.ts';
+import type { CustomerLSData } from '../../api/create-customer-token.ts';
 
 async function loginWithPasswordFlow(email: string, password: string): Promise<AccessToken> {
   const authUrl = `https://auth.europe-west1.gcp.commercetools.com/oauth/${projectKey}/customers/token`;
@@ -60,43 +63,30 @@ function Login(): JSX.Element {
   const [, setLocalApiRoot] = useState(getApiRoot());
   const navigate = useNavigate();
 
-  const makeCart: () => Promise<void> = async () => {
-    const customerApiRoot = getApiRoot();
-    await customerApiRoot
-      .withProjectKey({ projectKey })
-      .me()
-      .carts()
-      .post({
-        body: {
-          currency: 'USD',
-          country: 'US',
-          lineItems: [
-            {
-              productId: '9a02a229-8e83-4fd4-8d5b-0d2bd03467fd',
-              variantId: 1,
-              quantity: 1,
-            },
-            {
-              productId: 'aa1586ef-548d-40dc-97f9-8bab2e6e1eb1',
-              variantId: 1,
-              quantity: 2,
-            },
-          ],
-        },
-      })
-      .execute();
-  };
+  // const makeCart: () => Promise<void> = async () => {
+  //   const customerApiRoot = getApiRoot();
+  //   await customerApiRoot
+  //     .withProjectKey({ projectKey })
+  //     .me()
+  //     .carts()
+  //     .post({
+  //       body: {
+  //         currency: 'USD',
+  //       },
+  //     })
+  //     .execute();
+  // };
 
-  const getCart: () => Promise<void> = async () => {
-    const customerApiRoot = getApiRoot();
-    const cartActive = await customerApiRoot
-      .withProjectKey({ projectKey })
-      .me()
-      .activeCart()
-      .get()
-      .execute();
-    console.log('Active Cart:', cartActive.body);
-  };
+  // const getCart: () => Promise<void> = async () => {
+  //   const customerApiRoot = getApiRoot();
+  //   const cartActive = await customerApiRoot
+  //     .withProjectKey({ projectKey })
+  //     .me()
+  //     .activeCart()
+  //     .get()
+  //     .execute();
+  //   console.log('Active Cart:', cartActive);
+  // };
 
   const handleLogin = async (email: string, password: string): Promise<void> => {
     setLoginError('');
@@ -106,9 +96,20 @@ function Login(): JSX.Element {
       const customerApiRoot = buildClientWithToken(token.access_token);
       setApiRoot(customerApiRoot);
       setLocalApiRoot(customerApiRoot);
-      await makeCart();
-      await getCart();
-      navigate('/home');
+      const anonToken = getLSData<CustomerLSData>('ctp_anon_token');
+      if (anonToken) {
+        // await makeCart();
+        // await getCart();
+        const login = await loginCustomer(anonToken, {
+          email,
+          password,
+          updateProductData: true,
+          activeCartSignInMode: 'UseAsNewActiveCustomerCart',
+        });
+        if (login) {
+          navigate('/home');
+        }
+      }
     } catch (error) {
       console.error('Login failed:', error);
       setLoginError('Login failed. Please check your credentials.');

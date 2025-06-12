@@ -76,6 +76,11 @@ function Login(): JSX.Element {
               variantId: 1,
               quantity: 1,
             },
+            {
+              productId: 'aa1586ef-548d-40dc-97f9-8bab2e6e1eb1',
+              variantId: 1,
+              quantity: 2,
+            },
           ],
         },
       })

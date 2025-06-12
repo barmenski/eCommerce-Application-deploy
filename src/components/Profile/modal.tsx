@@ -1,15 +1,15 @@
 import { type JSX } from 'react';
-import FormInput from './sign-up-form/form-input';
-import type { FormInputs, ModalProps } from './sign-up-form/types';
+import FormInput from '../../ui/sign-up-form/form-input';
+import type { FormInputs, ModalProps } from '../../ui/sign-up-form/types';
 import type { SubmitHandler } from 'react-hook-form';
-import updateSetting from '../api/update-setting';
+import updateSetting from '../../api/update-setting';
 import { useQueryClient } from '@tanstack/react-query';
-import { updateCustomerMap } from '../utility/update-customer-map';
-import PasswordInput from '../components/Profile/password-input';
-import CheckBox from '../components/Profile/checkboxes';
-import { chexboxNames } from '../utility/profile-checkbox-names';
-import { formatString } from '../utility/format-string';
-import addAddress from '../api/add-address';
+import { updateCustomerMap } from '../../utility/update-customer-map';
+import PasswordInput from './password-input';
+import CheckBox from './checkboxes';
+import { chexboxNames } from '../../utility/profile-checkbox-names';
+import { formatString } from '../../utility/format-string';
+import addAddress from '../../api/add-address';
 
 export default function Modal(props: ModalProps): JSX.Element {
   const {

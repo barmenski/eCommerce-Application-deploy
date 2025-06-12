@@ -17,7 +17,7 @@ export default function Header(): ReactElement {
           <div className="nav-container">
             <Navigation items={items} />
             <div className="icons-container">
-              <div className="basket"></div>
+              <Link to="/basket" className="basket"></Link>
             </div>
           </div>
         </div>

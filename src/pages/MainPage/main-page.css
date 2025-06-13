@@ -43,12 +43,6 @@
   letter-spacing: 1rem;
 }
 
-.destinations-section {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 7%;
-}
-
 .header-h2 {
   margin: 0;
   padding: 2rem 0;
@@ -61,36 +55,34 @@
 }
 
 .planets {
+  position: relative;
+  z-index: 1;
+
   display: flex;
+  flex-direction: column;
   gap: 1rem;
+  gap: 10%;
   justify-content: space-evenly;
+
   width: 100%;
+  max-width: 90rem;
+  padding: 0.5rem;
 }
 
-.planet {
-  display: flex;
+.planets::before {
+  content: '';
 
-  width: 6rem;
-  height: 6rem;
+  position: absolute;
+  z-index: -1;
+  inset: 0;
 
+  opacity: 0.2;
+  background-image: url('../../../img/2.jpg');
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  background-size: cover;
 }
 
-.planet-one {
-  background-image: url('../../../img/one.png');
-}
-
-.planet-two {
-  background-image: url('../../../img/two.png');
-}
-
-.planet-three {
-  background-image: url('../../../img/three.png');
-}
-
-@media (width <= 40rem) {
+@media (width <= 1040px) {
   .planets {
     flex-direction: column;
     gap: 3rem;
@@ -103,4 +95,77 @@
     font-size: 1rem;
     letter-spacing: 1rem;
   }
+}
+
+.destinations-section {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 7%;
+}
+
+.planet-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.planet-wrapper-middle {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  width: 100%;
+}
+
+.planet-image-one {
+  width: 380px;
+  height: 380px;
+
+  background-image: url('../../../img/red-planet.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.planet-image-two {
+  width: 300px;
+  height: 300px;
+
+  background-image: url('../../../img/rss-planet.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.planet-image-three {
+  width: 300px;
+  height: 300px;
+
+  background-image: url('../../../img/brown-planet.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.planet-txt {
+  font-size: 1.5rem;
+  color: var(--hover);
+}
+
+.more {
+  display: flex;
+
+  margin: 1rem;
+  padding: 0.6rem 1.4rem;
+  border: 1px solid;
+  border-radius: 0.5rem;
+
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--main-color);
+
+  background-color: var(--matte-black);
+
+  transition: 0.3s;
+}
+
+.more:hover {
+  cursor: pointer;
+  color: var(--hover);
 }

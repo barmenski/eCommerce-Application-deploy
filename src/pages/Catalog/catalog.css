@@ -10,7 +10,7 @@
   white-space: nowrap;
 }
 
-.product-wrapper {
+.catalog-wrapper {
   display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
@@ -31,8 +31,17 @@
 }
 
 .product-filter {
+  display: flex;
   flex: 0 0 200px;
+  flex-flow: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+
   margin: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #a44dc7;
+  border-radius: 12px;
 }
 
 .product-filter li {

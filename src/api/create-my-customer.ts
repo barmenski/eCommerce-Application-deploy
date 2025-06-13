@@ -7,6 +7,8 @@ import { setLSData } from '../utility/local-storage';
 export type CustomerData = {
   email: string;
   password: string;
+  updateProductData?: boolean;
+  activeCartSignInMode?: 'UseAsNewActiveCustomerCart';
 };
 
 export async function createMyCustomer(

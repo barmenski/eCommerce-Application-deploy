@@ -1,0 +1,35 @@
+.simple-modal {
+  min-width: 360px;
+  max-width: 360px;
+  border: 1px solid var(--border-color);
+  border-radius: 17px;
+
+  color: var(--font-color-2);
+
+  background-color: var(--background-color);
+}
+
+.simple-modal-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.simple-modal-btn-style {
+  cursor: pointer;
+
+  min-width: 90px;
+  padding: 8px;
+  border: none;
+  border-radius: 12px;
+
+  color: white;
+}
+
+#simple-modal-ok {
+  background-color: var(--btn-color);
+}
+
+#simple-modal-cancel {
+  background-color: var(--error-color);
+}

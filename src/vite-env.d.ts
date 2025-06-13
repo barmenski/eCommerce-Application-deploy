@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+
 type ImportMetaEnvironment = {
   readonly VITE_CTP_PROJECT_KEY: string;
   readonly VITE_CTP_CLIENT_ID: string;

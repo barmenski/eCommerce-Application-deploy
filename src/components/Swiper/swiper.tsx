@@ -7,7 +7,7 @@ import type { PlanetImages } from '../../api/get-product';
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-Modal.setAppElement('#root');
+if (document.querySelector('#root')) Modal.setAppElement('#root');
 
 export default function Slider(images: PlanetImages[]): ReactNode {
   const arrayImages = Object.values(images);

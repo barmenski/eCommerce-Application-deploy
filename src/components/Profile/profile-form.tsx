@@ -6,7 +6,7 @@ import type { BaseFormInputs, FormInputs } from '../../ui/sign-up-form/types';
 import { baseRegexDelivery } from '../../utility/regexp-patterns';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { formatString } from '../../utility/format-string';
-import Modal from '../../ui/modal';
+import Modal from './modal';
 import { isKeyOfType } from '../../utility/key-of-type';
 import Feedback from '../../ui/feedback';
 

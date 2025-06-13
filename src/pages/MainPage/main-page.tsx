@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 import './main-page.css';
 import { Link } from 'react-router';
+import Promos from '../../components/Promos/promos';
 export default function MainPage(): ReactElement {
   return (
     <>
@@ -15,6 +16,7 @@ export default function MainPage(): ReactElement {
 
         <section className="destinations-section">
           <div className="container-section">
+            <Promos />
             <h2 className="header-h2">destinations</h2>
             <div className="planets">
               <div className="planet-wrapper">

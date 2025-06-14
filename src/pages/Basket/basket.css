@@ -5,6 +5,45 @@
   background-color: var(--background-color-3);
 }
 
+.discount {
+  display: grid;
+  grid-template:
+    'label label label'
+    'input input button';
+  gap: 4px;
+
+  max-width: 300px;
+  margin: 10px 0 20px;
+}
+
+.discount-label {
+  grid-area: label;
+}
+
+.discount-input {
+  grid-area: input;
+}
+
+#apply-btn {
+  cursor: pointer;
+
+  grid-area: button;
+
+  width: 80px;
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+
+  font-size: 1rem;
+  color: var(--font-color-2);
+  text-transform: uppercase;
+
+  background-color: var(--btn-color);
+}
+
+.total-price {
+  font-size: 1.3rem;
+}
+
 #delete-basket {
   position: absolute;
   top: 80px;

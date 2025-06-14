@@ -49,33 +49,35 @@ export default function BasketItem(props: BasketItemProps): JSX.Element {
 
   return (
     <li ref={basketItemReference} className="basket-li" data-key={productKey}>
-      <img src={img} alt="basket-item" width={50} height={50} />
+      <img src={img} alt="basket-item" width={50} height={50} className="basket-item-img" />
       <span className="basket-item-name">{name}</span>
-      <div className="basket-item-controls">
+      <div className="basket-item-info">
+        <div className="basket-item-controls">
+          <button
+            disabled={isFirstItem}
+            onClick={() => handleRemoveItem(1)}
+            type="button"
+            className={['basket-btn-style', isFirstItem && 'disabled'].join(' ')}
+            id="minus-btn"
+          ></button>
+          <output role="status" name="item-count" id="basket-item-count">
+            {quantity}
+          </output>
+          <button
+            onClick={() => handleAddItem(1)}
+            type="button"
+            className="basket-btn-style"
+            id="plus-btn"
+          ></button>
+        </div>
+        <span className="basket-item-price">{price}</span>
         <button
-          disabled={isFirstItem}
-          onClick={() => handleRemoveItem(1)}
+          onClick={() => handleRemoveItem(quantity)}
+          title="remove item"
           type="button"
-          className={['basket-btn-style', isFirstItem && 'disabled'].join(' ')}
-          id="minus-btn"
-        ></button>
-        <output role="status" name="item-count" id="basket-item-count">
-          {quantity}
-        </output>
-        <button
-          onClick={() => handleAddItem(1)}
-          type="button"
-          className="basket-btn-style"
-          id="plus-btn"
+          id="delete-item-btn"
         ></button>
       </div>
-      <span className="basket-item-price">{price}</span>
-      <button
-        onClick={() => handleRemoveItem(quantity)}
-        title="remove item"
-        type="button"
-        id="delete-item-btn"
-      ></button>
     </li>
   );
 }

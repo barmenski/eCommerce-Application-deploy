@@ -7,6 +7,7 @@ import saveBasketData from '../../components/Basket/save-basket-data';
 import { removeCart } from '../../api/remove-cart';
 import { Link } from 'react-router';
 import SimpleModal from '../../ui/simple-modal/simple-modal';
+import Discount from '../../components/Basket/discount';
 
 export default function Basket(): JSX.Element {
   const { data } = useQuery({
@@ -52,6 +53,9 @@ export default function Basket(): JSX.Element {
           </button>
 
           <BasketList array={items ?? []} version={version || 1} />
+
+          <Discount />
+
           <div className="total-price">{`Total Price: ${data.totalPrice.centAmount / 100} USD`}</div>
 
           <SimpleModal

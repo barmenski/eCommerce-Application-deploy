@@ -56,7 +56,7 @@ export default function Basket(): JSX.Element {
 
           <Discount />
 
-          <div className="total-price">{`Total Price: ${data.totalPrice.centAmount / 100} USD`}</div>
+          <div className="total-price">{`Total Price: ${(data.totalPrice.centAmount / 100).toFixed(2)} USD`}</div>
 
           <SimpleModal
             message={'Are you sure?'}

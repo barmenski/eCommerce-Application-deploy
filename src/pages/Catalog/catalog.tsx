@@ -11,6 +11,9 @@ import './catalog.css';
 import type { searchResponse } from '../../api/search-product';
 import { getProductsByCategoryId } from '../../api/get-products';
 import { getCategoryIds } from '../../api/get-categories';
+import { useQuery } from '@tanstack/react-query';
+import { getActiveCart } from '../../api/get-active-cart';
+import saveBasketData from '../../components/Basket/save-basket-data';
 
 const getToken = (): string => {
   checkToken();
@@ -32,6 +35,11 @@ const getToken = (): string => {
 };
 
 const Catalog: React.FC = (): JSX.Element => {
+  const { data } = useQuery({
+    queryKey: ['active-cart-product'],
+    queryFn: getActiveCart,
+  });
+
   const navigate = useNavigate();
   const location = useLocation();
   const isProductPage = location.pathname.startsWith('/catalog/product/');
@@ -119,6 +127,14 @@ const Catalog: React.FC = (): JSX.Element => {
       }
     }
   };
+
+  useEffect(() => {
+    if (data?.id && data.lineItems) {
+      saveBasketData(data.lineItems, data.id);
+      console.log('save');
+    }
+  }, [data]);
+
   return (
     <>
       <Breadcrumb breadcrumb={breadcrumb} breadcrumbNavigation={breadcrumbNavigation} />

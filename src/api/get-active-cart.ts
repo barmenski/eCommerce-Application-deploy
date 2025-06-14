@@ -76,7 +76,7 @@ export async function getActiveCart(): Promise<ActiveCart> {
         await createAnonymousSession();
         break;
       case 404:
-        await createAnonymousCart();
+        await createAnonymousCart({ currency: 'USD', country: 'US' });
         console.log('create new anon cart');
         break;
       default:

@@ -98,3 +98,12 @@
 .cart-img {
   margin-right: 1rem;
 }
+
+.remove-product-item {
+  font-size: 0.9rem;
+  background-color: var(--error-color);
+}
+
+.remove-product-item:hover {
+  background-color: #a12220;
+}

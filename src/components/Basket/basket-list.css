@@ -89,6 +89,7 @@
 }
 
 .basket-item-price {
+  min-width: 90px;
   font-size: 1.1rem;
 }
 
@@ -117,9 +118,19 @@
   color: white;
 }
 
-@media only screen and (width <= 726px) {
+@media only screen and (width <= 778px) {
   .basket-item-info {
     flex: 1;
     justify-content: space-around;
+  }
+}
+
+@media only screen and (width <= 405px) {
+  .basket-item-info {
+    gap: 10px;
+  }
+
+  .basket-item-price {
+    text-align: center;
   }
 }

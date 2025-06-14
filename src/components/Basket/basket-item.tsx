@@ -70,7 +70,7 @@ export default function BasketItem(props: BasketItemProps): JSX.Element {
             id="plus-btn"
           ></button>
         </div>
-        <span className="basket-item-price">{price}</span>
+        <span className="basket-item-price">{price.toFixed(2)}</span>
         <button
           onClick={() => handleRemoveItem(quantity)}
           title="remove item"

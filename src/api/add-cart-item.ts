@@ -21,6 +21,7 @@ export async function addCartItem(
       {
         action: 'addLineItem',
         productId: itemId,
+        variantId: 1,
         quantity,
       },
     ],

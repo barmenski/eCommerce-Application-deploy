@@ -18,6 +18,7 @@ export default function Header(): ReactElement {
             <Navigation items={items} />
             <div className="icons-container">
               <Link to="/basket" className="basket"></Link>
+              <div className="items-count">0</div>
             </div>
           </div>
         </div>

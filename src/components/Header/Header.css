@@ -97,6 +97,25 @@
   filter: invert(52%) sepia(10%) saturate(758%) hue-rotate(48deg) brightness(94%) contrast(87%);
 }
 
+.items-count {
+  position: relative;
+  right: 10px;
+  bottom: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+
+  font-size: 0.7rem;
+  color: white;
+
+  background-color: rgb(192 87 227);
+}
+
 .scroll-forbidden {
   overflow-y: hidden;
 }

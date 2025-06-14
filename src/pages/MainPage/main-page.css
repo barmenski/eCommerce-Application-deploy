@@ -148,6 +148,13 @@
   color: var(--hover);
 }
 
+.destinations-txt {
+  padding: 0.25rem;
+  font-size: 1.3rem;
+  color: var(--hover);
+  text-align: center;
+}
+
 .more {
   display: flex;
 

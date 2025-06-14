@@ -34,7 +34,7 @@ export default function MainPage(): ReactElement {
                 <div className="planet-txt"> GJ4441</div>
               </div>
             </div>
-            <div className="planet-txt">Discover your next adventure!</div>
+            <div className="destinations-txt">Discover your next adventure!</div>
             <div className="more">
               <Link to="/catalog">{`${'Learn more'}`.toUpperCase()}</Link>
             </div>

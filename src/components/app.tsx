@@ -43,6 +43,7 @@ export default function App(): JSX.Element {
         </Route>
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/catalog" element={<Catalog />}>
+          {/* <Route path="category/:key" element={<CategoryPage />} /> */}
           <Route path="product/:key" element={<ProductPage />} />
         </Route>
         <Route path="/about" element={<About />} />

@@ -38,7 +38,7 @@ export default function SignUpForm(props: SignUpFormProps): JSX.Element {
     try {
       const access_data = await getAnonymousToken(setError);
       if (access_data instanceof Error) return;
-      await createAnonymousCart(access_data, setError);
+      await createAnonymousCart({ currency: 'USD', country: 'US' }, access_data, setError);
       const customer_data = await createMyCustomer(data, access_data, setError);
       if (customer_data instanceof Error) return;
       const customer_token = await createCustomerToken(customer_data);

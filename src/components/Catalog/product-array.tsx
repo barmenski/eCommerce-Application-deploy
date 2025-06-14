@@ -40,6 +40,8 @@ const ProductArray: React.FC<CatalogRequest> = ({
                 price={price / 100}
                 discountedPrice={discountedPrice / 100}
                 currency={currency}
+                productId={productData.id}
+                productKey={productData.key}
                 onClick={() => {
                   if (typeof breadcrumbNavigation === 'function') {
                     breadcrumbNavigation(product.key);

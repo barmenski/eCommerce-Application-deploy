@@ -1,4 +1,4 @@
-import { useRef, type JSX } from 'react';
+import { useEffect, useRef, type JSX } from 'react';
 import './basket.css';
 import BasketList from '../../components/Basket/basket-list';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -7,6 +7,7 @@ import saveBasketData from '../../components/Basket/save-basket-data';
 import { removeCart } from '../../api/remove-cart';
 import { Link } from 'react-router';
 import SimpleModal from '../../ui/simple-modal/simple-modal';
+import Discount from '../../components/Basket/discount';
 
 export default function Basket(): JSX.Element {
   const { data } = useQuery({
@@ -21,9 +22,11 @@ export default function Basket(): JSX.Element {
   const id = data?.id;
   const version = data?.version;
 
-  if (items && id) {
-    saveBasketData(items, id);
-  }
+  useEffect(() => {
+    if (items && id) {
+      saveBasketData(items, id);
+    }
+  }, [data]);
 
   async function clearBasket(): Promise<void> {
     const remove = await removeCart(version || 1);
@@ -50,7 +53,10 @@ export default function Basket(): JSX.Element {
           </button>
 
           <BasketList array={items ?? []} version={version || 1} />
-          <div className="total-price">{`Total Price: ${data.totalPrice.centAmount / 100} USD`}</div>
+
+          <Discount />
+
+          <div className="total-price">{`Total Price: ${(data.totalPrice.centAmount / 100).toFixed(2)} USD`}</div>
 
           <SimpleModal
             message={'Are you sure?'}

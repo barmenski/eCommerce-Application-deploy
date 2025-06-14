@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './product-card.css';
-import CartImg from '/icons/cart.svg';
+import CartImg from '../../../public/icons/cart.svg';
+import { addCartItem } from '../../api/add-cart-item';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { getActiveCart } from '../../api/get-active-cart';
+import { removeCartItem } from '../../api/remove-cart-item';
 
 type ProductCardProps = {
   image: string;
@@ -9,6 +13,8 @@ type ProductCardProps = {
   price: number;
   discountedPrice?: number;
   currency: string;
+  productId: string;
+  productKey: string;
   onClick: () => void;
 };
 
@@ -19,12 +25,57 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   discountedPrice,
   currency,
+  productId,
+  productKey,
   onClick,
 }) => {
+  const { data } = useQuery({
+    queryKey: ['active-cart-product'],
+    queryFn: getActiveCart,
+    retry: false,
+  });
+
+  const productItemReference = useRef<HTMLDivElement>(null);
+  const queryClient = useQueryClient();
+
   const showDiscount = discountedPrice && discountedPrice < price;
 
+  const isCartHasItem = data?.lineItems.find((item) => item.productKey === productKey);
+
+  async function handleAddToCartClick(event: { stopPropagation: () => void }): Promise<void> {
+    event.stopPropagation();
+    const current = productItemReference.current;
+    if (current instanceof HTMLDivElement) {
+      const key = current.dataset.id;
+      if (key) {
+        const add = await addCartItem(key, 1, data?.version || 1);
+        if (add instanceof Error) return;
+        queryClient.invalidateQueries({ queryKey: ['active-cart-product'] });
+      }
+    }
+  }
+
+  async function handleRemoreFromCartClick(event: { stopPropagation: () => void }): Promise<void> {
+    event.stopPropagation();
+    const current = productItemReference.current;
+    if (current instanceof HTMLDivElement) {
+      const key = current.dataset.key;
+      if (key) {
+        const remove = await removeCartItem(key, 1, data?.version || 1);
+        if (remove instanceof Error) return;
+        queryClient.invalidateQueries({ queryKey: ['active-cart-product'] });
+      }
+    }
+  }
+
   return (
-    <div className="product-card-card" onClick={onClick}>
+    <div
+      ref={productItemReference}
+      className="product-card-card"
+      onClick={onClick}
+      data-key={productKey}
+      data-id={productId}
+    >
       <img src={image} alt={title} className="product-card-image" />
 
       <div className="product-card-info">
@@ -47,9 +98,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </span>
           )}
         </div>
-        <button className="cart-buttton">
+        <button
+          onClick={isCartHasItem ? handleRemoreFromCartClick : handleAddToCartClick}
+          className={['cart-buttton', isCartHasItem && 'remove-product-item'].join(' ')}
+        >
           <img className="cart-img" src={CartImg} alt="Корзина" width="24" height="24"></img>
-          Add to Cart
+          {isCartHasItem ? 'Remove from Cart' : 'Add to Cart'}
         </button>
       </div>
     </div>

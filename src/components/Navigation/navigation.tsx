@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactElement } from 'react';
 import { Link } from 'react-router';
 import Burger from '../Burger/burger';
+import { createAnonymousSession } from '../../api/create-anonymous-session';
 
 type Props = {
   items: string[];
@@ -56,8 +57,9 @@ export default function Navigation({ items }: Props): ReactElement {
     }
   };
 
-  const handleLogOut = (): void => {
-    localStorage.removeItem('ctp_token');
+  const handleLogOut = async (): Promise<void> => {
+    localStorage.clear();
+    await createAnonymousSession();
     globalThis.dispatchEvent(new Event('storage'));
     closeHamburger();
   };

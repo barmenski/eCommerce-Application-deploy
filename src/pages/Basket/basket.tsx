@@ -1,4 +1,4 @@
-import { useRef, type JSX } from 'react';
+import { useEffect, useRef, type JSX } from 'react';
 import './basket.css';
 import BasketList from '../../components/Basket/basket-list';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -21,9 +21,11 @@ export default function Basket(): JSX.Element {
   const id = data?.id;
   const version = data?.version;
 
-  if (items && id) {
-    saveBasketData(items, id);
-  }
+  useEffect(() => {
+    if (items && id) {
+      saveBasketData(items, id);
+    }
+  }, [data]);
 
   async function clearBasket(): Promise<void> {
     const remove = await removeCart(version || 1);

@@ -11,20 +11,20 @@ export async function createAnonymousCart(
   const anonToken = getLSData<CustomerLSData>('ctp_anon_token');
   const jsonData = JSON.stringify({
     currency: 'USD',
+    // country: 'US',
+    // lineItems: [
+    //   {
+    //     productId: '9a02a229-8e83-4fd4-8d5b-0d2bd03467fd',
+    //     variantId: 1,
+    //     quantity: 1,
+    //   },
+    //   {
+    //     productId: 'aa1586ef-548d-40dc-97f9-8bab2e6e1eb1',
+    //     variantId: 1,
+    //     quantity: 2,
+    //   },
+    // ],
   });
-  // country: 'US',
-  // lineItems: [
-  //   {
-  //     productId: '9a02a229-8e83-4fd4-8d5b-0d2bd03467fd',
-  //     variantId: 1,
-  //     quantity: 1,
-  //   },
-  //   {
-  //     productId: 'aa1586ef-548d-40dc-97f9-8bab2e6e1eb1',
-  //     variantId: 1,
-  //     quantity: 2,
-  //   },
-  // ],
   const url = `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/me/carts`;
   const token = access_data?.access_token || anonToken?.token;
 

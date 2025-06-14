@@ -1,5 +1,6 @@
 import { getLSData } from '../utility/local-storage';
 import { createAnonymousCart } from './create-anonymous-cart';
+import { createAnonymousSession } from './create-anonymous-session';
 import type { CustomerLSData } from './create-customer-token';
 
 export type ActiveCart = {
@@ -64,18 +65,22 @@ export async function getActiveCart(): Promise<ActiveCart> {
 
     const basket: ActiveCart = await response.json();
 
-    if (response.status === 200) {
-      console.log('Success:', basket);
-      return basket;
-    }
-
-    if (response.status === 400 || response.status === 401) {
-      console.error('Error:', basket);
-    }
-
-    if (response.status === 404) {
-      await createAnonymousCart();
-      console.log('create new anon cart');
+    switch (response.status) {
+      case 200:
+        console.log('Success:', basket);
+        return basket;
+      case 400:
+        console.error('Error:', basket);
+        break;
+      case 401:
+        await createAnonymousSession();
+        break;
+      case 404:
+        await createAnonymousCart();
+        console.log('create new anon cart');
+        break;
+      default:
+        break;
     }
   } catch (error) {
     console.error('You probably should change url', error);

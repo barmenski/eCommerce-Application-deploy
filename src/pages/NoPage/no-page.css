@@ -33,7 +33,7 @@
   letter-spacing: 0.5rem;
 }
 
-.go-home {
+.go-home-button {
   display: flex;
 
   padding: 0.6rem 1.4rem;
@@ -47,7 +47,7 @@
   background-color: var(--matte-black);
 }
 
-.go-home:hover {
+.go-home-button:hover {
   cursor: pointer;
   color: var(--hover);
 }
@@ -62,7 +62,7 @@
   width: 90px;
   height: 90px;
 
-  background-image: url('../../../img/alien.png');
+  background-image: url('/img/alien.png');
   background-repeat: no-repeat;
   background-size: contain;
 

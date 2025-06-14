@@ -1,0 +1,19 @@
+.promo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+
+  margin: 1rem;
+  padding: 0.4rem;
+
+  font-size: 1.5rem;
+  color: var(--hover);
+
+  background-color: var(--matte-black);
+}
+
+.promo-bold {
+  color: #cf9fff;
+  text-transform: uppercase;
+}

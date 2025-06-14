@@ -28,6 +28,7 @@ export default function SimpleModal(props: SimpleModalProps): JSX.Element {
 
   function handleClick(): void {
     callback();
+    handleCloseEvent();
   }
 
   return (

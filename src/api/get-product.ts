@@ -2,6 +2,7 @@ import type { AccessData } from './get-access-token';
 import { getAccessToken } from './get-access-token';
 
 export type Planet = {
+  version: number;
   key: string;
   price: number;
   masterData: {
@@ -52,6 +53,7 @@ export async function getProduct(key: string): Promise<Planet> {
       },
     );
     const productData = await response.json();
+    console.log(productData);
     if (productData.statusCode === 401) {
       console.log('Error:', productData.message);
     }

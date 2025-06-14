@@ -19,6 +19,7 @@ export default function ProductPage(): JSX.Element {
     queryFn: () => getProduct(assertIsDefined(key)),
     queryKey: [key],
   });
+
   if (isPending) {
     return <span>Loading...</span>;
   }
@@ -42,6 +43,8 @@ export default function ProductPage(): JSX.Element {
     const priceDiscount =
       data.masterData.current.masterVariant.prices[0].discounted?.value.centAmount;
     // const currency = product.masterData.current.masterVariant.prices[0].value.currencyCode;
+
+    // const version = data?.version;
 
     return (
       <>
@@ -74,6 +77,7 @@ export default function ProductPage(): JSX.Element {
                 )}
               </div>
               <div>{description}</div>
+              <button className="add-cart-button">Add to Cart</button>
             </div>
           </div>
         </div>

@@ -155,7 +155,7 @@
   text-align: center;
 }
 
-.more {
+.more-button {
   display: flex;
 
   margin: 1rem;
@@ -172,7 +172,7 @@
   transition: 0.3s;
 }
 
-.more:hover {
+.more-button:hover {
   cursor: pointer;
   color: var(--hover);
 }

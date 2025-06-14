@@ -35,9 +35,9 @@ export default function MainPage(): ReactElement {
               </div>
             </div>
             <div className="destinations-txt">Discover your next adventure!</div>
-            <div className="more">
+            <button className="more-button">
               <Link to="/catalog">{`${'Learn more'}`.toUpperCase()}</Link>
-            </div>
+            </button>
           </div>
         </section>
       </main>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './product-card.css';
-import CartImg from '../../../public/icons/cart.svg';
+import CartImg from '/icons/cart.svg';
 
 type ProductCardProps = {
   image: string;

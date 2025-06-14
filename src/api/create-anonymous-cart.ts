@@ -25,6 +25,7 @@ export async function createAnonymousCart(
   //     quantity: 2,
   //   },
   // ],
+
   const url = `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/me/carts`;
   const token = access_data?.access_token || anonToken?.token;
 

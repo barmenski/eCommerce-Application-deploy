@@ -57,31 +57,64 @@ const Catalog: React.FC = (): JSX.Element => {
   });
   const [breadcrumb, setBreadcrumb] = useState<string[]>(['Main']);
 
-  const fetchData = async (): Promise<void> => {
+  const [offset, setOffset] = useState(0);
+  const [limit] = useState(6);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  const loadInitialProducts = async (): Promise<void> => {
     try {
       const catData = await getCategoryIds(token);
       if (catData !== null) {
         setCategories(catData.results);
       }
 
-      const productionData = await getProductsByCategoryId(token);
+      setOffset(0);
+      const productionData = await getProductsByCategoryId(token, activeCategoryId, limit, 0);
       if (productionData?.results) {
-        if (Object.keys(searchValue.results?.[0] ?? {}).length > 0) {
-          const filteredArray = productionData.results.filter((item1) =>
-            searchValue.results.some((item2) => item1.id === item2.id),
-          );
-          setProducts(filteredArray);
-        } else {
-          setProducts(productionData.results);
-        }
+        setProducts(productionData.results);
+        setHasMore(productionData.results.length === limit);
       }
     } catch (error) {
-      console.error('Submit Error:', error);
+      console.error('Initial fetch error:', error);
     }
   };
-  useEffect((): void => {
-    fetchData();
-  }, [searchValue]);
+
+  const loadMoreProducts = async (): Promise<void> => {
+    if (isLoadingMore) return;
+    setIsLoadingMore(true);
+    try {
+      const nextOffset = offset + limit;
+      const productionData = await getProductsByCategoryId(
+        token,
+        activeCategoryId,
+        limit,
+        nextOffset,
+      );
+      if (productionData?.results) {
+        setProducts((previous) => {
+          const newProducts = productionData.results.filter(
+            (item) => !previous?.some((existing) => existing.id === item.id),
+          );
+          return [...(previous ?? []), ...newProducts];
+        });
+        setOffset(nextOffset);
+        setHasMore(productionData.results.length === limit);
+      }
+    } catch (error) {
+      console.error('Load more error:', error);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
+
+  useEffect(() => {
+    loadInitialProducts();
+  }, [searchValue, activeCategoryId]);
+
+  const loadMore = (): void => {
+    loadMoreProducts();
+  };
 
   useEffect((): void => {
     const fetchActiveCategory = async (): Promise<void> => {
@@ -105,7 +138,7 @@ const Catalog: React.FC = (): JSX.Element => {
       const cutted = breadcrumb.slice(0, 1);
       setBreadcrumb(cutted);
       setActiveCategoryId('');
-      fetchData();
+      loadInitialProducts();
       navigate(`/catalog`);
     } else {
       const index = breadcrumb.indexOf(crumb);
@@ -146,7 +179,13 @@ const Catalog: React.FC = (): JSX.Element => {
             setActiveCategoryId={setActiveCategoryId}
             breadcrumbNavigation={breadcrumbNavigation}
           />
-          <ProductArray products={products} breadcrumbNavigation={breadcrumbNavigation} />
+          <ProductArray
+            products={products}
+            breadcrumbNavigation={breadcrumbNavigation}
+            loadMore={loadMore}
+            hasMore={hasMore}
+            isLoadingMore={isLoadingMore}
+          />
         </div>
       )}
       <Outlet />

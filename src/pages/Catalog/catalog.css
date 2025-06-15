@@ -19,6 +19,13 @@
   color: white;
 }
 
+@media (width <= 880px) {
+  .catalog-wrapper {
+    flex-flow: column wrap;
+    align-items: center;
+  }
+}
+
 .product-card-error {
   display: flex;
   flex-flow: row wrap;

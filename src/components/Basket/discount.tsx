@@ -1,15 +1,33 @@
 import { useState } from 'react';
-import type { JSX, ChangeEvent } from 'react';
+import type { JSX, ChangeEvent, Dispatch, SetStateAction } from 'react';
+import getDiscountCodes from '../../api/get-discount-codes';
+import { applyDiscount } from '../../api/apply-discount';
+import { useQueryClient } from '@tanstack/react-query';
 
-export default function Discount(): JSX.Element {
+export default function Discount({
+  version,
+  setIsVisible,
+}: {
+  version: number;
+  setIsVisible: Dispatch<SetStateAction<boolean>>;
+}): JSX.Element {
   const [inputValue, setInputValue] = useState('');
+  const queryClient = useQueryClient();
 
   function handleChange(event: ChangeEvent<HTMLInputElement>): void {
     setInputValue(event.target.value);
   }
 
-  function handleClick(): void {
-    console.log(inputValue);
+  async function handleClick(): Promise<void> {
+    const discounts = await getDiscountCodes();
+    if (discounts instanceof Error) return;
+    const code = discounts.results.find((item) => item.name['en-US'] === inputValue);
+    if (code) {
+      const apply = await applyDiscount(code.code, version || 1);
+      if (apply instanceof Error) return;
+      setIsVisible(true);
+      queryClient.invalidateQueries({ queryKey: ['active-cart'] });
+    }
     setInputValue('');
   }
 

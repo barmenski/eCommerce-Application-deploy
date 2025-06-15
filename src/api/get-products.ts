@@ -114,29 +114,40 @@ function isProducts(object: unknown): object is Products {
 export async function getProductsByCategoryId(
   token: string,
   categoryId?: string,
+  limit = 10,
+  offset = 0,
 ): Promise<Products | null> {
-  let url = '';
-  url = categoryId
-    ? `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/product-projections/search?filter=categories.id:"${categoryId}"`
-    : `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/product-projections`;
+  const baseUrl = `${import.meta.env.VITE_CTP_API_URL}/${import.meta.env.VITE_CTP_PROJECT_KEY}/product-projections/search`;
+
+  const queryParameters: string[] = [];
+
+  if (categoryId) {
+    queryParameters.push(`filter=categories.id:"${categoryId}"`);
+  }
+
+  queryParameters.push(`limit=${limit}`, `offset=${offset}`);
+
+  const fullUrl = `${baseUrl}?${queryParameters.join('&')}`;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(fullUrl, {
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token,
         'Content-Type': 'application/json;charset=utf-8',
       },
     });
+
     const products: unknown = await response.json();
+
     if ((response.ok || response.status === 201) && isProducts(products)) {
       return products;
     } else {
-      console.error('Error:', products);
+      console.error('Error in response:', products);
       return null;
     }
   } catch (error) {
-    console.error('Error get products by categoryId', error);
+    console.error('Error in getProductsByCategoryId:', error);
     return null;
   }
 }

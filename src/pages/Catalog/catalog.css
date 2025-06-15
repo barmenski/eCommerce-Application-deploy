@@ -12,11 +12,18 @@
 
 .catalog-wrapper {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   align-items: flex-start;
   justify-content: flex-start;
 
   color: white;
+}
+
+@media (width <= 880px) {
+  .catalog-wrapper {
+    flex-flow: column wrap;
+    align-items: center;
+  }
 }
 
 .product-card-error {

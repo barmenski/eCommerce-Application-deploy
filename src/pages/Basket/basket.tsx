@@ -1,4 +1,4 @@
-import { useEffect, useRef, type JSX } from 'react';
+import { useEffect, useRef, useState, type JSX } from 'react';
 import './basket.css';
 import BasketList from '../../components/Basket/basket-list';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -8,12 +8,15 @@ import { removeCart } from '../../api/remove-cart';
 import { Link } from 'react-router';
 import SimpleModal from '../../ui/simple-modal/simple-modal';
 import Discount from '../../components/Basket/discount';
+import { calculateOldPrice, calculatePrice } from '../../utility/calculat-price';
+import Feedback from '../../ui/feedback';
 
 export default function Basket(): JSX.Element {
   const { data } = useQuery({
     queryKey: ['active-cart'],
     queryFn: getActiveCart,
   });
+  const [isVisible, setIsVisible] = useState(false);
   const queryClient = useQueryClient();
 
   const dialogReference = useRef<HTMLDialogElement>(null);
@@ -54,9 +57,22 @@ export default function Basket(): JSX.Element {
 
           <BasketList array={items ?? []} version={version || 1} />
 
-          <Discount />
+          <Discount version={version || 1} setIsVisible={setIsVisible} />
 
-          <div className="total-price">{`Total Price: ${(data.totalPrice.centAmount / 100).toFixed(2)} USD`}</div>
+          <div
+            className={['total-price', data.discountOnTotalPrice && 'old-price'].join(' ')}
+          >{`Price: ${calculateOldPrice(data)} USD`}</div>
+
+          {data.discountOnTotalPrice && (
+            <div className="total-price discounted-price">{`Total Price: ${calculatePrice(data)} USD`}</div>
+          )}
+
+          <Feedback
+            message="Promocode Activated!"
+            duration={2000}
+            isVisible={isVisible}
+            setIsVisible={setIsVisible}
+          />
 
           <SimpleModal
             message={'Are you sure?'}

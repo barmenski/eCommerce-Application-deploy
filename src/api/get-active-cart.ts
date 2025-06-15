@@ -9,6 +9,7 @@ export type ActiveCart = {
   totalLineItemQuantity: number;
   totalPrice: TotalPrice;
   version: number;
+  discountOnTotalPrice?: DiscountAmount;
 };
 
 export type CartItem = {
@@ -20,6 +21,17 @@ export type CartItem = {
   productId: string;
   totalPrice: TotalPrice;
   variant: ItemVariant;
+};
+
+type DiscountAmount = {
+  discountedAmount: DiscountTotal;
+};
+
+type DiscountTotal = {
+  centAmount: number;
+  currencyCode: string;
+  fractionDigits: number;
+  type: string;
 };
 
 type ItemPrice = {

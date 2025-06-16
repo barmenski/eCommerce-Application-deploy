@@ -36,7 +36,7 @@ const getToken = (): string => {
 
 const Catalog: React.FC = (): JSX.Element => {
   const { data } = useQuery({
-    queryKey: ['active-cart-product'],
+    queryKey: ['active-cart'],
     queryFn: getActiveCart,
   });
 

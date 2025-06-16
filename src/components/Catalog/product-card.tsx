@@ -30,7 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onClick,
 }) => {
   const { data } = useQuery({
-    queryKey: ['active-cart-product'],
+    queryKey: ['active-cart'],
     queryFn: getActiveCart,
     retry: false,
   });
@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       if (key) {
         const add = await addCartItem(key, 1, data?.version || 1);
         if (add instanceof Error) return;
-        queryClient.invalidateQueries({ queryKey: ['active-cart-product'] });
+        queryClient.invalidateQueries({ queryKey: ['active-cart'] });
       }
     }
   }
@@ -63,7 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       if (key) {
         const remove = await removeCartItem(key, 1, data?.version || 1);
         if (remove instanceof Error) return;
-        queryClient.invalidateQueries({ queryKey: ['active-cart-product'] });
+        queryClient.invalidateQueries({ queryKey: ['active-cart'] });
       }
     }
   }

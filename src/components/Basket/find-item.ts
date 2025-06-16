@@ -8,7 +8,7 @@ type CartList = {
   quantity: number;
 };
 
-export default function findItem(key: string, mode: 'id' | 'productId'): string {
+export default function findItem(key: string | number, mode: 'id' | 'productId'): string | number {
   const cart = getLSData<CartList[]>('active_cart') || [];
   const target = cart.find((item) => item.key === key || item.id === key);
   if (target && isKeyOfType(target, mode)) {

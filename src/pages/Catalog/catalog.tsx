@@ -36,7 +36,7 @@ const getToken = (): string => {
 
 const Catalog: React.FC = (): JSX.Element => {
   const { data } = useQuery({
-    queryKey: ['active-cart-product'],
+    queryKey: ['active-cart'],
     queryFn: getActiveCart,
   });
 
@@ -164,7 +164,6 @@ const Catalog: React.FC = (): JSX.Element => {
   useEffect(() => {
     if (data?.id && data.lineItems) {
       saveBasketData(data.lineItems, data.id);
-      console.log('save');
     }
   }, [data]);
 

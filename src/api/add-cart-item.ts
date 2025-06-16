@@ -4,7 +4,7 @@ import type { CustomerLSData } from './create-customer-token';
 import type { ActiveCart } from './get-active-cart';
 
 export async function addCartItem(
-  key: string,
+  key: string | number,
   quantity: number,
   version: number,
 ): Promise<ActiveCart> {

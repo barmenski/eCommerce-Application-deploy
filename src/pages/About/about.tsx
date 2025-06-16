@@ -45,9 +45,9 @@ export default function About(): ReactElement {
           </div>
           <h2>Collaboration</h2>
           <div className="collaboration-text">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, dolores repellendus
-            officia expedita dicta quis rerum! Mollitia provident aut magnam, voluptas sed vel quas,
-            molestiae, cumque voluptates ex quaerat quibusdam.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet fuga facere nobis
+            similique assumenda sed harum delectus, veritatis explicabo dolores, enim blanditiis
+            quam! Expedita maiores cupiditate quae, officia quam deleniti.
           </div>
 
           <Link to="https://rs.school/" target="_blank">

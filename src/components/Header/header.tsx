@@ -1,31 +1,19 @@
+import { useQuery } from '@tanstack/react-query';
 import { getActiveCart } from '../../api/get-active-cart';
 import Navigation from '../Navigation/navigation';
 import './Header.css';
-import { useEffect, useState, type ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import { Link } from 'react-router';
 
 const items = ['Home', 'catalog', 'About', 'LogIn', 'SignUp', 'Profile', 'LogOut'];
 
 export default function Header(): ReactElement {
-  const [itemsCart, setItems] = useState(0);
+  const { data } = useQuery({
+    queryKey: ['active-cart'],
+    queryFn: getActiveCart,
+  });
 
-  useEffect(() => {
-    const onStorage = async (): Promise<void> => {
-      const activeCart = await getActiveCart();
-      const activeCartTotalNumber = activeCart.totalLineItemQuantity;
-
-      if (activeCartTotalNumber === undefined) {
-        setItems(0);
-      } else {
-        setItems(activeCartTotalNumber);
-      }
-    };
-    globalThis.addEventListener('storage', onStorage);
-
-    return (): void => {
-      globalThis.removeEventListener('storage', onStorage);
-    };
-  }, [itemsCart]);
+  const activeCartTotalNumber = data?.totalLineItemQuantity ?? 0;
 
   return (
     <>
@@ -39,7 +27,7 @@ export default function Header(): ReactElement {
             <Navigation items={items} />
             <div className="icons-container">
               <Link to="/basket" className="basket"></Link>
-              <div className="items-count">{itemsCart}</div>
+              <div className="items-count">{activeCartTotalNumber}</div>
             </div>
           </div>
         </div>

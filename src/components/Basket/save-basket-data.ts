@@ -14,5 +14,4 @@ export default function saveBasketData(data: CartItem[], id: string): void {
   }
   setLSData('active_cart', array);
   setLSData('active_cart_id', id);
-  globalThis.dispatchEvent(new Event('storage'));
 }

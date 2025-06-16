@@ -5,6 +5,7 @@ export type Planet = {
   version: number;
   key: string;
   price: number;
+  id: number;
   masterData: {
     current: {
       name: {

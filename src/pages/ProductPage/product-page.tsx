@@ -1,9 +1,12 @@
-import type { JSX } from 'react';
+import { type JSX } from 'react';
 import { getProduct } from '../../api/get-product';
 import './product-page.css';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Slider from '../../components/Swiper/swiper';
 import { useParams } from 'react-router';
+import { addCartItem } from '../../api/add-cart-item';
+import { removeCartItem } from '../../api/remove-cart-item';
+import { getActiveCart } from '../../api/get-active-cart';
 
 function assertIsDefined<T>(value: T): NonNullable<T> {
   if (value === undefined || value === null) {
@@ -15,10 +18,36 @@ function assertIsDefined<T>(value: T): NonNullable<T> {
 export default function ProductPage(): JSX.Element {
   const { key } = useParams();
 
+  const { data: activeCart } = useQuery({
+    queryKey: ['active-cart'],
+    queryFn: getActiveCart,
+    retry: false,
+  });
+
   const { isPending, isError, data, error } = useQuery({
     queryFn: () => getProduct(assertIsDefined(key)),
     queryKey: [key],
   });
+
+  const queryClient = useQueryClient();
+
+  async function handleAddToCartClick(): Promise<void> {
+    const key = data?.id;
+    if (key) {
+      const add = await addCartItem(key, 1, data?.version || 1);
+      if (add instanceof Error) return;
+      queryClient.invalidateQueries({ queryKey: ['active-cart'] });
+    }
+  }
+
+  async function handleRemoreFromCartClick(): Promise<void> {
+    const key = data?.key;
+    if (key) {
+      const remove = await removeCartItem(key, 1, data?.version || 1);
+      if (remove instanceof Error) return;
+      queryClient.invalidateQueries({ queryKey: ['active-cart'] });
+    }
+  }
 
   if (isPending) {
     return <span>Loading...</span>;
@@ -35,6 +64,8 @@ export default function ProductPage(): JSX.Element {
       /<\/?[^>]+(>|$)/g,
       '',
     );
+
+    const isCartHasItem = activeCart?.lineItems.find((item) => item.productKey === data.key);
 
     const images = data.masterData.current.masterVariant.images;
 
@@ -77,7 +108,12 @@ export default function ProductPage(): JSX.Element {
                 )}
               </div>
               <div>{description}</div>
-              <button className="add-cart-button">Add to Cart</button>
+              <button
+                className={['add-cart-button', isCartHasItem && 'remove-product-item'].join(' ')}
+                onClick={isCartHasItem ? handleRemoreFromCartClick : handleAddToCartClick}
+              >
+                {isCartHasItem ? 'Remove from Cart' : 'Add to Cart'}
+              </button>
             </div>
           </div>
         </div>

@@ -86,7 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           {showDiscount ? (
             <>
               <span className="old-price">
-                {price.toFixed(2)} {currency}
+                {price} {currency}
               </span>
               <span className="discounted-price">
                 {discountedPrice.toFixed(2)} {currency}

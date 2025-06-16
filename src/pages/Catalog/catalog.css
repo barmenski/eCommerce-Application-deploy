@@ -39,9 +39,8 @@
 
 .product-filter {
   display: flex;
-  flex: 0 0 200px;
   flex-flow: column;
-  gap: 0.5rem;
+  gap: 1.2rem;
   align-items: flex-start;
   justify-content: flex-start;
 
@@ -79,4 +78,17 @@
   content: '►';
   padding-right: 0.5em;
   padding-left: 0.5em;
+}
+
+.category-header {
+  margin: 0;
+
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--main-color);
+  text-transform: uppercase
+}
+
+.category-list {
+  margin: 0.2rem;
 }

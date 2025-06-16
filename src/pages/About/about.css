@@ -16,7 +16,7 @@
   align-items: center;
 
   max-width: 400px;
-  height: 550px;
+  height: 560px;
   margin: 0.3rem;
   padding: 0.5rem;
   border-radius: 2%;
@@ -28,10 +28,7 @@
 
 .photo {
   width: 250px;
-  height: 250px;
-  border-radius: 50%;
-
-  background-color: cornflowerblue;
+  height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -45,8 +42,8 @@
 }
 
 .github-img {
-  width: 3.1rem;
-  height: 2.5rem;
+  width: 4.5rem;
+  height: 4.5rem;
   border: none;
 
   background-image: url('/icons/gh.svg');
@@ -79,17 +76,18 @@
   background-size: contain;
 }
 
-/* .one {
-  background-image: url('../../../public/img/m3.jpeg');
+.one {
+  background-image: url('/img/m27.png');
 }
 
 .two {
-  background-image: url('../../../public/img/m2.jpeg');
+  background-image: url('/img/b.png');
 }
 
 .three {
-  background-image: url('../../../public/img/m.jpeg');
-} */
+  background-image: url('/img/fdaw.png');
+}
+
 @media (width <= 897px) {
   .about-us-wrapper {
     flex-direction: column;

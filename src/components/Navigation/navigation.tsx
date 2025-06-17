@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactElement } from 'react';
 import { Link } from 'react-router';
 import Burger from '../Burger/burger';
 import { createAnonymousSession } from '../../api/create-anonymous-session';
+import { useQueryClient } from '@tanstack/react-query';
 
 type Props = {
   items: string[];
@@ -12,6 +13,8 @@ type Props = {
 export default function Navigation({ items }: Props): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
   const [currentClass, setClass] = useState('open');
+
+  const queryClient = useQueryClient();
 
   const isToken = !!localStorage.getItem('ctp_token');
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(isToken);
@@ -60,6 +63,7 @@ export default function Navigation({ items }: Props): ReactElement {
   const handleLogOut = async (): Promise<void> => {
     localStorage.clear();
     await createAnonymousSession();
+    queryClient.invalidateQueries({ queryKey: ['active-cart'] });
     globalThis.dispatchEvent(new Event('storage'));
     closeHamburger();
   };

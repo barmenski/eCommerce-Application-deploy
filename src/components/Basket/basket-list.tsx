@@ -14,6 +14,7 @@ export default function BasketList(props: BasketProps): JSX.Element {
   return (
     <>
       <ul className="basket-ul">
+        <h2>Basket</h2>
         {array.map((element, index) => (
           <BasketItem
             key={index + '.'}

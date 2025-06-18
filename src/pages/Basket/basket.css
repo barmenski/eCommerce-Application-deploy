@@ -5,6 +5,26 @@
   background-color: var(--background-color-3);
 }
 
+.basket-content {
+  display: flex;
+  flex-flow: row nowrap;
+  min-width: 100%;
+}
+
+.basket-options {
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 20px;
+  align-items: start;
+  justify-content: start;
+
+  margin: 0 auto auto 0;
+  padding: 90px 20px 20px;
+}
+
 .discount {
   display: grid;
   grid-template:
@@ -12,7 +32,7 @@
     'input input button';
   gap: 4px;
 
-  max-width: 300px;
+  width: 100%;
   margin: 10px 0 20px;
 }
 
@@ -29,7 +49,7 @@
 
   grid-area: button;
 
-  width: 80px;
+  width: 100%;
   border: 1px solid var(--border-color);
   border-radius: 7px;
 
@@ -45,10 +65,7 @@
 }
 
 #delete-basket {
-  position: absolute;
-  top: 80px;
-  left: 20px;
-
+  width: 100%;
   padding: 10px 14px;
   border: 1px solid var(--error-color);
   border-radius: 12px;
@@ -70,4 +87,23 @@
   justify-content: center;
 
   min-height: calc(100vh - 104px);
+}
+
+@media only screen and (width <= 860px) {
+  .basket-content {
+    flex-flow: column nowrap;
+  }
+
+  .basket-options {
+    margin: 0;
+    padding: 20px;
+  }
+
+  .discount {
+    max-width: 300px;
+  }
+
+  #delete-basket {
+    width: 200px;
+  }
 }

@@ -45,6 +45,7 @@
   justify-content: flex-start;
 
   margin: 0.5rem;
+  margin-left: 40px;
   padding: 1rem;
   border: 1px solid #a44dc7;
   border-radius: 12px;
@@ -61,6 +62,36 @@
 
 .product-filter li:hover {
   text-decoration: underline;
+}
+
+#search-product {
+  height: 38px;
+  border-radius: 7px 0 0 7px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+
+  color-scheme: dark;
+}
+
+#search-product-btn {
+  height: 38px;
+  border: 1px solid var(--border-color);
+  border-left: none;
+  border-radius: 0 7px 7px 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+
+  color: var(--font-color);
+  text-transform: uppercase;
+
+  background-color: inherit;
+}
+
+#search-product-btn:hover {
+  cursor: pointer;
+  color: var(--matte-black);
+  background-color: var(--font-color);
+  transition: var(--transition);
 }
 
 .breadcrumb-wrapper {
@@ -86,7 +117,7 @@
   font-size: 1rem;
   font-weight: 600;
   color: var(--main-color);
-  text-transform: uppercase
+  text-transform: uppercase;
 }
 
 .category-list {

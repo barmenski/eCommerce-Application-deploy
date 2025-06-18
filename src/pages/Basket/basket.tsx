@@ -50,22 +50,25 @@ export default function Basket(): JSX.Element {
     <div className="basket-wrapper">
       {data && data.totalLineItemQuantity > 0 ? (
         <>
-          <h2>Basket</h2>
-          <button onClick={handleDialog} type="button" id="delete-basket">
-            Clear Shopping Cart
-          </button>
+          <div className="basket-content">
+            <BasketList array={items ?? []} version={version || 1} />
 
-          <BasketList array={items ?? []} version={version || 1} />
+            <div className="basket-options">
+              <button onClick={handleDialog} type="button" id="delete-basket">
+                Clear Shopping Cart
+              </button>
 
-          <Discount version={version || 1} setIsVisible={setIsVisible} />
+              <Discount version={version || 1} setIsVisible={setIsVisible} />
 
-          <div
-            className={['total-price', data.discountOnTotalPrice && 'old-price'].join(' ')}
-          >{`Price: ${calculateOldPrice(data)} USD`}</div>
+              <div
+                className={['total-price', data.discountOnTotalPrice && 'old-price'].join(' ')}
+              >{`Price: ${calculateOldPrice(data)} USD`}</div>
 
-          {data.discountOnTotalPrice && (
-            <div className="total-price discounted-price">{`Total Price: ${calculatePrice(data)} USD`}</div>
-          )}
+              {data.discountOnTotalPrice && (
+                <div className="total-price discounted-price">{`Total Price: ${calculatePrice(data)} USD`}</div>
+              )}
+            </div>
+          </div>
 
           <Feedback
             message="Promocode Activated!"

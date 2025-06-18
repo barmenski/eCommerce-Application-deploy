@@ -1,5 +1,7 @@
 .basket-ul {
+  width: 100%;
   min-width: 340px;
+  max-width: 700px;
   min-height: 300px;
   margin: auto;
   padding: 20px;
@@ -11,9 +13,9 @@
 
 .basket-li {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: start;
 
   max-width: 700px;
   margin: 20px 0;
@@ -27,22 +29,26 @@
   margin: 10px;
 }
 
+.basket-item-info-wrapper {
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+}
+
 .basket-item-name {
   overflow-x: hidden;
+  flex: 1;
 
   min-width: 250px;
-  max-width: 250px;
-  margin: 10px 20px;
+  margin: 20px;
 
   font-size: 1.1rem;
 }
 
 .basket-item-info {
   display: flex;
-  gap: 30px;
   align-items: center;
   justify-content: space-between;
-
   margin: 10px;
 }
 
@@ -89,7 +95,8 @@
 }
 
 .basket-item-price {
-  min-width: 90px;
+  overflow: hidden;
+  max-width: 175px;
   font-size: 1.1rem;
 }
 
@@ -118,19 +125,8 @@
   color: white;
 }
 
-@media only screen and (width <= 778px) {
-  .basket-item-info {
-    flex: 1;
-    justify-content: space-around;
-  }
-}
-
-@media only screen and (width <= 405px) {
-  .basket-item-info {
-    gap: 10px;
-  }
-
-  .basket-item-price {
-    text-align: center;
+@media only screen and (width <= 600px) {
+  .basket-li {
+    flex-flow: column nowrap;
   }
 }

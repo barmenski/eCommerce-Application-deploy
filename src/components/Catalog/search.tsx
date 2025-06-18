@@ -28,13 +28,14 @@ export default function Search({
   return (
     <div>
       <input
+        className="form-input-style"
         type="search"
         id="search-product"
         name="search"
         onChange={handleChange}
         value={inputValue}
       />
-      <button type="button" onClick={handleSearch}>
+      <button id="search-product-btn" type="button" onClick={handleSearch}>
         Search
       </button>
     </div>

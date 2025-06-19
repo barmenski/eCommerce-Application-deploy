@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { JSX } from 'react';
 import { useNavigate, Outlet, useLocation } from 'react-router';
 import { isTokenStore, checkToken } from '../../helpers/client-builder';
@@ -42,6 +42,8 @@ const Catalog: React.FC = (): JSX.Element => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const currentSearch = location.search;
+  const isSearhed = /^\?search=/.test(currentSearch);
   const isProductPage = location.pathname.startsWith('/catalog/product/');
 
   const token = getToken();
@@ -58,9 +60,25 @@ const Catalog: React.FC = (): JSX.Element => {
   const [breadcrumb, setBreadcrumb] = useState<string[]>(['Main']);
 
   const [offset, setOffset] = useState(0);
-  const [limit] = useState(6);
+  const limit = useRef(6);
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  async function showSearchedProducts(): Promise<void> {
+    const productionData = await getProductsByCategoryId(
+      token,
+      '',
+      searchValue.limit,
+      searchValue.offset,
+    );
+    if (productionData?.results) {
+      const filteredArray = productionData.results.filter((item1) =>
+        searchValue.results.some((item2) => item1.id === item2.id),
+      );
+      setProducts(filteredArray);
+      return;
+    }
+  }
 
   const loadInitialProducts = async (): Promise<void> => {
     try {
@@ -70,10 +88,15 @@ const Catalog: React.FC = (): JSX.Element => {
       }
 
       setOffset(0);
-      const productionData = await getProductsByCategoryId(token, activeCategoryId, limit, 0);
+      const productionData = await getProductsByCategoryId(
+        token,
+        activeCategoryId,
+        limit.current,
+        0,
+      );
       if (productionData?.results) {
         setProducts(productionData.results);
-        setHasMore(productionData.results.length === limit);
+        setHasMore(productionData.results.length === limit.current);
       }
     } catch (error) {
       console.error('Initial fetch error:', error);
@@ -84,11 +107,11 @@ const Catalog: React.FC = (): JSX.Element => {
     if (isLoadingMore) return;
     setIsLoadingMore(true);
     try {
-      const nextOffset = offset + limit;
+      const nextOffset = offset + limit.current;
       const productionData = await getProductsByCategoryId(
         token,
         activeCategoryId,
-        limit,
+        limit.current,
         nextOffset,
       );
       if (productionData?.results) {
@@ -99,7 +122,7 @@ const Catalog: React.FC = (): JSX.Element => {
           return [...(previous ?? []), ...newProducts];
         });
         setOffset(nextOffset);
-        setHasMore(productionData.results.length === limit);
+        setHasMore(productionData.results.length === limit.current);
       }
     } catch (error) {
       console.error('Load more error:', error);
@@ -109,11 +132,22 @@ const Catalog: React.FC = (): JSX.Element => {
   };
 
   useEffect(() => {
-    loadInitialProducts();
-  }, [searchValue, activeCategoryId]);
+    if (isSearhed) {
+      showSearchedProducts();
+    } else {
+      loadInitialProducts();
+    }
+  }, [searchValue]);
 
   const loadMore = (): void => {
-    loadMoreProducts();
+    if (isSearhed) {
+      if (searchValue.total > 6) {
+        loadMoreProducts();
+      }
+      return;
+    } else {
+      loadMoreProducts();
+    }
   };
 
   useEffect((): void => {

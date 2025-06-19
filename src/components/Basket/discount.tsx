@@ -21,7 +21,9 @@ export default function Discount({
   async function handleClick(): Promise<void> {
     const discounts = await getDiscountCodes();
     if (discounts instanceof Error) return;
-    const code = discounts.results.find((item) => item.name['en-US'] === inputValue);
+    const code = discounts.results.find(
+      (item) => item.name['en-US'].toLowerCase() === inputValue.toLowerCase(),
+    );
     if (code) {
       const apply = await applyDiscount(code.code, version || 1);
       if (apply instanceof Error) return;

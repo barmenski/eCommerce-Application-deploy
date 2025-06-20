@@ -35,8 +35,8 @@ type DiscountTotal = {
 };
 
 type ItemPrice = {
-  id: 'string';
-  key: 'string';
+  id: string;
+  key: string;
   value: ItemPriceValue;
 };
 

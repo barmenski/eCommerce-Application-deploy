@@ -1,3 +1,5 @@
+import type { ActiveCart } from '../api/get-active-cart';
+
 export const mockData = {
   facets: {},
   limit: 20,
@@ -43,4 +45,58 @@ export const mockData = {
       version: 52,
     },
   ],
+};
+
+export const activeCartMockdataWithDiscount: ActiveCart = {
+  id: '1234-1234-1234-1234',
+  lineItems: [
+    {
+      id: 1,
+      name: { 'en-US': 'sample-name' },
+      price: {
+        id: '1',
+        key: 'key',
+        value: { centAmount: 8999, currencyCode: 'string', fractionDigits: 2, type: 'string' },
+      },
+      quantity: 1,
+      productKey: 'string',
+      productId: 'string',
+      totalPrice: { centAmount: 8999, currencyCode: 'USD', fractionDigits: 2, type: 'string' },
+      variant: { images: [{ url: 'string' }] },
+    },
+  ],
+  totalLineItemQuantity: 1,
+  totalPrice: { centAmount: 6900, currencyCode: 'USD', fractionDigits: 2, type: 'string' },
+  version: 1,
+  discountOnTotalPrice: {
+    discountedAmount: {
+      centAmount: 2099,
+      currencyCode: 'USD',
+      fractionDigits: 2,
+      type: 'string',
+    },
+  },
+};
+
+export const activeCartMockdata: ActiveCart = {
+  id: '1234-1234-1234-1234',
+  lineItems: [
+    {
+      id: 1,
+      name: { 'en-US': 'sample-name' },
+      price: {
+        id: '1',
+        key: 'key',
+        value: { centAmount: 8999, currencyCode: 'string', fractionDigits: 2, type: 'string' },
+      },
+      quantity: 1,
+      productKey: 'string',
+      productId: 'string',
+      totalPrice: { centAmount: 8999, currencyCode: 'USD', fractionDigits: 2, type: 'string' },
+      variant: { images: [{ url: 'string' }] },
+    },
+  ],
+  totalLineItemQuantity: 1,
+  totalPrice: { centAmount: 6900, currencyCode: 'USD', fractionDigits: 2, type: 'string' },
+  version: 1,
 };

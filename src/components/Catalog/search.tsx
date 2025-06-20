@@ -1,29 +1,35 @@
-import type { Dispatch, SetStateAction } from 'react';
-import { useState, type JSX } from 'react';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useEffect, type JSX } from 'react';
 import type { searchResponse } from '../../api/search-product';
 import searchProduct from '../../api/search-product';
+import { useSearchParams } from 'react-router';
 
 export default function Search({
   setSearchValue,
 }: {
   setSearchValue: Dispatch<SetStateAction<searchResponse>>;
 }): JSX.Element {
-  const [inputValue, setInputValue] = useState('');
+  const [search, setSearch] = useSearchParams();
 
-  function handleChange(event: { target: { value: SetStateAction<string> } }): void {
-    setInputValue(event.target.value);
+  function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+    setSearch({ search: event.target.value });
   }
 
   async function handleSearch(): Promise<void> {
     try {
-      const result = await searchProduct(inputValue);
+      const result = await searchProduct(search.get('search') || '');
       if (result instanceof Error) return;
-      setInputValue('');
       setSearchValue(result);
     } catch (error) {
       console.error('error', error);
     }
   }
+
+  useEffect(() => {
+    if (search.size > 0 && search.has('search')) {
+      handleSearch();
+    }
+  }, []);
 
   return (
     <div>
@@ -33,7 +39,7 @@ export default function Search({
         id="search-product"
         name="search"
         onChange={handleChange}
-        value={inputValue}
+        value={search.get('search') || ''}
       />
       <button id="search-product-btn" type="button" onClick={handleSearch}>
         Search

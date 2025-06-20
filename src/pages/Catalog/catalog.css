@@ -5,6 +5,8 @@
   align-items: center;
   justify-content: center;
 
+  margin: auto;
+
   color: white;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -12,7 +14,7 @@
 
 .catalog-wrapper {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   align-items: flex-start;
   justify-content: flex-start;
 

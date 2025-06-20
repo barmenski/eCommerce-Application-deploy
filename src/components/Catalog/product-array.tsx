@@ -79,7 +79,7 @@ const ProductArray: React.FC<CatalogRequest> = ({
             );
           })
         ) : (
-          <p className="product-card-error">Loading...</p>
+          <p className="product-card-error">No Results Found</p>
         )}
       </div>
       {isLoadingMore && <SatelliteLoader />}

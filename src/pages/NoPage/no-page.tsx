@@ -10,9 +10,9 @@ export default function NoPage(): ReactElement {
           <h1 className="no-page-header">404</h1>
           <div className="no-page-planet"></div>
           <div className="paragraph-no-page">Oops! This planet does not accept any visitors...</div>
-          <div className="go-home">
+          <button className="go-home-button">
             <Link to="/home">{`${'home'}`.toUpperCase()}</Link>
-          </div>
+          </button>
         </div>
       </section>
     </>

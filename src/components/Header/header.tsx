@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+import { getActiveCart } from '../../api/get-active-cart';
 import Navigation from '../Navigation/navigation';
 import './Header.css';
 import { type ReactElement } from 'react';
@@ -6,6 +8,13 @@ import { Link } from 'react-router';
 const items = ['Home', 'catalog', 'About', 'LogIn', 'SignUp', 'Profile', 'LogOut'];
 
 export default function Header(): ReactElement {
+  const { data } = useQuery({
+    queryKey: ['active-cart'],
+    queryFn: getActiveCart,
+  });
+
+  const activeCartTotalNumber = data?.totalLineItemQuantity ?? 0;
+
   return (
     <>
       <header>
@@ -17,7 +26,8 @@ export default function Header(): ReactElement {
           <div className="nav-container">
             <Navigation items={items} />
             <div className="icons-container">
-              <div className="basket"></div>
+              <Link to="/basket" className="basket"></Link>
+              <div className="items-count">{activeCartTotalNumber}</div>
             </div>
           </div>
         </div>

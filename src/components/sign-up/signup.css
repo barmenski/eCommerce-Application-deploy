@@ -229,8 +229,11 @@
 .disabled {
   pointer-events: none;
   cursor: default;
+
   color: rgb(104 104 104 / 40%) !important;
+
   background-color: rgb(71 71 71 / 40%) !important;
+  filter: grayscale(80%) brightness(80%);
 }
 
 @media only screen and (width <= 599px) {

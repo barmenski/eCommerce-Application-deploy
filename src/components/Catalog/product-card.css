@@ -1,6 +1,11 @@
-.product-card {
+.product-card-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
   width: 250px;
-  height: 380px;
+  height: 395px;
   margin: 0.5rem;
   padding: 0.5rem;
   border: 1px solid #a44dc7;
@@ -12,24 +17,29 @@
   box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 }
 
-.product-card:hover {
+.product-card-card:hover {
   transform: scale(1.03);
   box-shadow: 8px 16px 16px hsl(0deg 2% 50% / 25%);
   transition: 0.3s;
 }
 
-.product-image {
+.product-card-image {
   width: 100%;
   height: 150px;
   object-fit: contain;
 }
 
-.product-info {
-  padding: 16px;
+.product-card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 100%;
+  padding: 0.5rem;
 }
 
-.product-title {
-  margin: 0 0 8px;
+.product-card-title {
+  margin: 0;
 
   font-size: 1.25rem;
   font-weight: bold;
@@ -38,18 +48,34 @@
   white-space: normal;
 }
 
-.product-description {
+.product-card-description {
+  position: relative;
+
   overflow: hidden;
+  flex-grow: 1;
 
   height: 43px;
   margin-bottom: 12px;
 
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #555;
   white-space: normal;
 }
 
-.product-price {
+.product-card-description::after {
+  content: "";
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 1.8rem;
+
+  background: linear-gradient(to top, rgb(0 0 0 / 80%), transparent);
+}
+
+.product-card-price {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
@@ -71,8 +97,13 @@
   color: white;
 }
 
-.buy-button {
+.cart-buttton {
   cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
   padding: 10px 16px;
   border: none;
@@ -81,11 +112,24 @@
   font-size: 1rem;
   color: white;
 
-  background-color: #007bff;
+  background-color: #a44dc3;
 
-  transition: background-color 0.3s;
+  transition: background-color 0.4s;
 }
 
-.buy-button:hover {
-  background-color: #0056b3;
+.cart-buttton:hover {
+  background-color: #6b3083;
+}
+
+.cart-img {
+  margin-right: 1rem;
+}
+
+.remove-product-item {
+  font-size: 0.9rem;
+  background-color: var(--error-color);
+}
+
+.remove-product-item:hover {
+  background-color: #a12220;
 }

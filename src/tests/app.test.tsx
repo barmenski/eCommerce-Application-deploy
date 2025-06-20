@@ -6,7 +6,9 @@ import { formatString } from '../utility/format-string.ts';
 import { baseRegexDelivery } from '../utility/regexp-patterns.ts';
 import { MemoryRouter } from 'react-router';
 import Login from '../pages/Login/login.tsx';
-import { mockData } from './mock-data.ts';
+import { activeCartMockdata, activeCartMockdataWithDiscount, mockData } from './mock-data.ts';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { calculateOldPrice, calculatePrice } from '../utility/calculat-price.ts';
 
 // test isolated component
 describe('sign up component', () => {
@@ -85,14 +87,24 @@ describe('test navigation', () => {
     vi.resetAllMocks();
   });
 
+  const queryClient = new QueryClient();
+
   it('nav menu should contain href /LogIn', async () => {
-    render(<App />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>,
+    );
     const login: HTMLLinkElement = screen.getByText('LogIn');
     expect(login.href).toMatch(/(?<=\S+?)LogIn$/);
   });
 
   it('should redirect to login page', () => {
-    const { container } = render(<App />);
+    const { container } = render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>,
+    );
     const login: HTMLLinkElement = screen.getByText('LogIn');
     fireEvent.click(login);
     const h1 = container.querySelector('.login-title');
@@ -100,7 +112,11 @@ describe('test navigation', () => {
   });
 
   it('should redirect to catalog page', async () => {
-    const { container } = render(<App />);
+    const { container } = render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>,
+    );
     const catalog: HTMLLinkElement = screen.getByText('catalog');
     fireEvent.click(catalog);
     const catalogWrapper = container.querySelector('.product-card-wrapper');
@@ -126,5 +142,15 @@ describe('validate birth date', () => {
       expect(validate('2012-12-31')).toBe('User must be 13 or older!');
       expect(validate('2010-11-01')).toBe(true);
     }
+  });
+
+  describe('calculate price', () => {
+    it('should return old price with 2 numbers after dot', () => {
+      expect(calculateOldPrice(activeCartMockdataWithDiscount)).toBe('89.99');
+    });
+
+    it('should return price with 2 numbers after dot', () => {
+      expect(calculatePrice(activeCartMockdata)).toBe('69.00');
+    });
   });
 });

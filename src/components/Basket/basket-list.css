@@ -1,0 +1,132 @@
+.basket-ul {
+  width: 100%;
+  min-width: 340px;
+  max-width: 700px;
+  min-height: 300px;
+  margin: auto;
+  padding: 20px;
+
+  list-style-type: none;
+
+  background-color: var(--background-color-3);
+}
+
+.basket-li {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: start;
+
+  max-width: 700px;
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 17px;
+
+  background-color: var(--background-color-2);
+}
+
+.basket-item-img {
+  margin: 10px;
+}
+
+.basket-item-info-wrapper {
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+}
+
+.basket-item-name {
+  overflow-x: hidden;
+  flex: 1;
+
+  min-width: 250px;
+  margin: 20px;
+
+  font-size: 1.1rem;
+}
+
+.basket-item-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.basket-item-controls {
+  display: flex;
+  align-items: center;
+
+  padding: 10px;
+  border-radius: 7px;
+
+  background-color: var(--background-color);
+}
+
+#basket-item-count {
+  min-width: 50px;
+  color: white;
+  text-align: center;
+}
+
+.basket-btn-style {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+  border: none;
+
+  background-color: var(--background-color);
+}
+
+#minus-btn::after {
+  content: url('/icons/minus_24.svg');
+  width: 24px;
+  height: 24px;
+}
+
+#plus-btn::after {
+  content: url('/icons/plus_24.svg');
+  width: 24px;
+  height: 24px;
+}
+
+.basket-item-price {
+  overflow: hidden;
+  max-width: 175px;
+  font-size: 1.1rem;
+}
+
+#delete-item-btn {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+
+  background-color: inherit;
+}
+
+#delete-item-btn::after {
+  content: url('/icons/trash_24.svg');
+  width: 24px;
+  height: 24px;
+}
+
+.no-cart {
+  color: white;
+}
+
+@media only screen and (width <= 600px) {
+  .basket-li {
+    flex-flow: column nowrap;
+  }
+}

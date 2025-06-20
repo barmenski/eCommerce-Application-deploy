@@ -223,3 +223,22 @@ body[class$='open'] {
 .swiper-slide.my-swiper {
   overflow: visible;
 }
+
+.add-cart-button {
+  margin: 1rem;
+  padding: 1rem 1.4rem;
+  border: 1px solid;
+  border-radius: 0.5rem;
+
+  font-size: 1rem;
+  color: var(--main-color);
+
+  background-color: var(--matte-black);
+
+  transition: 0.3s;
+}
+
+.add-cart-button:hover {
+  cursor: pointer;
+  color: var(--hover);
+}

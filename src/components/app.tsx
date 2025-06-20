@@ -13,6 +13,7 @@ import { Navigate } from 'react-router';
 import ProductPage from '../pages/ProductPage/product-page';
 import { ProfileForm } from './Profile/profile-form';
 import { Addresses } from './Profile/addresses';
+import Basket from '../pages/Basket/basket';
 
 export default function App(): JSX.Element {
   const isToken = !!localStorage.getItem('ctp_token');
@@ -42,10 +43,12 @@ export default function App(): JSX.Element {
         </Route>
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/catalog" element={<Catalog />}>
+          {/* <Route path="category/:key" element={<CategoryPage />} /> */}
           <Route path="product/:key" element={<ProductPage />} />
         </Route>
         <Route path="/about" element={<About />} />
         <Route path="/home" element={<MainPage />} />
+        <Route path="basket" element={<Basket />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </Router>

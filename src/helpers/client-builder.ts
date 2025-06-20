@@ -49,6 +49,7 @@ export const tokenCache = {
       };
       localStorage.setItem('ctp_token', JSON.stringify(adapted));
     } else {
+      console.log('WE HERE');
       localStorage.setItem('ctp_anon_token', JSON.stringify(token));
     }
     globalThis.dispatchEvent(new Event('storage'));
